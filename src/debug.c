@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "debug.h"
-#include "value.h"
+
+#include "../includes/debug.h"
+#include "../includes/value.h"
 
 void disassembleIota(Iota* iota, const char* name){
 	printf("== %s ==\n", name);

@@ -2,6 +2,6 @@ clean:
 	@make pulse
 	@rm pulse
 
-pulse: iota.c memory.c main.c debug.c value.c
-	@gcc -o pulse iota.c memory.c main.c debug.c value.c
+pulse: src/iota.c src/memory.c src/debug.c src/value.c test.c
+	@gcc -o pulse src/iota.c src/memory.c src/debug.c src/value.c test.c
 	@./pulse

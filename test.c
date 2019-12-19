@@ -1,6 +1,6 @@
-#include "common.h"
-#include "iota.h"
-#include "debug.h"
+#include "includes/common.h"
+#include "includes/iota.h"
+#include "includes/debug.h"
 
 int main(int argc, const char* argv[]){
 	Iota iota;

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "iota.h"
-#include "memory.h"
+#include "../includes/iota.h"
+#include "../includes/memory.h"
 
 void initIota(Iota* iota){
 	iota->count = 0;
