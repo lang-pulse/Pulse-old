@@ -25,11 +25,6 @@ static int simpleInstruction(const char* name, int offset){
 
 int disassembleInstruction(Iota* iota, int offset){
 		printf("%04d ", offset);				//byte offset of given instruction(where in the chunk this instruction is)
-		if (offset > 0 && iota->lines[offset] == iota->lines[offset - 1]){
-			printf("  | ");
-		} else{
-			printf("%4d ", iota->lines[offset]);
-		}
 
 		uint8_t instruction = iota->code[offset];		//opcode
 		switch(instruction) {

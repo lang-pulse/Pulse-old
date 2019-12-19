@@ -13,7 +13,7 @@ typedef struct {
 	int count;			// number of those allocated entries actually in use
 	int capacity;		//number of elements in the array we have allocated
 	uint8_t* code;
-	int* lines;
+	int line;
 	ValueArray constants;
 } Iota;
 
