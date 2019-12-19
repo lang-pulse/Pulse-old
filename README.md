@@ -16,5 +16,5 @@ user@programmer:~$ make clean
 2) Run as above:
 
 ```console
-Z:\FakeLocation:~$ make clean
+Z:\FakeLocation> make clean
 ```
