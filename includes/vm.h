@@ -4,13 +4,12 @@
 #include "iota.h"
 #include "value.h"
 
-#define STACK_MAX 256
-
 typedef struct {
   Iota* iota;
   uint8_t* ip;
-  Value stack[STACK_MAX];
-  Value* stackTop;
+  Value *stack;
+  int top;
+  int length;
 } VM;
 
 typedef enum {

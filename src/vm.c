@@ -1,30 +1,49 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include "../includes/common.h"
 #include "../includes/debug.h"
 #include "../includes/vm.h"
 
-static void resetStack(VM* vm) {
-  vm->stackTop = vm->stack;
-}
+#define BOUND 256
 
 void initVM(VM* vm) {
-  resetStack(vm);
+  vm->top = -1;
+  vm->length = 0;
 }
 
 void freeVM(VM* vm) {
 
 }
 
-void push(VM* vm, Value value) {
-  *vm->stackTop = value;
-  vm->stackTop++;
+Value* create_new(VM* vm, Value* a) {
+  Value* new_a = (Value*)malloc(vm->length + BOUND);
+  for(int i=0; i<vm->length; i++)
+    new_a[i] = a[i];
+  vm->length += BOUND;
+  return new_a;
+}
+
+void push(VM* vm, Value val) {
+  if(vm->top == vm->length - 1)
+    vm->stack = create_new(vm, vm->stack);
+  vm->stack[++vm->top] = val;
 }
 
 Value pop(VM* vm) {
-  vm->stackTop--;
-  return *vm->stackTop;
+  return vm->stack[vm->top--];
+}
+
+void display(VM* vm) {
+  if (vm->top == -1)
+      printf("Stack is Empty\n");
+  else {
+      printf("Stack: ");
+      for (int i = 0; i <= vm->top; i++)
+          printf("%.1f ", vm->stack[i]);
+      printf("\n");
+  }
 }
 
 void modulo(VM* vm) {

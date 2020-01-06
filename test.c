@@ -18,7 +18,12 @@ int main(int argc, char* argv[]) {
   writeIota(&iota, OP_CONSTANT, 123);
   writeIota(&iota, constant, 123);
 
+  constant = addConstant(&iota, 2);
+  writeIota(&iota, OP_CONSTANT, 123);
+  writeIota(&iota, constant, 123);
+
   writeIota(&iota, OP_POWER, 123);
+  writeIota(&iota, OP_MODULO, 123);
 
   writeIota(&iota, OP_RETURN, 124);
 
