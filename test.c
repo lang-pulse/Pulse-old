@@ -1,39 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "includes/common.h"
-#include "includes/iota.h"
 #include "includes/debug.h"
+#include "includes/iota.h"
 #include "includes/scanner.h"
 #include "includes/vm.h"
 
+static void repl(Scanner* scanner) {
+  char line[1024];
+  for( ; ; ) {
+    printf("> ");
+
+    if(!fgets(line, sizeof(line), stdin)) {
+      printf("\n");
+      break;
+    }
+
+    interpret(scanner, line);
+  }
+}
+
+static char* readFile(const char* path) {
+  FILE* file = fopen(path, "rb");
+  if(file == NULL) {
+    fprintf(stderr, "Could not open file \"%s\".\n", path);
+    exit(74);
+  }
+
+  fseek(file, 0L, SEEK_END);
+  size_t fileSize = ftell(file);
+  rewind(file);
+
+  char* buffer = (char *)malloc(fileSize + 1);
+  if(buffer == NULL) {
+    fprintf(stderr, "Not enough memory to read \"%s\".\n", path);
+    exit(74);
+  }
+
+  size_t bytesRead = fread(buffer, sizeof(char), fileSize, file);
+  if(bytesRead < fileSize) {
+    fprintf(stderr, "Could not read file \"%s\".\n", path);
+    exit(74);
+  }
+
+  buffer[bytesRead] = '\0';
+
+  fclose(file);
+  return buffer;
+}
+
+static void runFile(Scanner* scanner, const char* path) {
+  char* source = readFile(path);
+  InterpretResult result = interpret(scanner, source);
+  free(source);
+
+  if(result == INTERPRET_COMPILE_ERROR) exit(65);
+  if(result == INTERPRET_RUNTIME_ERROR) exit(70);
+}
+
 int main(int argc, char* argv[]) {
   VM vm;
-  Scanner scanner;
   initVM(&vm);
 
-  Iota iota;
-  initIota(&iota);
+  Scanner scanner;
 
-  int constant = addConstant(&iota, 5);
-  writeIota(&iota, OP_CONSTANT, 123);
-  writeIota(&iota, constant, 123);
+  if(argc == 1) {
+    repl(&scanner);
+  } else if(argc == 2) {
+    runFile(&scanner, argv[1]);
+  } else {
+    fprintf(stderr, "Usage: clox [path]\n");
+    exit(64);
+  }
 
-  constant = addConstant(&iota, 2);
-  writeIota(&iota, OP_CONSTANT, 123);
-  writeIota(&iota, constant, 123);
-
-  constant = addConstant(&iota, 2);
-  writeIota(&iota, OP_CONSTANT, 123);
-  writeIota(&iota, constant, 123);
-
-  writeIota(&iota, OP_POWER, 123);
-  writeIota(&iota, OP_MODULO, 123);
-
-  writeIota(&iota, OP_RETURN, 124);
-
-  disassembleIota(&iota, "test iota");
-  const char* source = "Hello";
-  interpret(&scanner, source);
   freeVM(&vm);
-  freeIota(&iota);
 
   return 0;
 }
