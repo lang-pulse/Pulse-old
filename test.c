@@ -1,10 +1,12 @@
 #include "includes/common.h"
 #include "includes/iota.h"
 #include "includes/debug.h"
+#include "includes/scanner.h"
 #include "includes/vm.h"
 
 int main(int argc, char* argv[]) {
   VM vm;
+  Scanner scanner;
   initVM(&vm);
 
   Iota iota;
@@ -28,7 +30,8 @@ int main(int argc, char* argv[]) {
   writeIota(&iota, OP_RETURN, 124);
 
   disassembleIota(&iota, "test iota");
-  interpret(&vm, &iota);
+  const char* source = "Hello";
+  interpret(&scanner, source);
   freeVM(&vm);
   freeIota(&iota);
 

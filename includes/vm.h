@@ -2,6 +2,7 @@
 #define pulse_vm_h
 
 #include "iota.h"
+#include "scanner.h"
 #include "value.h"
 
 typedef struct {
@@ -20,7 +21,7 @@ typedef enum {
 
 void initVM(VM* vm);
 void freeVM(VM* vm);
-InterpretResult interpret(VM* vm, Iota* iota);
+InterpretResult interpret(Scanner* scanner, const char* source);
 void push(VM* vm, Value value);
 Value pop(VM* vm);
 

@@ -3,7 +3,9 @@
 #include <stdlib.h>
 
 #include "../includes/common.h"
+#include "../includes/compiler.h"
 #include "../includes/debug.h"
+#include "../includes/scanner.h"
 #include "../includes/vm.h"
 
 #define BOUND 256
@@ -107,8 +109,7 @@ static InterpretResult run(VM* vm) {
 #undef READ_BYTE
 }
 
-InterpretResult interpret(VM* vm, Iota* iota) {
-  vm->iota = iota;
-  vm->ip = vm->iota->code;
-  return run(vm);
+InterpretResult interpret(Scanner* scanner, const char* source) {
+  compile(scanner, source);
+  return INTERPRET_OK;
 }
