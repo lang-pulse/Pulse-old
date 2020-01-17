@@ -7,6 +7,7 @@
 #include "../includes/debug.h"
 #include "../includes/scanner.h"
 #include "../includes/vm.h"
+#include "../includes/iota.h"
 
 #define BOUND 256
 
@@ -109,7 +110,20 @@ static InterpretResult run(VM* vm) {
 #undef READ_BYTE
 }
 
-InterpretResult interpret(Scanner* scanner, const char* source) {
-  compile(scanner, source);
-  return INTERPRET_OK;
+InterpretResult interpret(VM* vm, const char* source) {
+  Iota iota;
+  initIota(&iota);
+
+  if(!compile(source, &iota)) {
+    freeIota(&iota);
+    return INTERPRET_COMPILE_ERROR;
+  }
+
+  vm->iota = &iota;
+  vm->ip = vm->iota->code;
+
+  InterpretResult result = run(vm);
+
+  freeIota(&iota);
+  return result;
 }

@@ -8,7 +8,7 @@
 #include "includes/scanner.h"
 #include "includes/vm.h"
 
-static void repl(Scanner* scanner) {
+static void repl(VM *vm) {
   char line[1024];
   for( ; ; ) {
     printf("> ");
@@ -18,7 +18,7 @@ static void repl(Scanner* scanner) {
       break;
     }
 
-    interpret(scanner, line);
+    interpret(vm, line);
   }
 }
 
@@ -51,9 +51,9 @@ static char* readFile(const char* path) {
   return buffer;
 }
 
-static void runFile(Scanner* scanner, const char* path) {
+static void runFile(VM* vm, const char* path) {
   char* source = readFile(path);
-  InterpretResult result = interpret(scanner, source);
+  InterpretResult result = interpret(vm, source);
   free(source);
 
   if(result == INTERPRET_COMPILE_ERROR) exit(65);
@@ -64,12 +64,10 @@ int main(int argc, char* argv[]) {
   VM vm;
   initVM(&vm);
 
-  Scanner scanner;
-
   if(argc == 1) {
-    repl(&scanner);
+    repl(&vm);
   } else if(argc == 2) {
-    runFile(&scanner, argv[1]);
+    runFile(&vm, argv[1]);
   } else {
     fprintf(stderr, "Usage: clox [path]\n");
     exit(64);

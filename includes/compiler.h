@@ -2,7 +2,37 @@
 #define pulse_compiler_h
 
 #include "scanner.h"
+#include "iota.h"
 
-void compile(Scanner* scanner, const char* source);
+typedef struct {
+  Token current;
+  Token previous;
+  bool hadError;
+  bool panicMode;
+} Parser;
+
+typedef enum {
+  PREC_NONE,
+  PREC_ASSIGNMENT,
+  PREC_OR,
+  PREC_AND,
+  PREC_EQUALITY,
+  PREC_COMPARISON,
+  PREC_TERM,
+  PREC_FACTOR,
+  PREC_UNARY,
+  PREC_CALL,
+  PREC_PRIMARY,
+} Precedence;
+
+typedef void (*ParseFn)();
+
+typedef struct {
+  ParseFn prefix;
+  ParseFn infix;
+  Precedence precedence;
+} ParseRule;
+
+bool compile(const char* source, Iota* iota);
 
 #endif
