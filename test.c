@@ -18,6 +18,11 @@ static void repl(VM *vm) {
       break;
     }
 
+    if(strcmp(line, "exit\n") == 0) {
+      printf("Thank you for using Pulse\n");
+      return;
+    }
+
     interpret(vm, line);
   }
 }
