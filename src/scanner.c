@@ -89,6 +89,8 @@ static void skipWhitespace(Scanner* scanner) {
           } else {
             return;
           }
+        } else {
+          return;
         }
         break;
 
