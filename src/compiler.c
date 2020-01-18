@@ -151,10 +151,10 @@ ParseRule rules[] = {
   { NULL,     NULL,    PREC_NONE },       // TOKEN_RIGHT_BRACE
   { NULL,     NULL,    PREC_NONE },       // TOKEN_COMMA
   { NULL,     NULL,    PREC_NONE },       // TOKEN_DOT
-  { NULL,     binary,  PREC_TERM },       // TOKEN_MODULO
+  { NULL,     binary,  PREC_FACTOR },     // TOKEN_MODULO
   { unary,    binary,  PREC_TERM },       // TOKEN_MINUS
   { NULL,     NULL,    PREC_NONE },       // TOKEN_NEWLINE
-  { NULL,     binary,  PREC_TERM },       // TOKEN_POWER
+  { NULL,     binary,  PREC_POWER },      // TOKEN_POWER
   { NULL,     binary,  PREC_TERM },       // TOKEN_PLUS
   { NULL,     binary,  PREC_FACTOR },     // TOKEN_SLASH
   { NULL,     binary,  PREC_FACTOR },     // TOKEN_STAR
