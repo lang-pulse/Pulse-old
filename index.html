@@ -41,7 +41,8 @@
     </div>
 
     <div style="float: left; margin-top: 12px; margin-left: 100px; border: 1px solid black; width: 20%;">
-      <p id="explanation" style="padding: 5px 10px;">Values of variables and objects are shown here.</p>
+      <p style="padding: 5px;"><strong>Variable explorer</strong>:</p>
+      <div id="variables" style="padding: 5px 10px;"><strong>argc</strong> = 0</div>
     </div>
 
     <script type="text/javascript">
@@ -58,13 +59,14 @@
         var marginTop = parseInt($("#arrow").css("marginTop"));
         var loc = $(".prettyprint").html().split("\n").length - 2;
         var span = 1;
-        var defaultMessage = "Nothing to explain!"
+        var defaultMessage = "Empty line.";
+        var defaultVariable = "";
 
         var lineExplanation = [
           "Execution starts at main - always!",
           "Create an instance of our Virtual Machine, checkout the entire code in <a href='vm.html' target='_blank'>vm.c</a>.",
           "Initialize the virtual machine, basically initializing the dynamic array that takes in bytecode as and processes them.",
-          "Empty line.",
+          defaultMessage,
           "Check if there are no command line arguments. For more information on 'command line arguments', follow this link: <a href='https://www.geeksforgeeks.org/command-line-arguments-in-c-cpp/' target='_blank'>Command line arguments in C/C++</a>.",
           "Call Pulse REPL (Read Evaluate Print Loop), basically a fancy name for Pulse Shell.",
           "If there is one command line argument.",
@@ -72,12 +74,32 @@
           "If all the cases are incorrect.",
           "Then print the usage of pulse.",
           "Exit with error code 64 (an error code that is for user's usage).",
-          "Empty line.",
-          "Empty line.",
+          defaultMessage,
+          defaultMessage,
           "Free the virtual machine after execution.",
-          "Empty line.",
+          defaultMessage,
           "Return from the C program.",
           "End of program."
+        ];
+
+        var variables = [
+          "<p><strong>argc</strong> = 0</p>",
+          "<p><strong>vm</strong> (intiailized instance of VM)</p>",
+          "<p><strong>vm->top</strong> = -1</p> <p><strong>vm->length</strong> = 0</p>",
+          defaultVariable,
+          "<p>Condition <strong>true</strong></p>",
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable,
+          defaultVariable
         ];
 
         $("#next").click(function() {
@@ -88,6 +110,7 @@
             marginTop = 10;
             window.scrollTo(0, marginTop);
             $("#next").css("marginTop", 20);
+            $("#variables").empty();
           }
           $("#arrow").css("marginTop", marginTop);
           if(!isScrolledIntoView($("#arrow"))) {
@@ -95,6 +118,7 @@
             $("#next").css("marginTop", (span - 8.5) * 15);
           }
           $("#explanation").html(lineExplanation[span-1]);
+          $("#variables").append(variables[span-1]);
         });
     </script>
   </body>
