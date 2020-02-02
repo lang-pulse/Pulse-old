@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-
 #include "../includes/common.h"
 #include "../includes/compiler.h"
 #include "../includes/debug.h"
@@ -36,8 +35,7 @@ void push(VM* vm, Value val) {
 
 Value pop(VM* vm) {
   return vm->stack[vm->top--];
-}
-
+} 
 void display(VM* vm) {
   if (vm->top == -1)
       printf("Stack is Empty\n");
@@ -65,13 +63,17 @@ static InterpretResult run(VM* vm) {
 #define READ_BYTE() (*vm->ip++)
 #define READ_CONSTANT() (vm->iota->constants.values[READ_BYTE()])
 
-#define BINARY_OP(op) \
-    do { \
-      double b = pop(vm); \
-      double a = pop(vm); \
-      push(vm, a op b); \
-    } while(false) \
-
+#define BINARY_OP(valueType, op) \                               
+    do { \                                                       
+      if (!IS_NUMBER(peek(0)) || !IS_NUMBER(peek(1))) { \        
+        runtimeError("Operands must be numbers."); \             
+        return INTERPRET_RUNTIME_ERROR; \                        
+      } \                                                        
+      \                                                          
+      double b = AS_NUMBER(pop()); \                             
+      double a = AS_NUMBER(pop()); \                             
+      push(valueType(a op b)); \                                 
+    } while (false)  
   for( ; ; ) {
 #ifndef DEBUG_TRACE_EXECUTION
     printf("          ");
@@ -96,7 +98,14 @@ static InterpretResult run(VM* vm) {
       case OP_DIVIDE: BINARY_OP(/); break;
       case OP_MODULO: modulo(vm); break;
       case OP_POWER: power(vm); break;
-      case OP_NEGATE: push(vm, -pop(vm)); break;
+       case OP_NEGATE:                               
+        if (!IS_NUMBER(peek(0))) {                  
+          runtimeError("Operand must be a number.");
+          return INTERPRET_RUNTIME_ERROR;           
+        }
+
+        push(NUMBER_VAL(-AS_NUMBER(pop())));        
+        break;  
       case OP_RETURN: {
         printValue(pop(vm));
         printf("\n");
