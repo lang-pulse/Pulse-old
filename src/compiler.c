@@ -127,7 +127,7 @@ static void grouping(Parser* parser, Scanner* scanner) {
 
 static void number(Parser* parser, Scanner* scanner) {
   double value = strtod(parser->previous.start, NULL);
-  emitConstant(parser, value);
+  emitConstant(NUMBER_VAL(value));      
 }
 
 static void unary(Parser* parser, Scanner* scanner) {
