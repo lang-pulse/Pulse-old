@@ -1,3 +1,4 @@
+#include <stdarg.h>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -13,6 +14,20 @@
 void initVM(VM* vm) {
   vm->top = -1;
   vm->length = 0;
+}
+
+static void runtimeError(VM* vm, const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+  vfprintf(stderr, format, args);
+  va_end(args);
+  fputs("\n", stderr);
+
+  size_t instruction = vm->ip - vm->iota->code;
+  int line = vm->iota->line;
+  fprintf(stderr, "[line %d] in script\n", line);
+
+  initVM(vm);
 }
 
 void freeVM(VM* vm) {
@@ -35,45 +50,44 @@ void push(VM* vm, Value val) {
 
 Value pop(VM* vm) {
   return vm->stack[vm->top--];
-} 
-void display(VM* vm) {
-  if (vm->top == -1)
-      printf("Stack is Empty\n");
-  else {
-      printf("Stack: ");
-      for (int i = 0; i <= vm->top; i++)
-          printf("%.1f ", vm->stack[i]);
-      printf("\n");
-  }
+}
+
+static Value peek(VM* vm, int distance) {
+  return vm->stack[distance];
+}
+
+static bool isFalsey(Value value) {
+  return IS_NIL(value) || (IS_BOOL(value) && !AS_BOOL(value));
 }
 
 void modulo(VM* vm) {
-  int b = (int)pop(vm);
-  int a = (int)pop(vm);
-  push(vm, a % b);
+  int b = (int)AS_NUMBER(pop(vm));
+  int a = (int)AS_NUMBER(pop(vm));
+  push(vm, NUMBER_VAL(a % b));
 }
 
 void power(VM* vm) {
-  double b = pop(vm);
-  double a = pop(vm);
-  push(vm, pow(a, b));
+  double b = AS_NUMBER(pop(vm));
+  double a = AS_NUMBER(pop(vm));
+  push(vm, NUMBER_VAL(pow(a, b)));
 }
 
 static InterpretResult run(VM* vm) {
 #define READ_BYTE() (*vm->ip++)
 #define READ_CONSTANT() (vm->iota->constants.values[READ_BYTE()])
 
-#define BINARY_OP(valueType, op) \                               
-    do { \                                                       
-      if (!IS_NUMBER(peek(0)) || !IS_NUMBER(peek(1))) { \        
-        runtimeError("Operands must be numbers."); \             
-        return INTERPRET_RUNTIME_ERROR; \                        
-      } \                                                        
-      \                                                          
-      double b = AS_NUMBER(pop()); \                             
-      double a = AS_NUMBER(pop()); \                             
-      push(valueType(a op b)); \                                 
-    } while (false)  
+#define BINARY_OP(valueType, op) \
+    do { \
+      if (!IS_NUMBER(peek(vm, 0)) || !IS_NUMBER(peek(vm, 1))) { \
+        runtimeError(vm, "Operands must be numbers."); \
+        return INTERPRET_RUNTIME_ERROR; \
+      } \
+      \
+      double b = AS_NUMBER(pop(vm)); \
+      double a = AS_NUMBER(pop(vm)); \
+      push(vm, valueType(a op b)); \
+    } while (false)
+
   for( ; ; ) {
 #ifndef DEBUG_TRACE_EXECUTION
     printf("          ");
@@ -92,20 +106,34 @@ static InterpretResult run(VM* vm) {
         push(vm, constant);
         break;
       }
-      case OP_ADD: BINARY_OP(+); break;
-      case OP_SUBTRACT: BINARY_OP(-); break;
-      case OP_MULTIPLY: BINARY_OP(*); break;
-      case OP_DIVIDE: BINARY_OP(/); break;
+      case OP_NIL: push(vm, NIL_VAL); break;
+      case OP_TRUE: push(vm, BOOL_VAL(true)); break;
+      case OP_FALSE: push(vm, BOOL_VAL(false)); break;
+      case OP_EQUAL: {
+        Value b = pop(vm);
+        Value a = pop(vm);
+        push(vm, BOOL_VAL(valuesEqual(a, b)));
+        break;
+      }
+      case OP_GREATER:BINARY_OP(BOOL_VAL, >); break;
+      case OP_LESS: BINARY_OP(BOOL_VAL, <); break;
+      case OP_ADD: BINARY_OP(NUMBER_VAL, +); break;
+      case OP_SUBTRACT: BINARY_OP(NUMBER_VAL, -); break;
+      case OP_MULTIPLY: BINARY_OP(NUMBER_VAL, *); break;
+      case OP_DIVIDE: BINARY_OP(NUMBER_VAL, /); break;
       case OP_MODULO: modulo(vm); break;
       case OP_POWER: power(vm); break;
-       case OP_NEGATE:                               
-        if (!IS_NUMBER(peek(0))) {                  
-          runtimeError("Operand must be a number.");
-          return INTERPRET_RUNTIME_ERROR;           
-        }
+      case OP_NOT:
+        push(vm, BOOL_VAL(isFalsey(pop(vm))));
+        break;
+       case OP_NEGATE:
+       if (!IS_NUMBER(peek(vm, 0))) {
+         runtimeError(vm, "Operand must be a number.");
+         return INTERPRET_RUNTIME_ERROR;
+       }
 
-        push(NUMBER_VAL(-AS_NUMBER(pop())));        
-        break;  
+       push(vm, NUMBER_VAL(-AS_NUMBER(pop(vm))));
+       break;
       case OP_RETURN: {
         printValue(pop(vm));
         printf("\n");
