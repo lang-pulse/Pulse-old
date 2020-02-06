@@ -2,6 +2,7 @@
 #define pulse_compiler_h
 
 #include "scanner.h"
+#include "object.h"
 #include "iota.h"
 
 typedef struct {
