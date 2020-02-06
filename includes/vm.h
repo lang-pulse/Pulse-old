@@ -11,6 +11,7 @@ typedef struct {
   Value *stack;
   int top;
   int length;
+  Obj* objects;
 } VM;
 
 typedef enum {

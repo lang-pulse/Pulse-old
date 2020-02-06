@@ -2,9 +2,13 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "../includes/common.h"
 #include "../includes/compiler.h"
 #include "../includes/debug.h"
+#include "../includes/object.h"
+#include "../includes/memory.h"
 #include "../includes/scanner.h"
 #include "../includes/vm.h"
 #include "../includes/iota.h"
@@ -14,6 +18,7 @@
 void initVM(VM* vm) {
   vm->top = -1;
   vm->length = 0;
+  vm->objects = NULL;
 }
 
 static void runtimeError(VM* vm, const char* format, ...) {
@@ -31,7 +36,7 @@ static void runtimeError(VM* vm, const char* format, ...) {
 }
 
 void freeVM(VM* vm) {
-
+  freeObjects(vm);
 }
 
 Value* create_new(VM* vm, Value* a) {
@@ -58,6 +63,20 @@ static Value peek(VM* vm, int distance) {
 
 static bool isFalsey(Value value) {
   return IS_NIL(value) || (IS_BOOL(value) && !AS_BOOL(value));
+}
+
+static void concatenate(VM* vm) {
+  ObjString* b = AS_STRING(pop(vm));
+  ObjString* a = AS_STRING(pop(vm));
+
+  int length = a->length + b->length;
+  char* chars = ALLOCATE(char, length + 1);
+  memcpy(chars, a->chars, a->length);
+  memcpy(chars + a->length, b->chars, b->length);
+  chars[length] = '\0';
+
+  ObjString* result = takeString(chars, length);
+  push(vm, OBJ_VAL(result));
 }
 
 void modulo(VM* vm) {
@@ -117,7 +136,19 @@ static InterpretResult run(VM* vm) {
       }
       case OP_GREATER:BINARY_OP(BOOL_VAL, >); break;
       case OP_LESS: BINARY_OP(BOOL_VAL, <); break;
-      case OP_ADD: BINARY_OP(NUMBER_VAL, +); break;
+      case OP_ADD: {
+        if (IS_STRING(peek(vm, 0)) && IS_STRING(peek(vm, 1))) {
+          concatenate(vm);
+        } else if (IS_NUMBER(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
+          double b = AS_NUMBER(pop(vm));
+          double a = AS_NUMBER(pop(vm));
+          push(vm, NUMBER_VAL(a + b));
+        } else {
+          runtimeError(vm, "Operands must be two numbers or two strings.");
+          return INTERPRET_RUNTIME_ERROR;
+        }
+        break;
+      }
       case OP_SUBTRACT: BINARY_OP(NUMBER_VAL, -); break;
       case OP_MULTIPLY: BINARY_OP(NUMBER_VAL, *); break;
       case OP_DIVIDE: BINARY_OP(NUMBER_VAL, /); break;

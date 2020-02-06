@@ -146,8 +146,8 @@ static void number(Parser* parser, Scanner* scanner) {
   emitConstant(parser, NUMBER_VAL(value));
 }
 
-static void string() {
-  emitConstant(OBJ_VAL(copyString(parser.previous.start + 1, parser.previous.length -2)));
+static void string(Parser* parser) {
+  emitConstant(parser, OBJ_VAL(copyString(parser->previous.start + 1, parser->previous.length -2)));
 }
 
 static void unary(Parser* parser, Scanner* scanner) {
