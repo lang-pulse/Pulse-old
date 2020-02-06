@@ -79,6 +79,28 @@ static void concatenate(VM* vm) {
   push(vm, OBJ_VAL(result));
 }
 
+static void multiply_string(VM* vm, int pos) {
+  double multiplicand;
+  ObjString* string;
+  if(pos == 0) {
+    multiplicand = AS_NUMBER(pop(vm));
+    string = AS_STRING(pop(vm));
+  } else if(pos == 1) {
+    string = AS_STRING(pop(vm));
+    multiplicand = AS_NUMBER(pop(vm));
+  }
+
+  int length = string->length * (int)multiplicand;
+  char* chars = ALLOCATE(char, length + 1);
+  for(int i=0; i<multiplicand; i++) {
+    memcpy(chars + (string->length * i), string->chars, string->length);
+  }
+  chars[length] = '\0';
+
+  ObjString* result = takeString(chars, length);
+  push(vm, OBJ_VAL(result));
+}
+
 void modulo(VM* vm) {
   int b = (int)AS_NUMBER(pop(vm));
   int a = (int)AS_NUMBER(pop(vm));
@@ -150,7 +172,19 @@ static InterpretResult run(VM* vm) {
         break;
       }
       case OP_SUBTRACT: BINARY_OP(NUMBER_VAL, -); break;
-      case OP_MULTIPLY: BINARY_OP(NUMBER_VAL, *); break;
+      case OP_MULTIPLY: {
+        if(IS_STRING(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
+          multiply_string(vm, 0);
+        } else if(IS_NUMBER(peek(vm, 0)) && IS_STRING(peek(vm, 1))) {
+          multiply_string(vm, 1);
+        } else if(IS_NUMBER(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
+          BINARY_OP(NUMBER_VAL, *);
+        } else {
+          runtimeError(vm, "Operands must be either combination of string and number or numbers only.");
+          return INTERPRET_RUNTIME_ERROR;
+        }
+        break;
+      }
       case OP_DIVIDE: BINARY_OP(NUMBER_VAL, /); break;
       case OP_MODULO: modulo(vm); break;
       case OP_POWER: power(vm); break;
