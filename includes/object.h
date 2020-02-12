@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "value.h"
+#include "vm.h"
 
 #define OBJ_TYPE(value)		(AS_OBJ(value)->type)
 
@@ -27,8 +28,8 @@ struct sObjString {
 	uint32_t hash;
 };
 
-ObjString* takeString(char* chars, int length);
-ObjString* copyString(const char* chars, int length);
+ObjString* takeString(char* chars, int length, VM* vm);
+ObjString* copyString(const char* chars, int length, VM* vm);
 
 void printObject(Value value);
 

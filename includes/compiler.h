@@ -4,6 +4,7 @@
 #include "scanner.h"
 #include "object.h"
 #include "iota.h"
+#include "vm.h"
 
 typedef struct {
   Token current;
@@ -35,6 +36,6 @@ typedef struct {
   Precedence precedence;
 } ParseRule;
 
-bool compile(const char* source, Iota* iota);
+bool compile(const char* source, Iota* iota, VM* vm);
 
 #endif

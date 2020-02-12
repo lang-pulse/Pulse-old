@@ -4,14 +4,14 @@
 #include "common.h"
 #include "value.h"
 
-typdef struct {
+typedef struct {
 	ObjString* key;
 	Value value;
 } Entry;
 
 typedef struct {
 	int count;
-	int capacity; 
+	int capacity;
 	Entry* entries;
 } Table;
 
