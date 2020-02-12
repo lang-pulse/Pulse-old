@@ -19,6 +19,7 @@ void initVM(VM* vm) {
   vm->top = -1;
   vm->length = 0;
   vm->objects = NULL;
+  initTable(&vm->strings);
 }
 
 static void runtimeError(VM* vm, const char* format, ...) {
@@ -36,6 +37,7 @@ static void runtimeError(VM* vm, const char* format, ...) {
 }
 
 void freeVM(VM* vm) {
+  freeTable(&vm->strings);
   freeObjects(vm);
 }
 
@@ -75,7 +77,7 @@ static void concatenate(VM* vm) {
   memcpy(chars + a->length, b->chars, b->length);
   chars[length] = '\0';
 
-  ObjString* result = takeString(chars, length);
+  ObjString* result = takeString(chars, length, vm);
   push(vm, OBJ_VAL(result));
 }
 
@@ -97,7 +99,7 @@ static void multiply_string(VM* vm, int pos) {
   }
   chars[length] = '\0';
 
-  ObjString* result = takeString(chars, length);
+  ObjString* result = takeString(chars, length, vm);
   push(vm, OBJ_VAL(result));
 }
 
@@ -132,13 +134,13 @@ static InterpretResult run(VM* vm) {
   for( ; ; ) {
 #ifndef DEBUG_TRACE_EXECUTION
     printf("          ");
-    for(Value* slot = vm.stack; slot < vm.stackTop; slot++) {
+    for(Value* slot = vm->stack; slot < vm->stackTop; slot++) {
       printf("[ ");
       printValue(*slot);
       printf(" ]");
     }
     printf("\n");
-    disassembleInstruction(vm.iota, (int)(vm.ip - vm.iota->code));
+    disassembleInstruction(vm->iota, (int)(vm->ip - vm->iota->code));
 #endif
     uint8_t instruction;
     switch(instruction = READ_BYTE()) {
@@ -216,7 +218,7 @@ InterpretResult interpret(VM* vm, const char* source) {
   Iota iota;
   initIota(&iota);
 
-  if(!compile(source, &iota)) {
+  if(!compile(source, &iota, vm)) {
     freeIota(&iota);
     return INTERPRET_COMPILE_ERROR;
   }
