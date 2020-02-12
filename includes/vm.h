@@ -2,6 +2,7 @@
 #define pulse_vm_h
 
 #include "iota.h"
+#include "table.h"
 #include "scanner.h"
 #include "value.h"
 
@@ -11,6 +12,7 @@ typedef struct {
   Value *stack;
   int top;
   int length;
+  Table strings;
   Obj* objects;
 } VM;
 

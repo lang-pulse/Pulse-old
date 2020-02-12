@@ -19,6 +19,7 @@ void initVM(VM* vm) {
   vm->top = -1;
   vm->length = 0;
   vm->objects = NULL;
+  initTable(&vm.strings);
 }
 
 static void runtimeError(VM* vm, const char* format, ...) {
@@ -36,6 +37,7 @@ static void runtimeError(VM* vm, const char* format, ...) {
 }
 
 void freeVM(VM* vm) {
+  freeTable(&vm.strings);
   freeObjects(vm);
 }
 
