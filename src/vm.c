@@ -19,6 +19,7 @@ void initVM(VM* vm) {
   vm->top = -1;
   vm->length = 0;
   vm->objects = NULL;
+  initTable(&vm->globals);
   initTable(&vm->strings);
 }
 
@@ -37,6 +38,7 @@ static void runtimeError(VM* vm, const char* format, ...) {
 }
 
 void freeVM(VM* vm) {
+  freeTable(&vm->globals);
   freeTable(&vm->strings);
   freeObjects(vm);
 }
@@ -118,6 +120,7 @@ void power(VM* vm) {
 static InterpretResult run(VM* vm) {
 #define READ_BYTE() (*vm->ip++)
 #define READ_CONSTANT() (vm->iota->constants.values[READ_BYTE()])
+#define READ_STRING() AS_STRING(READ_CONSTANT())
 
 #define BINARY_OP(valueType, op) \
     do { \
@@ -152,6 +155,32 @@ static InterpretResult run(VM* vm) {
       case OP_NIL: push(vm, NIL_VAL); break;
       case OP_TRUE: push(vm, BOOL_VAL(true)); break;
       case OP_FALSE: push(vm, BOOL_VAL(false)); break;
+      case OP_POP: pop(vm); break;
+      case OP_GET_GLOBAL: {
+        ObjString* name = READ_STRING();
+        Value value;
+        if(!tableGet(&vm->globals, name, &value)) {
+          runtimeError(vm, "Undefined variable '%s'.", name->chars);
+          return INTERPRET_COMPILE_ERROR;
+        }
+        push(vm, value);
+        break;
+      }
+      case OP_DEFINE_GLOBAL: {
+        ObjString* name = READ_STRING();
+        tableSet(&vm->globals, name, peek(vm, 0));
+        pop(vm);
+        break;
+      }
+      case OP_SET_GLOBAL: {
+        ObjString* name = READ_STRING();
+        if(tableSet(&vm->globals, name, peek(vm, 0))) {
+          tableDelete(&vm->globals, name);
+          runtimeError(vm, "Undefined variable '%s'.", name->chars);
+          return INTERPRET_RUNTIME_ERROR;
+        }
+        break;
+      }
       case OP_EQUAL: {
         Value b = pop(vm);
         Value a = pop(vm);
@@ -201,9 +230,13 @@ static InterpretResult run(VM* vm) {
 
        push(vm, NUMBER_VAL(-AS_NUMBER(pop(vm))));
        break;
-      case OP_RETURN: {
+      case OP_PRINT: {
         printValue(pop(vm));
         printf("\n");
+        break;
+      }
+      case OP_RETURN: {
+        // Exit interpreter
         return INTERPRET_OK;
       }
     }
@@ -211,6 +244,7 @@ static InterpretResult run(VM* vm) {
 
 #undef BINARY_OP
 #undef READ_CONSTANT
+#undef READ_STRING
 #undef READ_BYTE
 }
 
