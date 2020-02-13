@@ -1,0 +1,4 @@
+var c = 5
+var f = c * (9 / 5) + 32
+print("The converted string = ")
+print(f)

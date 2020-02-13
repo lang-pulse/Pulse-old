@@ -12,6 +12,7 @@ typedef struct {
   Value *stack;
   int top;
   int length;
+  Table globals;
   Table strings;
   Obj* objects;
 } VM;

@@ -60,6 +60,17 @@ static void consume(Parser* parser, Scanner* scanner, TokenType type, const char
   errorAtCurrent(parser, message);
 }
 
+static bool check(Parser* parser, TokenType type) {
+  return parser->current.type == type;
+}
+
+static bool match(Parser* parser, Scanner* scanner, TokenType type) {
+  if(!check(parser, type))
+    return false;
+  advance(parser, scanner);
+  return true;
+}
+
 static void emitByte(Parser* parser, uint8_t byte) {
   writeIota(currentIota(), byte, parser->previous.line);
 }
@@ -95,10 +106,13 @@ static void endCompiler(Parser* parser) {
 }
 
 static void expression();
+static void statement(Parser* parser, Scanner* scanner, VM* vm);
+static void declaration(Parser* parser, Scanner* scanner, VM* vm);
 static ParseRule* getRule(TokenType type);
 static void parsePrecedence(Parser* parser, Scanner* scanner, Precedence precedence, VM* vm);
+static uint8_t identifierConstant(Parser* parser, Token* name, VM* vm);
 
-static void binary(Parser* parser, Scanner* scanner, VM* vm) {
+static void binary(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   // Remember the operator
   TokenType operatorType = parser->previous.type;
 
@@ -125,7 +139,7 @@ static void binary(Parser* parser, Scanner* scanner, VM* vm) {
   }
 }
 
-static void literal(Parser* parser, VM* vm) {
+static void literal(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   switch (parser->previous.type) {
     case TOKEN_FALSE: emitByte(parser, OP_FALSE); break;
     case TOKEN_NIL: emitByte(parser, OP_NIL); break;
@@ -135,21 +149,36 @@ static void literal(Parser* parser, VM* vm) {
   }
 }
 
-static void grouping(Parser* parser, Scanner* scanner, VM* vm) {
-  expression();
+static void grouping(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
+  expression(parser, scanner, vm);
   consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after expression.");
 }
 
-static void number(Parser* parser, Scanner* scanner, VM* vm) {
+static void number(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   double value = strtod(parser->previous.start, NULL);
   emitConstant(parser, NUMBER_VAL(value));
 }
 
-static void string(Parser* parser, Scanner* scanner, VM* vm) {
+static void string(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   emitConstant(parser, OBJ_VAL(copyString(parser->previous.start + 1, parser->previous.length -2, vm)));
 }
 
-static void unary(Parser* parser, Scanner* scanner, VM* vm) {
+static void namedVariable(Parser* parser, Scanner* scanner, Token name, VM* vm, bool canAssign) {
+  uint8_t arg = identifierConstant(parser, &name, vm);
+
+  if(canAssign && match(parser, scanner, TOKEN_EQUAL)) {
+    expression(parser, scanner, vm);
+    emitBytes(parser, OP_SET_GLOBAL, arg);
+  } else {
+    emitBytes(parser, OP_GET_GLOBAL, arg);
+  }
+}
+
+static void variable(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
+  namedVariable(parser, scanner, parser->previous, vm, canAssign);
+}
+
+static void unary(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   TokenType operatorType = parser->previous.type;
 
   // Compile the operand
@@ -186,7 +215,7 @@ ParseRule rules[] = {
   { NULL,     binary,  PREC_COMPARISON }, // TOKEN_GREATER_EQUAL
   { NULL,     binary,  PREC_COMPARISON }, // TOKEN_LESS
   { NULL,     binary,  PREC_COMPARISON }, // TOKEN_LESS_EQUAL
-  { NULL,     NULL,    PREC_NONE },       // TOKEN_IDENTIFIER
+  { variable, NULL,    PREC_NONE },       // TOKEN_IDENTIFIER
   { string,   NULL,    PREC_NONE },       // TOKEN_STRING
   { number,   NULL,    PREC_NONE },       // TOKEN_NUMBER
   { NULL,     NULL,    PREC_NONE },       // TOKEN_AND
@@ -218,13 +247,36 @@ static void parsePrecedence(Parser* parser, Scanner* scanner, Precedence precede
     return;
   }
 
-  prefixRule(parser, scanner, vm);
+  bool canAssign = precedence <= PREC_ASSIGNMENT;
+  prefixRule(parser, scanner, vm, canAssign);
 
   while(precedence <= getRule(parser->current.type)->precedence) {
     advance(parser, scanner);
     ParseFn infixRule = getRule(parser->previous.type)->infix;
-    infixRule(parser, scanner, vm);
+    infixRule(parser, scanner, vm, canAssign);
   }
+
+  if(canAssign && match(parser, scanner, TOKEN_EQUAL)) {
+    error(parser, "Invalid assignment target.");
+  }
+}
+
+static uint8_t identifierConstant(Parser* parser, Token* name, VM* vm) {
+  return makeConstant(parser, OBJ_VAL(copyString(name->start, name->length, vm)));
+}
+
+static uint8_t parseVariable(Parser* parser, Scanner* scanner, VM* vm, const char* errorMessage) {
+  consume(parser, scanner, TOKEN_IDENTIFIER, errorMessage);
+  return identifierConstant(parser, &parser->previous, vm);
+}
+
+static void namedParser(Parser* parser, Token name, VM* vm) {
+  uint8_t arg = identifierConstant(parser, &name, vm);
+  emitBytes(parser, OP_GET_GLOBAL, arg);
+}
+
+static void defineVariable(Parser* parser, uint8_t global) {
+  emitBytes(parser, OP_DEFINE_GLOBAL, global);
 }
 
 static ParseRule* getRule(TokenType type) {
@@ -233,6 +285,78 @@ static ParseRule* getRule(TokenType type) {
 
 static void expression(Parser* parser, Scanner* scanner, VM* vm) {
   parsePrecedence(parser, scanner, PREC_ASSIGNMENT, vm);
+}
+
+static void varDeclaration(Parser* parser, Scanner* scanner, VM* vm) {
+  uint8_t global = parseVariable(parser, scanner, vm, "Expect variable name.");
+
+  if(match(parser, scanner, TOKEN_EQUAL)) {
+    expression(parser, scanner, vm);
+  } else {
+    emitByte(parser, OP_NIL);
+  }
+
+  consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' after variable declaration.");
+
+  defineVariable(parser, global);
+}
+
+static void expressionStatement(Parser* parser, Scanner* scanner, VM* vm) {
+  expression(parser, scanner, vm);
+  consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' character after expression.");
+  emitByte(parser, OP_POP);
+}
+
+static void printStatement(Parser* parser, Scanner* scanner, VM* vm) {
+  consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after print keyword.");
+  expression(parser, scanner, vm);
+  consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after expression in print.");
+  consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' character after print.");
+  emitByte(parser, OP_PRINT);
+}
+
+static void synchronize(Parser* parser, Scanner* scanner) {
+  parser->panicMode = false;
+
+  while(parser->current.type != TOKEN_EOF) {
+    if(parser->previous.type == TOKEN_NEWLINE)
+      return;
+
+    switch(parser->current.type) {
+      case TOKEN_CLASS:
+      case TOKEN_FUN:
+      case TOKEN_VAR:
+      case TOKEN_FOR:
+      case TOKEN_IF:
+      case TOKEN_WHILE:
+      case TOKEN_PRINT:
+      case TOKEN_RETURN:
+        return;
+      default:
+        ;
+    }
+
+    advance(parser, scanner);
+  }
+}
+
+static void statement(Parser* parser, Scanner* scanner, VM* vm) {
+  if(match(parser, scanner, TOKEN_PRINT)) {
+    printStatement(parser, scanner, vm);
+  } else {
+    expressionStatement(parser, scanner, vm);
+  }
+}
+
+static void declaration(Parser* parser, Scanner* scanner, VM* vm) {
+  if(match(parser, scanner, TOKEN_VAR)) {
+    varDeclaration(parser, scanner, vm);
+  } else {
+    statement(parser, scanner, vm);
+  }
+
+  if(parser->panicMode)
+    synchronize(parser, scanner);
 }
 
 bool compile(const char* source, Iota* iota, VM* vm) {
@@ -246,8 +370,10 @@ bool compile(const char* source, Iota* iota, VM* vm) {
   parser.panicMode = false;
 
   advance(&parser, &scanner);
-  expression(&parser, &scanner, vm);
-  consume(&parser, &scanner, TOKEN_NEWLINE, "Expect end of expression.");
+
+  while(!match(&parser, &scanner, TOKEN_EOF)) {
+    declaration(&parser, &scanner, vm);
+  }
 
   endCompiler(&parser);
 
