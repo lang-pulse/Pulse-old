@@ -7,6 +7,17 @@
 #include "vm.h"
 
 typedef struct {
+  Token name;
+  int depth;
+} Local;
+
+typedef struct Compiler {
+  Local locals[UINT8_COUNT];
+  int localCount;
+  int scopeDepth;
+} Compiler;
+
+typedef struct {
   Token current;
   Token previous;
   bool hadError;

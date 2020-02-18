@@ -1,4 +1,11 @@
-var c = 5
-var f = c * (9 / 5) + 32
-print("The converted string = ")
-print(f)
+if(false):
+		var a = 3
+		print(a)
+		print(1)
+		print("Hello World")
+else:
+		print("Bye World")
+var b = 2
+print(b)
+var c = 3.14159
+print(c)

@@ -20,9 +20,22 @@ static int constantInstruction(const char* name, Iota* iota, int offset){
 }
 
 static int simpleInstruction(const char* name, int offset){
-		printf("%s\n", name);
-		return offset+1;
-	}
+	printf("%s\n", name);
+	return offset+1;
+}
+
+static int byteInstruction(const char* name, Iota* iota, int offset) {
+  uint8_t slot = iota->code[offset + 1];
+  printf("%-16s %4d\n", name, slot);
+  return offset + 2;
+}
+
+static int jumpInstruction(const char* name, int sign, Iota* iota, int offset) {
+  uint16_t jump = (uint16_t)(iota->code[offset + 1] << 8);
+  jump |= iota->code[offset + 2];
+  printf("%-16s %4d -> %d\n", name, offset, offset + 3 + sign * jump);
+  return offset + 3;
+}
 
 int disassembleInstruction(Iota* iota, int offset){
 		printf("%04d ", offset);				//byte offset of given instruction(where in the chunk this instruction is)
@@ -39,6 +52,10 @@ int disassembleInstruction(Iota* iota, int offset){
 	      return simpleInstruction("OP_FALSE", offset);
 			case OP_POP:
 				return simpleInstruction("OP_POP", offset);
+			case OP_GET_LOCAL:
+	      return byteInstruction("OP_GET_LOCAL", iota, offset);
+	    case OP_SET_LOCAL:
+	      return byteInstruction("OP_SET_LOCAL", iota, offset);
 			case OP_GET_GLOBAL:
 				return constantInstruction("OP_GET_GLOBAL", iota, offset);
 			case OP_DEFINE_GLOBAL:
@@ -69,6 +86,10 @@ int disassembleInstruction(Iota* iota, int offset){
 	      return simpleInstruction("OP_NEGATE", offset);
 			case OP_PRINT:
 				return simpleInstruction("OP_PRINT", offset);
+			case OP_JUMP:
+	      return jumpInstruction("OP_JUMP", 1, iota, offset);
+	    case OP_JUMP_IF_FALSE:
+	      return jumpInstruction("OP_JUMP_IF_FALSE", 1, iota, offset);
 			case OP_RETURN:
 				return simpleInstruction("OP_RETURN", offset);
 			default:
