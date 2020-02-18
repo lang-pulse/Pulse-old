@@ -82,6 +82,13 @@ static void emitBytes(Parser* parser, uint8_t byte1, uint8_t byte2) {
   emitByte(parser, byte2);
 }
 
+static int emitJump(Parser* parser, uint8_t instruction) {
+  emitByte(parser, instruction);
+  emitByte(parser, 0xff);
+  emitByte(parser, 0xff);
+  return currentIota()->count - 2;
+}
+
 static void emitReturn(Parser* parser) {
   emitByte(parser, OP_RETURN);
 }
@@ -98,6 +105,18 @@ static uint8_t makeConstant(Parser* parser, Value value) {
 
 static void emitConstant(Parser* parser, Value value) {
   emitBytes(parser, OP_CONSTANT, makeConstant(parser, value));
+}
+
+static void patchJump(Parser* parser, Scanner* scanner, int offset) {
+  // -2 to adjust for the bytecode for the jump offset itself.
+  int jump = currentIota()->count - offset - 2;
+
+  if (jump > UINT16_MAX) {
+    error(parser, "Too much code to jump over.");
+  }
+
+  currentIota()->code[offset] = (jump >> 8) & 0xff;
+  currentIota()->code[offset + 1] = jump & 0xff;
 }
 
 static void initCompiler(Compiler* compiler) {
@@ -416,6 +435,24 @@ static void expressionStatement(Parser* parser, Scanner* scanner, VM* vm) {
   emitByte(parser, OP_POP);
 }
 
+static void ifStatement(Parser* parser, Scanner* scanner, VM* vm) {
+  consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect ':' after 'if'.");
+  expression(parser, scanner, vm);
+  consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect 'unindent' after condition.");
+
+  int thenJump = emitJump(parser, OP_JUMP_IF_FALSE);
+  emitByte(parser, OP_POP);
+  statement(parser, scanner, vm);
+
+  int elseJump = emitJump(parser, OP_JUMP);
+
+  patchJump(parser, scanner, thenJump);
+  emitByte(parser, OP_POP);
+
+  if (match(parser, scanner, TOKEN_ELSE)) statement(parser, scanner, vm);
+  patchJump(parser, scanner, elseJump);
+}
+
 static void printStatement(Parser* parser, Scanner* scanner, VM* vm) {
   consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after print keyword.");
   expression(parser, scanner, vm);
@@ -452,8 +489,9 @@ static void synchronize(Parser* parser, Scanner* scanner) {
 static void statement(Parser* parser, Scanner* scanner, VM* vm) {
   if(match(parser, scanner, TOKEN_PRINT)) {
     printStatement(parser, scanner, vm);
-  }
-  else if(match(parser, scanner, TOKEN_BEGIN_BLOCK)) {
+  } else if(match(parser, scanner, TOKEN_IF)) {
+    ifStatement(parser, scanner, vm);
+  } else if(match(parser, scanner, TOKEN_BEGIN_BLOCK)) {
     beginScope();
     block(parser, scanner, vm);
     endScope(parser);

@@ -175,6 +175,26 @@ static Token string(Scanner* scanner) {
   return makeToken(scanner, TOKEN_STRING);
 }
 
+static void checkUnindent(Scanner* scanner) {
+  if(scanner->isIndent) {
+    int localTabCount = 0;
+    while(peekNext(scanner) == '\t') {
+      localTabCount++;
+      advance(scanner);
+    }
+    if(peek(scanner) == '\t') {
+      advance(scanner);
+    }
+    if(localTabCount < scanner->indentLevel) {
+      scanner->isUnindent = true;
+      scanner->indentLevel--;
+    }
+    if(scanner->indentLevel == 0) {
+      scanner->isIndent = false;
+    }
+  }
+}
+
 Token scanToken(Scanner* scanner) {
   if(scanner->isUnindent) {
     scanner->isUnindent = false;
@@ -197,25 +217,17 @@ Token scanToken(Scanner* scanner) {
     case ')': return makeToken(scanner, TOKEN_RIGHT_PAREN);
     case '{': return makeToken(scanner, TOKEN_LEFT_BRACE);
     case '}': return makeToken(scanner, TOKEN_RIGHT_BRACE);
-    case ':': scanner->isIndent = true; scanner->indentLevel++; return makeToken(scanner, TOKEN_BEGIN_BLOCK);
-    case '\n': {
-      if(scanner->isIndent) {
-        int localTabCount = 0;
-        while(peekNext(scanner) == '\t') {
-          localTabCount++;
-          advance(scanner);
-        }
-        if(peek(scanner) == '\t') {
-          advance(scanner);
-        }
-        if(localTabCount < scanner->indentLevel) {
-          scanner->isUnindent = true;
-          scanner->indentLevel--;
-        }
-        if(scanner->indentLevel == 0) {
-          scanner->isIndent = false;
-        }
+    case ':': {
+      scanner->isIndent = true;
+      scanner->indentLevel++;
+      if(peekNext(scanner) == '\t') {
+        advance(scanner);
+        checkUnindent(scanner);
       }
+      return makeToken(scanner, TOKEN_BEGIN_BLOCK);
+    }
+    case '\n': {
+      checkUnindent(scanner);
       return makeToken(scanner, TOKEN_NEWLINE);
     }
     case ',': return makeToken(scanner, TOKEN_COMMA);
