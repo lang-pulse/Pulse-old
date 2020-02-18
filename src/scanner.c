@@ -8,6 +8,9 @@ void initScanner(Scanner* scanner, const char* source) {
   scanner->start = source;
   scanner->current = source;
   scanner->line = 1;
+  scanner->indentLevel = 0;
+  scanner->isIndent = false;
+  scanner->isUnindent = false;
 }
 
 static bool isAlpha(char c) {
@@ -72,7 +75,6 @@ static void skipWhitespace(Scanner* scanner) {
     switch(c) {
       case ' ':
       case '\r':
-      case '\t':
         advance(scanner);
         break;
 
@@ -174,6 +176,11 @@ static Token string(Scanner* scanner) {
 }
 
 Token scanToken(Scanner* scanner) {
+  if(scanner->isUnindent) {
+    scanner->isUnindent = false;
+    return makeToken(scanner, TOKEN_UNINDENT);
+  }
+
   skipWhitespace(scanner);
 
   scanner->start = scanner->current;
@@ -190,7 +197,27 @@ Token scanToken(Scanner* scanner) {
     case ')': return makeToken(scanner, TOKEN_RIGHT_PAREN);
     case '{': return makeToken(scanner, TOKEN_LEFT_BRACE);
     case '}': return makeToken(scanner, TOKEN_RIGHT_BRACE);
-    case '\n': scanner->line++; return makeToken(scanner, TOKEN_NEWLINE);
+    case ':': scanner->isIndent = true; scanner->indentLevel++; return makeToken(scanner, TOKEN_BEGIN_BLOCK);
+    case '\n': {
+      if(scanner->isIndent) {
+        int localTabCount = 0;
+        while(peekNext(scanner) == '\t') {
+          localTabCount++;
+          advance(scanner);
+        }
+        if(peek(scanner) == '\t') {
+          advance(scanner);
+        }
+        if(localTabCount < scanner->indentLevel) {
+          scanner->isUnindent = true;
+          scanner->indentLevel--;
+        }
+        if(scanner->indentLevel == 0) {
+          scanner->isIndent = false;
+        }
+      }
+      return makeToken(scanner, TOKEN_NEWLINE);
+    }
     case ',': return makeToken(scanner, TOKEN_COMMA);
     case '.': return makeToken(scanner, TOKEN_DOT);
     case '-': return makeToken(scanner, TOKEN_MINUS);
@@ -205,6 +232,5 @@ Token scanToken(Scanner* scanner) {
     case '>': return makeToken(scanner, match(scanner, '=') ? TOKEN_GREATER_EQUAL: TOKEN_GREATER);
     case '"': return string(scanner);
   }
-
   return errorToken(scanner, "Unexpected character.");
 }

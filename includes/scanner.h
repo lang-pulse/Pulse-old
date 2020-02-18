@@ -5,6 +5,7 @@ typedef enum {
   // Single-character tokens.
   TOKEN_LEFT_PAREN, TOKEN_RIGHT_PAREN,
   TOKEN_LEFT_BRACE, TOKEN_RIGHT_BRACE,
+  TOKEN_INDENT, TOKEN_UNINDENT, TOKEN_BEGIN_BLOCK,
   TOKEN_COMMA, TOKEN_DOT, TOKEN_MODULO,
   TOKEN_MINUS, TOKEN_NEWLINE, TOKEN_POWER,
   TOKEN_PLUS, TOKEN_SLASH, TOKEN_STAR,
@@ -39,6 +40,9 @@ typedef struct {
   const char* start;
   const char* current;
   int line;
+  int indentLevel;
+  bool isIndent;
+  bool isUnindent;
 } Scanner;
 
 void initScanner(Scanner* scanner, const char* source);

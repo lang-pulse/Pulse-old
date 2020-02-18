@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../includes/common.h"
 #include "../includes/compiler.h"
@@ -8,6 +9,7 @@
 #include "../includes/debug.h"
 
 Iota* compilingIota;
+Compiler* current = NULL;
 
 static Iota* currentIota() {
   return compilingIota;
@@ -98,10 +100,31 @@ static void emitConstant(Parser* parser, Value value) {
   emitBytes(parser, OP_CONSTANT, makeConstant(parser, value));
 }
 
+static void initCompiler(Compiler* compiler) {
+  compiler->localCount = 0;
+  compiler->scopeDepth = 0;
+  current = compiler;
+}
+
 static void endCompiler(Parser* parser) {
   emitReturn(parser);
   if(!parser->hadError) {
     disassembleIota(currentIota(), "code");
+  }
+}
+
+static void beginScope() {
+  current->scopeDepth++;
+}
+
+static void endScope(Parser* parser) {
+  current->scopeDepth--;
+
+  while (current->localCount > 0 &&
+         current->locals[current->localCount - 1].depth >
+            current->scopeDepth) {
+    emitByte(parser, OP_POP);
+    current->localCount--;
   }
 }
 
@@ -111,6 +134,7 @@ static void declaration(Parser* parser, Scanner* scanner, VM* vm);
 static ParseRule* getRule(TokenType type);
 static void parsePrecedence(Parser* parser, Scanner* scanner, Precedence precedence, VM* vm);
 static uint8_t identifierConstant(Parser* parser, Token* name, VM* vm);
+static int resolveLocal(Parser* parser, Compiler* compiler, Token* name);
 
 static void binary(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   // Remember the operator
@@ -164,13 +188,22 @@ static void string(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
 }
 
 static void namedVariable(Parser* parser, Scanner* scanner, Token name, VM* vm, bool canAssign) {
-  uint8_t arg = identifierConstant(parser, &name, vm);
+  uint8_t getOp, setOp;
+  int arg = resolveLocal(parser, current, &name);
+  if (arg != -1) {
+    getOp = OP_GET_LOCAL;
+    setOp = OP_SET_LOCAL;
+  } else {
+    arg = identifierConstant(parser, &name, vm);
+    getOp = OP_GET_GLOBAL;
+    setOp = OP_SET_GLOBAL;
+  }
 
   if(canAssign && match(parser, scanner, TOKEN_EQUAL)) {
     expression(parser, scanner, vm);
-    emitBytes(parser, OP_SET_GLOBAL, arg);
+    emitBytes(parser, setOp, (uint8_t)arg);
   } else {
-    emitBytes(parser, OP_GET_GLOBAL, arg);
+    emitBytes(parser, getOp, (uint8_t)arg);
   }
 }
 
@@ -198,6 +231,9 @@ ParseRule rules[] = {
   { NULL,     NULL,    PREC_NONE },       // TOKEN_RIGHT_PAREN
   { NULL,     NULL,    PREC_NONE },       // TOKEN_LEFT_BRACE
   { NULL,     NULL,    PREC_NONE },       // TOKEN_RIGHT_BRACE
+  { NULL,     NULL,    PREC_NONE },       // TOKEN_INDENT
+  { NULL,     NULL,    PREC_NONE },       // TOKEN_UNINDENT
+  { NULL,     NULL,    PREC_NONE },       // TOKEN_BEGIN_BLOCK
   { NULL,     NULL,    PREC_NONE },       // TOKEN_COMMA
   { NULL,     NULL,    PREC_NONE },       // TOKEN_DOT
   { NULL,     binary,  PREC_FACTOR },     // TOKEN_MODULO
@@ -265,9 +301,69 @@ static uint8_t identifierConstant(Parser* parser, Token* name, VM* vm) {
   return makeConstant(parser, OBJ_VAL(copyString(name->start, name->length, vm)));
 }
 
+static bool identifiersEqual(Token* a, Token* b) {
+  if (a->length != b->length) return false;
+  return memcmp(a->start, b->start, a->length) == 0;
+}
+
+static int resolveLocal(Parser* parser, Compiler* compiler, Token* name) {
+  for (int i = compiler->localCount - 1; i >= 0; i--) {
+    Local* local = &compiler->locals[i];
+    if (identifiersEqual(name, &local->name)) {
+      if (local->depth == -1) {
+        error(parser, "Cannot read local variable in its own initializer.");
+      }
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+static void addLocal(Parser* parser, Token name) {
+  if (current->localCount == UINT8_COUNT) {
+    error(parser, "Too many local variables in function.");
+    return;
+  }
+
+  Local* local = &current->locals[current->localCount++];
+  local->name = name;
+  local->depth = -1;
+  local->depth = current->scopeDepth;
+}
+
+static void declareVariable(Parser* parser) {
+  // Global variables are implicitly declared.
+  if (current->scopeDepth == 0) return;
+
+  Token* name = &parser->previous;
+
+  for (int i = current->localCount - 1; i >= 0; i--) {
+    Local* local = &current->locals[i];
+    if (local->depth != -1 && local->depth < current->scopeDepth) {
+      break;
+    }
+
+    if (identifiersEqual(name, &local->name)) {
+      error(parser, "Variable with this name already declared in this scope.");
+    }
+  }
+
+  addLocal(parser, *name);
+}
+
 static uint8_t parseVariable(Parser* parser, Scanner* scanner, VM* vm, const char* errorMessage) {
   consume(parser, scanner, TOKEN_IDENTIFIER, errorMessage);
+
+  declareVariable(parser);
+  if (current->scopeDepth > 0) return 0;
+
   return identifierConstant(parser, &parser->previous, vm);
+}
+
+static void markInitialized() {
+  current->locals[current->localCount - 1].depth =
+      current->scopeDepth;
 }
 
 static void namedParser(Parser* parser, Token name, VM* vm) {
@@ -276,6 +372,11 @@ static void namedParser(Parser* parser, Token name, VM* vm) {
 }
 
 static void defineVariable(Parser* parser, uint8_t global) {
+  if (current->scopeDepth > 0) {
+    markInitialized();
+    return;
+  }
+
   emitBytes(parser, OP_DEFINE_GLOBAL, global);
 }
 
@@ -285,6 +386,14 @@ static ParseRule* getRule(TokenType type) {
 
 static void expression(Parser* parser, Scanner* scanner, VM* vm) {
   parsePrecedence(parser, scanner, PREC_ASSIGNMENT, vm);
+}
+
+static void block(Parser* parser, Scanner* scanner, VM* vm) {
+  while (!check(parser, TOKEN_UNINDENT) && !check(parser, TOKEN_EOF)) {
+    declaration(parser, scanner, vm);
+  }
+
+  consume(parser, scanner, TOKEN_UNINDENT, "Expect 'unindent' after block.");
 }
 
 static void varDeclaration(Parser* parser, Scanner* scanner, VM* vm) {
@@ -343,7 +452,13 @@ static void synchronize(Parser* parser, Scanner* scanner) {
 static void statement(Parser* parser, Scanner* scanner, VM* vm) {
   if(match(parser, scanner, TOKEN_PRINT)) {
     printStatement(parser, scanner, vm);
-  } else {
+  }
+  else if(match(parser, scanner, TOKEN_BEGIN_BLOCK)) {
+    beginScope();
+    block(parser, scanner, vm);
+    endScope(parser);
+  }
+  else {
     expressionStatement(parser, scanner, vm);
   }
 }
@@ -364,6 +479,10 @@ bool compile(const char* source, Iota* iota, VM* vm) {
   Scanner scanner;
 
   initScanner(&scanner, source);
+
+  Compiler compiler;
+  initCompiler(&compiler);
+
   compilingIota = iota;
 
   parser.hadError = false;
