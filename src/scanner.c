@@ -41,6 +41,11 @@ static char peekNext(Scanner* scanner) {
   return scanner->current[1];
 }
 
+static char peekNextZeroth(Scanner* scanner) {
+  if(isAtEnd(scanner)) return '\0';
+  return scanner->current[0];
+}
+
 static bool match(Scanner* scanner, char expected) {
   if(isAtEnd(scanner)) return false;
   if(*scanner->current != expected) return false;
@@ -178,7 +183,7 @@ static Token string(Scanner* scanner) {
 static void checkUnindent(Scanner* scanner) {
   if(scanner->isIndent) {
     int localTabCount = 0;
-    while(peekNext(scanner) == '\t') {
+    while(peekNextZeroth(scanner) == '\t') {
       localTabCount++;
       advance(scanner);
     }
@@ -220,7 +225,7 @@ Token scanToken(Scanner* scanner) {
     case ':': {
       scanner->isIndent = true;
       scanner->indentLevel++;
-      if(peekNext(scanner) == '\t') {
+      if(peekNextZeroth(scanner) == '\n') {
         advance(scanner);
         checkUnindent(scanner);
       }
