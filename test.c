@@ -8,6 +8,12 @@
 #include "includes/scanner.h"
 #include "includes/vm.h"
 
+const char *get_filename_ext(const char *filename) {
+    const char *dot = strrchr(filename, '.');
+    if(!dot || dot == filename) return "";
+    return dot + 1;
+}
+
 static void repl(VM *vm) {
   char line[1024];
   for( ; ; ) {
@@ -72,6 +78,11 @@ int main(int argc, char* argv[]) {
   if(argc == 1) {
     repl(&vm);
   } else if(argc == 2) {
+    if(strcmp(get_filename_ext(argv[1]), "pls") != 0) {
+      printf("Invalid file extension!\n");
+      printf("Usage pulse [filename]\n");
+      exit(60);
+    }
     runFile(&vm, argv[1]);
   } else {
     fprintf(stderr, "Usage: clox [path]\n");
