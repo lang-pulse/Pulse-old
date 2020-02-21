@@ -70,3 +70,11 @@ void printObject(Value value) {
 			break;
 	}
 }
+
+void printObjectFile(Value value, FILE* file) {
+	switch (OBJ_TYPE(value)) {
+		case OBJ_STRING:
+			fprintf(file, "%s", AS_CSTRING(value));
+			break;
+	}
+}

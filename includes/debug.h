@@ -4,6 +4,6 @@
 #include "iota.h"
 
 void disassembleIota(Iota* iota, const char* name);
-int disassembleInstruction(Iota* iota, int offset);
+int disassembleInstruction(Iota* iota, int offset, FILE* file);
 
 #endif

@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+#include <stdio.h>
+
 typedef struct sObj Obj;
 typedef struct sObjString ObjString;
 
@@ -47,4 +49,5 @@ void initValueArray(ValueArray* array);
 void writeValueArray(ValueArray* array, Value value);
 void freeValueArray(ValueArray* array);
 void printValue(Value value);
+void printValueFile(Value value, FILE* file);
 #endif

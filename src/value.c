@@ -36,6 +36,15 @@ void printValue(Value value){
   }
 }
 
+void printValueFile(Value value, FILE* file){
+	switch (value.type) {
+    case VAL_BOOL:   fprintf(file, AS_BOOL(value) ? "true" : "false"); break;
+    case VAL_NIL:    fprintf(file, "nil"); break;
+    case VAL_NUMBER: fprintf(file, "%g", AS_NUMBER(value)); break;
+    case VAL_OBJ:	 printObjectFile(value, file); break;
+  }
+}
+
 bool valuesEqual(Value a, Value b) {
   if (a.type != b.type) return false;
 

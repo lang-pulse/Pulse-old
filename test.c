@@ -64,7 +64,15 @@ static char* readFile(const char* path) {
 
 static void runFile(VM* vm, const char* path) {
   char* source = readFile(path);
+
+  FILE* file = fopen("temp.txt", "w");
+  fprintf(file, "%s", path);
+  fclose(file);
+
   InterpretResult result = interpret(vm, source);
+
+  remove("temp.txt");
+
   free(source);
 
   if(result == INTERPRET_COMPILE_ERROR) exit(65);

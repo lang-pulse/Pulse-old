@@ -436,9 +436,9 @@ static void expressionStatement(Parser* parser, Scanner* scanner, VM* vm) {
 }
 
 static void ifStatement(Parser* parser, Scanner* scanner, VM* vm) {
-  consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect ':' after 'if'.");
+  consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after 'if'.");
   expression(parser, scanner, vm);
-  consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect 'unindent' after condition.");
+  consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after condition.");
 
   int thenJump = emitJump(parser, OP_JUMP_IF_FALSE);
   emitByte(parser, OP_POP);
