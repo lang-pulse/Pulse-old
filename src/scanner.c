@@ -243,6 +243,7 @@ Token scanToken(Scanner* scanner) {
       checkUnindent(scanner);
       return makeToken(scanner, TOKEN_NEWLINE);
     }
+    case ';': return makeToken(scanner, TOKEN_SEMICOLON);
     case ',': return makeToken(scanner, TOKEN_COMMA);
     case '.': return makeToken(scanner, TOKEN_DOT);
     case '-': return makeToken(scanner, TOKEN_MINUS);
