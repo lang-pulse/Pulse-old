@@ -82,6 +82,17 @@ static void emitBytes(Parser* parser, uint8_t byte1, uint8_t byte2) {
   emitByte(parser, byte2);
 }
 
+static void emitLoop(Parser* parser, int loopStart) {
+  emitByte(parser, OP_LOOP);
+
+  int offset = currentIota()->count - loopStart + 2;
+  if(offset > UINT16_MAX)
+    error(parser, "Loop body too large.");
+
+  emitByte(parser, (offset >> 8) & 0xff);
+  emitByte(parser, offset & 0xff);
+}
+
 static int emitJump(Parser* parser, uint8_t instruction) {
   emitByte(parser, instruction);
   emitByte(parser, 0xff);
@@ -202,6 +213,26 @@ static void number(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   emitConstant(parser, NUMBER_VAL(value));
 }
 
+static void and_(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
+  int endJump = emitJump(parser, OP_JUMP_IF_FALSE);
+
+  emitByte(parser, OP_POP);
+  parsePrecedence(parser, scanner, PREC_AND, vm);
+
+  patchJump(parser, scanner, endJump);
+}
+
+static void or_(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
+  int elseJump = emitJump(parser, OP_JUMP_IF_FALSE);
+  int endJump = emitJump(parser, OP_JUMP);
+
+  patchJump(parser, scanner, elseJump);
+  emitByte(parser, OP_POP);
+
+  parsePrecedence(parser, scanner, PREC_OR, vm);
+  patchJump(parser, scanner, endJump);
+}
+
 static void string(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   emitConstant(parser, OBJ_VAL(copyString(parser->previous.start + 1, parser->previous.length -2, vm)));
 }
@@ -258,6 +289,7 @@ ParseRule rules[] = {
   { NULL,     binary,  PREC_FACTOR },     // TOKEN_MODULO
   { unary,    binary,  PREC_TERM },       // TOKEN_MINUS
   { NULL,     NULL,    PREC_NONE },       // TOKEN_NEWLINE
+  { NULL,     NULL,    PREC_NONE },       // TOKEN_SEMICOLON
   { NULL,     binary,  PREC_POWER },      // TOKEN_POWER
   { NULL,     binary,  PREC_TERM },       // TOKEN_PLUS
   { NULL,     binary,  PREC_FACTOR },     // TOKEN_SLASH
@@ -273,7 +305,7 @@ ParseRule rules[] = {
   { variable, NULL,    PREC_NONE },       // TOKEN_IDENTIFIER
   { string,   NULL,    PREC_NONE },       // TOKEN_STRING
   { number,   NULL,    PREC_NONE },       // TOKEN_NUMBER
-  { NULL,     NULL,    PREC_NONE },       // TOKEN_AND
+  { NULL,     and_,    PREC_AND },        // TOKEN_AND
   { NULL,     NULL,    PREC_NONE },       // TOKEN_CLASS
   { NULL,     NULL,    PREC_NONE },       // TOKEN_DEF
   { NULL,     NULL,    PREC_NONE },       // TOKEN_ELSE
@@ -282,7 +314,7 @@ ParseRule rules[] = {
   { NULL,     NULL,    PREC_NONE },       // TOKEN_FUN
   { NULL,     NULL,    PREC_NONE },       // TOKEN_IF
   { literal,  NULL,    PREC_NONE },       // TOKEN_NIL
-  { NULL,     NULL,    PREC_NONE },       // TOKEN_OR
+  { NULL,     or_,     PREC_OR },         // TOKEN_OR
   { NULL,     NULL,    PREC_NONE },       // TOKEN_PRINT
   { NULL,     NULL,    PREC_NONE },       // TOKEN_RETURN
   { NULL,     NULL,    PREC_NONE },       // TOKEN_SUPER
@@ -429,10 +461,79 @@ static void varDeclaration(Parser* parser, Scanner* scanner, VM* vm) {
   defineVariable(parser, global);
 }
 
+static void varForDeclaration(Parser* parser, Scanner* scanner, VM* vm) {
+  uint8_t global = parseVariable(parser, scanner, vm, "Expect variable name.");
+
+  if(match(parser, scanner, TOKEN_EQUAL)) {
+    expression(parser, scanner, vm);
+  } else {
+    emitByte(parser, OP_NIL);
+  }
+
+  consume(parser, scanner, TOKEN_SEMICOLON, "Expect ';' after for variable declaration.");
+
+  defineVariable(parser, global);
+}
+
 static void expressionStatement(Parser* parser, Scanner* scanner, VM* vm) {
   expression(parser, scanner, vm);
   consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' character after expression.");
   emitByte(parser, OP_POP);
+}
+
+static void expressionForStatement(Parser* parser, Scanner* scanner, VM* vm) {
+  expression(parser, scanner, vm);
+  consume(parser, scanner, TOKEN_SEMICOLON, "Expect ';' character after expression.");
+  emitByte(parser, OP_POP);
+}
+
+static void forStatement(Parser* parser, Scanner* scanner, VM* vm) {
+  beginScope();
+
+  consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after 'for'.");
+
+  if (match(parser, scanner, TOKEN_SEMICOLON)) {
+    // No initializer.
+  } else if (match(parser, scanner, TOKEN_VAR)) {
+    varForDeclaration(parser, scanner, vm);
+  } else {
+    expressionForStatement(parser, scanner, vm);
+  }
+
+  int loopStart = currentIota()->count;
+
+  int exitJump = -1;
+  if(!match(parser, scanner, TOKEN_SEMICOLON)) {
+    expression(parser, scanner, vm);
+    consume(parser, scanner, TOKEN_SEMICOLON, "Expect ';' after loop condition.");
+
+    exitJump = emitJump(parser, OP_JUMP_IF_FALSE);
+    emitByte(parser, OP_POP);
+  }
+
+  if(!match(parser, scanner, TOKEN_RIGHT_PAREN)) {
+    int bodyJump = emitJump(parser, OP_JUMP);
+
+    int incrementStart = currentIota()->count;
+    expression(parser, scanner, vm);
+    emitByte(parser, OP_POP);
+    consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after for clauses.");
+
+    emitLoop(parser, loopStart);
+    loopStart = incrementStart;
+    patchJump(parser, scanner, bodyJump);
+  }
+
+  statement(parser, scanner, vm);
+
+  emitLoop(parser, loopStart);
+
+  if(exitJump != -1) {
+    patchJump(parser, scanner, exitJump);
+    emitByte(parser, OP_POP);
+  }
+
+  endScope(parser);
 }
 
 static void ifStatement(Parser* parser, Scanner* scanner, VM* vm) {
@@ -459,6 +560,24 @@ static void printStatement(Parser* parser, Scanner* scanner, VM* vm) {
   consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after expression in print.");
   consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' character after print.");
   emitByte(parser, OP_PRINT);
+}
+
+static void whileStatement(Parser* parser, Scanner* scanner, VM* vm) {
+  int loopStart = currentIota()->count;
+
+  consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after 'while'.");
+  expression(parser, scanner, vm);
+  consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after condition.");
+
+  int exitJump = emitJump(parser, OP_JUMP_IF_FALSE);
+
+  emitByte(parser, OP_POP);
+  statement(parser, scanner, vm);
+
+  emitLoop(parser, loopStart);
+
+  patchJump(parser, scanner, exitJump);
+  emitByte(parser, OP_POP);
 }
 
 static void synchronize(Parser* parser, Scanner* scanner) {
@@ -489,8 +608,12 @@ static void synchronize(Parser* parser, Scanner* scanner) {
 static void statement(Parser* parser, Scanner* scanner, VM* vm) {
   if(match(parser, scanner, TOKEN_PRINT)) {
     printStatement(parser, scanner, vm);
+  } else if(match(parser, scanner, TOKEN_FOR)) {
+    forStatement(parser, scanner, vm);
   } else if(match(parser, scanner, TOKEN_IF)) {
     ifStatement(parser, scanner, vm);
+  } else if(match(parser, scanner, TOKEN_WHILE)) {
+    whileStatement(parser, scanner, vm);
   } else if(match(parser, scanner, TOKEN_BEGIN_BLOCK)) {
     beginScope();
     block(parser, scanner, vm);
