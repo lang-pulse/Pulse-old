@@ -11,6 +11,7 @@ void initScanner(Scanner* scanner, const char* source) {
   scanner->indentLevel = 0;
   scanner->isIndent = false;
   scanner->isUnindent = false;
+  scanner->unindentLevel = 0;
 }
 
 static bool isAlpha(char c) {
@@ -192,7 +193,11 @@ static void checkUnindent(Scanner* scanner) {
     }
     if(localTabCount < scanner->indentLevel) {
       scanner->isUnindent = true;
-      scanner->indentLevel--;
+      scanner->unindentLevel = scanner->indentLevel - localTabCount - 1;
+      if(localTabCount == 0)
+        scanner->indentLevel = 0;
+      else
+        scanner->indentLevel--;
     }
     if(scanner->indentLevel == 0) {
       scanner->isIndent = false;
@@ -202,7 +207,10 @@ static void checkUnindent(Scanner* scanner) {
 
 Token scanToken(Scanner* scanner) {
   if(scanner->isUnindent) {
-    scanner->isUnindent = false;
+    if(scanner->unindentLevel == 0)
+      scanner->isUnindent = false;
+    else
+      scanner->unindentLevel--;
     return makeToken(scanner, TOKEN_UNINDENT);
   }
 

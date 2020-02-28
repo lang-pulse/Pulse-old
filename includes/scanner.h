@@ -43,6 +43,7 @@ typedef struct {
   int indentLevel;
   bool isIndent;
   bool isUnindent;
+  int unindentLevel;
 } Scanner;
 
 void initScanner(Scanner* scanner, const char* source);
