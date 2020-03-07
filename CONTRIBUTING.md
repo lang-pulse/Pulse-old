@@ -1,3 +1,3 @@
 # How to contribute to Pulse?
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tG_y5o9qkNk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Pulse Contributing](https://img.youtube.com/vi/VID/0.jpg)](https://youtu.be/tG_y5o9qkNk)
