@@ -191,6 +191,7 @@
 <details>
   <summary>Print Statements</summary>
   
+  A very basic hello world code in pulse.
   ```console
   print("Hello World")
   ```
