@@ -189,9 +189,10 @@
 <hr />
 
 <details>
-  <summary>Print Statements</summary>
+  <summary>Print statement</summary>
   
-  A very basic hello world code in pulse.
+  ### Syntax of print statement
+  
   ```console
   print("Hello World")
   ```
