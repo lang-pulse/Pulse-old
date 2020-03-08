@@ -54,6 +54,8 @@
 <b>Result = 8</b>
 </details>
 
+<hr />
+
 <details>
   <summary><b>Variables</b></summary>
 
