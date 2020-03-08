@@ -51,3 +51,26 @@
 2 ^ 3
 ```
 <b>Result = 8</b>
+
+## Variables
+
+### Declaring a variable
+
+```console
+var a
+```
+<b>Note: Here a is name of variable.</b>
+
+### Initializing a variable
+
+```console
+var a = 2
+```
+<b>Note: Here a is name of variable and it gets a value of 2.</b>
+
+### Assigning value to a variable
+
+```console
+a = 3
+```
+<b>Note: Here a is name of variable, we also assume here that a is declared earler in the code.</b>
