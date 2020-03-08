@@ -183,4 +183,4 @@
   <b>Result = hellohello<b/>
   <b>Note: The order of the operands is trivial, 2 * "hello" and "hello" * 2 will produce same results.</b>
   
-<details>
+</details>
