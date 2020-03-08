@@ -243,6 +243,8 @@
   
 </details>
 
+<hr />
+
 <details>
   <summary><b>Looping statements</b></summary>
   
