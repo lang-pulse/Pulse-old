@@ -161,6 +161,26 @@
   ```
   <b>Note: Strings should be enclosed within double quotes (" ") in pulse, single quotes (' ') are not supported yet.</b>
   
+  ### String operations
   
+  1) String equality:-
+  
+  ```console
+  "hello" == "hello"
+  ```
+  <b>Result = true</b>
+  
+  2) String concatenation:-
+  ```console
+  "hello" + " world"
+  ```
+  <b>Result = hello world</b>
+  
+  3) String multiplication:-
+  ```console
+  "hello" * 2
+  ```
+  <b>Result = hellohello<b/>
+  <b>Note: The order of the operands is trivial, 2 * "hello" and "hello" * 2 will produce same results.</b>
   
 <details>
