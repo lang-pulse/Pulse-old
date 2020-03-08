@@ -242,3 +242,29 @@
   ```
   
 </details>
+
+<details>
+  <summary><b>Looping statements</b></summary>
+  
+  ### While statement
+  
+  ```console
+  var i = 0
+  while(i < 10):
+     print(i)
+     i = i + 1
+  ```
+  <b>Result:<br>
+  0 <br>
+  1 <br>
+  2 <br>
+  3 <br>
+  4 <br>
+  5 <br>
+  6 <br>
+  7 <br>
+  8 <br>
+  9 <br>
+  </b>
+  
+</details>
