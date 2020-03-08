@@ -54,7 +54,8 @@
 <b>Result = 8</b>
 </details>
 
-## Variables
+<details>
+  <summary><b>Variables</b></summary>
 
 ### Declaring a variable
 
@@ -76,3 +77,4 @@ var a = 2
 a = 3
 ```
 <b>Note: Here a is name of variable, we also assume here that a is declared earler in the code.</b>
+</details>
