@@ -199,6 +199,8 @@
   
 </details>
 
+<hr />
+
 <details>
   <summary>Conditional statements</summary>
   
@@ -214,6 +216,29 @@
     Inside if
   </b>
   <br><br>
-  <b>Note: In pulse, for creating blocks indentation is used (like Python). A block begins with : and every line that is indented (one tab to the right) of the immediately above block is part of that block.</b>
+  <b>Note: In pulse, for creating blocks indentation is used (like Python). A block begins with : and every line that is indented (one tab to the right) of the immediately above block is part of that block. To put a statement outside of a block, it should be unindented (one tab backwards, indentation becomes equal to the immediate upper block).</b>
+  
+  ### If-else statement
+  
+  ```console
+  if(1 > 2):
+    print("1 is greater than 2")
+  else:
+    print("1 is lesser than 2")
+  ```
+  <b>Result: 1 is greater than 2</b>
+  
+  
+  ### Nested if-else statement
+  
+  ```console
+  if(1 > 2):
+    print("1 is greater than 2")
+  else:
+    if(1 < 2):
+      print("1 is lesser than 2")
+    else:
+      print("There is some error")
+  ```
   
 </details>
