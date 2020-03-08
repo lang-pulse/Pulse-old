@@ -181,6 +181,7 @@
   "hello" * 2
   ```
   <b>Result = hellohello<b/>
+  <br><br>
   <b>Note: The order of the operands is trivial, 2 * "hello" and "hello" * 2 will produce same results.</b>
   
 </details>
