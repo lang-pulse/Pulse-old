@@ -6,6 +6,7 @@
 
 # Syntax
 
+<details>
 ## Operators
 
 ### Arithmetic operators
@@ -51,6 +52,7 @@
 2 ^ 3
 ```
 <b>Result = 8</b>
+</details>
 
 ## Variables
 
