@@ -198,3 +198,22 @@
   ```
   
 </details>
+
+<details>
+  <summary>Conditional statements</summary>
+  
+  ### If statement
+  
+  ```console
+  if(1 < 2):
+    print("1 is less than 2")
+    print("Inside if")
+  ```
+  <b>Result:<br> 
+    1 is less than 2 <br>
+    Inside if
+  </b>
+  <br><br>
+  <b>Note: In pulse, for creating blocks indentation is used (like Python). A block begins with : and every line that is indented (one tab to the right) of the immediately above block is part of that block.</b>
+  
+</details>
