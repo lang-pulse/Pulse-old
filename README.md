@@ -7,7 +7,7 @@
 # Syntax
 
 <details>
-## Operators
+  <summary><b>Operators</b></summary>
 
 ### Arithmetic operators
 
