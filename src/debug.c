@@ -5,8 +5,6 @@
 #include "../includes/value.h"
 
 void disassembleIota(Iota* iota, const char* name){
-	printf("== %s ==\n", name);
-
 	FILE* file = fopen("temp.txt", "r");
 
 	char filename[50];
@@ -16,7 +14,9 @@ void disassembleIota(Iota* iota, const char* name){
 
 	strcat(filename, ".bc");
 
-	file = fopen(filename, "w");
+	file = fopen(filename, "a");
+
+	fprintf(file, "== %s ==\n", name);
 
 	for (int offset=0; offset < iota->count;){
 		offset = disassembleInstruction(iota, offset, file);
@@ -106,6 +106,17 @@ int disassembleInstruction(Iota* iota, int offset, FILE* file){
 	      return jumpInstruction("OP_JUMP_IF_FALSE", 1, iota, offset, file);
 			case OP_LOOP:
 				return jumpInstruction("OP_LOOP", -1, iota, offset, file);
+			case OP_CALL:
+				return byteInstruction("OP_CALL", iota, offset, file);
+			case OP_CLOSURE: {
+				offset++;
+				uint8_t constant = iota->code[offset++];
+				fprintf(file, "%-16s %4d ", "OP_CLOSURE", constant);
+				printValueFile(iota->constants.values[constant], file);
+				fprintf(file, "\n");
+
+				return offset;
+			}
 			case OP_RETURN:
 				return simpleInstruction("OP_RETURN", offset, file);
 			default:

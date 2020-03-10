@@ -91,6 +91,12 @@ int main(int argc, char* argv[]) {
       printf("Usage pulse [filename]\n");
       exit(60);
     }
+    char* temp = argv[1];
+    remove(strcat(temp, ".bc"));
+    int len = strlen(argv[1]);
+    argv[1][len - 1] = '\0';
+    argv[1][len - 2] = '\0';
+    argv[1][len - 3] = '\0';
     runFile(&vm, argv[1]);
   } else {
     fprintf(stderr, "Usage: clox [path]\n");
