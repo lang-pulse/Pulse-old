@@ -20,27 +20,6 @@ static Obj* allocateObject(size_t size, ObjType type, VM* vm) {
 	return object;
 }
 
-ObjClosure* newClosure(ObjFunction* function, VM* vm) {
-	ObjClosure* closure = ALLOCATE_OBJ(ObjClosure, OBJ_CLOSURE, vm);
-	closure->function = function;
-	return closure;
-}
-
-ObjFunction* newFunction(VM* vm) {
-	ObjFunction* function = ALLOCATE_OBJ(ObjFunction, OBJ_FUNCTION, vm);
-
-	function->arity = 0;
-	function->name = NULL;
-	initIota(&function->iota);
-	return function;
-}
-
-ObjNative* newNative(NativeFn function, VM* vm) {
-	ObjNative* native = ALLOCATE_OBJ(ObjNative, OBJ_NATIVE, vm);
-	native->function = function;
-	return native;
-}
-
 static ObjString* allocateString(char* chars, int length, uint32_t hash, VM* vm) {
 	ObjString* string = ALLOCATE_OBJ(ObjString, OBJ_STRING, vm);
 	string->length = length;
@@ -84,33 +63,8 @@ ObjString* copyString(const char* chars, int length, VM* vm) {
 	return allocateString(heapChars, length, hash, vm);
 }
 
-static void printFunction(ObjFunction* function) {
-	if(function->name == NULL) {
-		printf("<script>");
-		return;
-	}
-	printf("<fn %s>\n", function->name->chars);
-}
-
-static void printFunctionFile(ObjFunction* function, FILE* file) {
-	if(function->name == NULL) {
-		fprintf(file, "<script>");
-		return;
-	}
-	fprintf(file, "<fn %s>", function->name->chars);
-}
-
 void printObject(Value value) {
 	switch (OBJ_TYPE(value)) {
-		case OBJ_CLOSURE:
-			printFunction(AS_CLOSURE(value)->function);
-			break;
-		case OBJ_FUNCTION:
-			printFunction(AS_FUNCTION(value));
-			break;
-		case OBJ_NATIVE:
-			printf("<native fn>");
-			break;
 		case OBJ_STRING:
 			printf("%s", AS_CSTRING(value));
 			break;
@@ -119,15 +73,6 @@ void printObject(Value value) {
 
 void printObjectFile(Value value, FILE* file) {
 	switch (OBJ_TYPE(value)) {
-		case OBJ_CLOSURE:
-			printFunctionFile(AS_CLOSURE(value)->function, file);
-			break;
-		case OBJ_FUNCTION:
-			printFunctionFile(AS_FUNCTION(value), file);
-			break;
-		case OBJ_NATIVE:
-			fprintf(file, "<native fn>");
-			break;
 		case OBJ_STRING:
 			fprintf(file, "%s", AS_CSTRING(value));
 			break;

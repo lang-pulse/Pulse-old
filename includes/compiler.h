@@ -11,15 +11,7 @@ typedef struct {
   int depth;
 } Local;
 
-typedef enum {
-  TYPE_FUNCTION,
-  TYPE_SCRIPT
-} FunctionType;
-
 typedef struct Compiler {
-  struct Compiler* enclosing;
-  ObjFunction* function;
-  FunctionType type;
   Local locals[UINT8_COUNT];
   int localCount;
   int scopeDepth;
@@ -55,7 +47,6 @@ typedef struct {
   Precedence precedence;
 } ParseRule;
 
-ObjFunction* compile(const char* source, VM* vm);
-ObjFunction* newFunction(VM* vm);
+bool compile(const char* source, Iota* iota, VM* vm);
 
 #endif

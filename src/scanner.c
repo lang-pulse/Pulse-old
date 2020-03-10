@@ -85,22 +85,13 @@ static void skipWhitespace(Scanner* scanner) {
         break;
 
       case '#':
-        while(peek(scanner) != '\n' && !isAtEnd(scanner))
-          advance(scanner);
-        if(!isAtEnd(scanner))
-          advance(scanner);
+        while(peek(scanner) != '\n' && !isAtEnd(scanner)) advance(scanner);
         break;
 
       case '/':
         if(peekNext(scanner) == '*') {
-          advance(scanner);
-          advance(scanner);
-          while(peek(scanner) != '*' && !isAtEnd(scanner)) {
-            advance(scanner);
-          }
+          while(peek(scanner) != '*' && !isAtEnd(scanner)) advance(scanner);
           if(peekNext(scanner) == '/') {
-            advance(scanner);
-            advance(scanner);
             advance(scanner);
             break;
           } else {

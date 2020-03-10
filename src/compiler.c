@@ -12,7 +12,7 @@ Iota* compilingIota;
 Compiler* current = NULL;
 
 static Iota* currentIota() {
-  return &current->function->iota;
+  return compilingIota;
 }
 
 static void errorAt(Parser* parser, Token* token, const char* message) {
@@ -101,7 +101,6 @@ static int emitJump(Parser* parser, uint8_t instruction) {
 }
 
 static void emitReturn(Parser* parser) {
-  emitByte(parser, OP_NIL);
   emitByte(parser, OP_RETURN);
 }
 
@@ -131,34 +130,17 @@ static void patchJump(Parser* parser, Scanner* scanner, int offset) {
   currentIota()->code[offset + 1] = jump & 0xff;
 }
 
-static void initCompiler(Compiler* compiler, Parser* parser, VM* vm, FunctionType type) {
-  compiler->enclosing = current;
-  compiler->function = NULL;
-  compiler->type = type;
+static void initCompiler(Compiler* compiler) {
   compiler->localCount = 0;
   compiler->scopeDepth = 0;
-  compiler->function = newFunction(vm);
   current = compiler;
-
-  if(type != TYPE_SCRIPT)
-    current->function->name = copyString(parser->previous.start, parser->previous.length, vm);
-
-  Local* local = &current->locals[current->localCount++];
-  local->depth = 0;
-  local->name.start = "";
-  local->name.length = 0;
 }
 
-static ObjFunction* endCompiler(Parser* parser) {
+static void endCompiler(Parser* parser) {
   emitReturn(parser);
-  ObjFunction* function = current->function;
   if(!parser->hadError) {
-    disassembleIota(currentIota(),
-                    function->name != NULL ? function->name->chars : "<script>");
+    disassembleIota(currentIota(), "code");
   }
-  current = current->enclosing;
-
-  return function;
 }
 
 static void beginScope() {
@@ -183,7 +165,6 @@ static ParseRule* getRule(TokenType type);
 static void parsePrecedence(Parser* parser, Scanner* scanner, Precedence precedence, VM* vm);
 static uint8_t identifierConstant(Parser* parser, Token* name, VM* vm);
 static int resolveLocal(Parser* parser, Compiler* compiler, Token* name);
-static uint8_t argumentList(Parser* parser, Scanner* scanner, VM* vm);
 
 static void binary(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
   // Remember the operator
@@ -210,11 +191,6 @@ static void binary(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
     default:
       return; // Unreachable
   }
-}
-
-static void call(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
-  uint8_t argCount = argumentList(parser, scanner, vm);
-  emitBytes(parser, OP_CALL, argCount);
 }
 
 static void literal(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
@@ -267,12 +243,7 @@ static void namedVariable(Parser* parser, Scanner* scanner, Token name, VM* vm, 
   if (arg != -1) {
     getOp = OP_GET_LOCAL;
     setOp = OP_SET_LOCAL;
-  }
-  // else if((arg = resolveUpvalue(current, &name)) != -1) {
-  //   getOp = OP_GET_UPVALUE;
-  //   setOP = OP_SET_UPVALUE;
-  // }
-   else {
+  } else {
     arg = identifierConstant(parser, &name, vm);
     getOp = OP_GET_GLOBAL;
     setOp = OP_SET_GLOBAL;
@@ -306,7 +277,7 @@ static void unary(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
 }
 
 ParseRule rules[] = {
-  { grouping, call,    PREC_CALL },       // TOKEN_LEFT_PAREN
+  { grouping, NULL,    PREC_NONE },       // TOKEN_LEFT_PAREN
   { NULL,     NULL,    PREC_NONE },       // TOKEN_RIGHT_PAREN
   { NULL,     NULL,    PREC_NONE },       // TOKEN_LEFT_BRACE
   { NULL,     NULL,    PREC_NONE },       // TOKEN_RIGHT_BRACE
@@ -340,6 +311,7 @@ ParseRule rules[] = {
   { NULL,     NULL,    PREC_NONE },       // TOKEN_ELSE
   { literal,  NULL,    PREC_NONE },       // TOKEN_FALSE
   { NULL,     NULL,    PREC_NONE },       // TOKEN_FOR
+  { NULL,     NULL,    PREC_NONE },       // TOKEN_FUN
   { NULL,     NULL,    PREC_NONE },       // TOKEN_IF
   { literal,  NULL,    PREC_NONE },       // TOKEN_NIL
   { NULL,     or_,     PREC_OR },         // TOKEN_OR
@@ -408,6 +380,7 @@ static void addLocal(Parser* parser, Token name) {
   Local* local = &current->locals[current->localCount++];
   local->name = name;
   local->depth = -1;
+  local->depth = current->scopeDepth;
 }
 
 static void declareVariable(Parser* parser) {
@@ -440,8 +413,6 @@ static uint8_t parseVariable(Parser* parser, Scanner* scanner, VM* vm, const cha
 }
 
 static void markInitialized() {
-  if(current->scopeDepth == 0)
-    return;
   current->locals[current->localCount - 1].depth =
       current->scopeDepth;
 }
@@ -460,23 +431,6 @@ static void defineVariable(Parser* parser, uint8_t global) {
   emitBytes(parser, OP_DEFINE_GLOBAL, global);
 }
 
-static uint8_t argumentList(Parser* parser, Scanner* scanner, VM* vm) {
-  uint8_t argCount = 0;
-  if(!check(parser, TOKEN_RIGHT_PAREN)) {
-    do {
-      expression(parser, scanner, vm);
-
-      if(argCount == 255)
-        error(parser, "Cannot have more than 255 arguments.");
-
-      argCount++;
-    } while(match(parser, scanner, TOKEN_COMMA));
-  }
-
-  consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after arguments.");
-  return argCount;
-}
-
 static ParseRule* getRule(TokenType type) {
   return &rules[type];
 }
@@ -491,41 +445,6 @@ static void block(Parser* parser, Scanner* scanner, VM* vm) {
   }
 
   consume(parser, scanner, TOKEN_UNINDENT, "Expect 'unindent' after block.");
-}
-
-static void function(FunctionType type, Parser* parser, VM* vm, Scanner* scanner) {
-  Compiler compiler;
-  initCompiler(&compiler, parser, vm, type);
-  beginScope();
-
-  consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after function name.");
-
-  if(!check(parser, TOKEN_RIGHT_PAREN)) {
-    do {
-      current->function->arity++;
-      if(current->function->arity > 255) {
-        errorAtCurrent(parser, "Cannot have more than 255 parameters.");
-      }
-
-      uint8_t paramConstant = parseVariable(parser, scanner, vm, "Expect parameters name.");
-      defineVariable(parser, paramConstant);
-    } while(match(parser, scanner, TOKEN_COMMA));
-  }
-
-  consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after parameters.");
-
-  consume(parser, scanner, TOKEN_BEGIN_BLOCK, "Expect ':' before function body.");
-  block(parser, scanner, vm);
-
-  ObjFunction* function = endCompiler(parser);
-  emitBytes(parser, OP_CLOSURE, makeConstant(parser, OBJ_VAL(function)));
-}
-
-static void funDeclaration(Parser* parser, Scanner* scanner, VM* vm) {
-  uint8_t global = parseVariable(parser, scanner, vm, "Expect function name.");
-  markInitialized();
-  function(TYPE_FUNCTION, parser, vm, scanner);
-  defineVariable(parser, global);
 }
 
 static void varDeclaration(Parser* parser, Scanner* scanner, VM* vm) {
@@ -643,20 +562,6 @@ static void printStatement(Parser* parser, Scanner* scanner, VM* vm) {
   emitByte(parser, OP_PRINT);
 }
 
-static void returnStatement(Parser* parser, Scanner* scanner, VM* vm) {
-  if(current->type == TYPE_SCRIPT) {
-    error(parser, "Cannot return from top-level code.");
-  }
-
-  if(match(parser, scanner, TOKEN_NEWLINE)) {
-    emitReturn(parser);
-  } else {
-    expression(parser, scanner, vm);
-    consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' after return value");
-    emitByte(parser, OP_RETURN);
-  }
-}
-
 static void whileStatement(Parser* parser, Scanner* scanner, VM* vm) {
   int loopStart = currentIota()->count;
 
@@ -684,7 +589,7 @@ static void synchronize(Parser* parser, Scanner* scanner) {
 
     switch(parser->current.type) {
       case TOKEN_CLASS:
-      case TOKEN_DEF:
+      case TOKEN_FUN:
       case TOKEN_VAR:
       case TOKEN_FOR:
       case TOKEN_IF:
@@ -707,8 +612,6 @@ static void statement(Parser* parser, Scanner* scanner, VM* vm) {
     forStatement(parser, scanner, vm);
   } else if(match(parser, scanner, TOKEN_IF)) {
     ifStatement(parser, scanner, vm);
-  } else if(match(parser, scanner, TOKEN_RETURN)) {
-    returnStatement(parser, scanner, vm);
   } else if(match(parser, scanner, TOKEN_WHILE)) {
     whileStatement(parser, scanner, vm);
   } else if(match(parser, scanner, TOKEN_BEGIN_BLOCK)) {
@@ -722,9 +625,7 @@ static void statement(Parser* parser, Scanner* scanner, VM* vm) {
 }
 
 static void declaration(Parser* parser, Scanner* scanner, VM* vm) {
-  if(match(parser, scanner, TOKEN_DEF)) {
-    funDeclaration(parser, scanner, vm);
-  } else if(match(parser, scanner, TOKEN_VAR)) {
+  if(match(parser, scanner, TOKEN_VAR)) {
     varDeclaration(parser, scanner, vm);
   } else {
     statement(parser, scanner, vm);
@@ -734,14 +635,16 @@ static void declaration(Parser* parser, Scanner* scanner, VM* vm) {
     synchronize(parser, scanner);
 }
 
-ObjFunction* compile(const char* source, VM* vm) {
+bool compile(const char* source, Iota* iota, VM* vm) {
   Parser parser;
   Scanner scanner;
 
   initScanner(&scanner, source);
 
   Compiler compiler;
-  initCompiler(&compiler, &parser,  vm, TYPE_SCRIPT);
+  initCompiler(&compiler);
+
+  compilingIota = iota;
 
   parser.hadError = false;
   parser.panicMode = false;
@@ -752,6 +655,7 @@ ObjFunction* compile(const char* source, VM* vm) {
     declaration(&parser, &scanner, vm);
   }
 
-  ObjFunction* function = endCompiler(&parser);
-  return parser.hadError ? NULL : function;
+  endCompiler(&parser);
+
+  return !parser.hadError;
 }
