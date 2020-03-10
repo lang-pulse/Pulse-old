@@ -3,7 +3,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 #include "../includes/common.h"
 #include "../includes/compiler.h"
@@ -14,23 +13,14 @@
 #include "../includes/vm.h"
 #include "../includes/iota.h"
 
-#define BOUND 8
-
-static void defineNative(VM* vm, const char* name, NativeFn function);
-
-static Value clockNative(int argCount, Value* args) {
-  return NUMBER_VAL((double)clock() / CLOCKS_PER_SEC);
-}
+#define BOUND 256
 
 void initVM(VM* vm) {
   vm->top = -1;
   vm->length = 0;
   vm->objects = NULL;
-  vm->frameCount = 0;
   initTable(&vm->globals);
   initTable(&vm->strings);
-
-  defineNative(vm, "clock", clockNative);
 }
 
 static void runtimeError(VM* vm, const char* format, ...) {
@@ -40,28 +30,11 @@ static void runtimeError(VM* vm, const char* format, ...) {
   va_end(args);
   fputs("\n", stderr);
 
-  for(int i = vm->frameCount - 1; i >= 0; i--) {
-    CallFrame* frame = &vm->frames[i];
-    ObjFunction* function = frame->closure->function;
-
-    size_t instruction = frame->ip - function->iota.code - 1;
-    fprintf(stderr, "[line %d] in ", function->iota.line);
-    if(function->name == NULL) {
-      fprintf(stderr, "script\n");
-    } else {
-      fprintf(stderr, "%s()\n", function->name->chars);
-    }
-  }
+  size_t instruction = vm->ip - vm->iota->code;
+  int line = vm->iota->line;
+  fprintf(stderr, "[line %d] in script\n", line);
 
   initVM(vm);
-}
-
-static void defineNative(VM* vm, const char* name, NativeFn function) {
-  push(vm, OBJ_VAL(copyString(name, (int)strlen(name), vm)));
-  push(vm, OBJ_VAL(newNative(function, vm)));
-  tableSet(&vm->globals, AS_STRING(vm->stack[0]), vm->stack[1]);
-  pop(vm);
-  pop(vm);
 }
 
 void freeVM(VM* vm) {
@@ -78,21 +51,10 @@ Value* create_new(VM* vm, Value* a) {
   return new_a;
 }
 
-void printStack(VM* vm) {
-  printf("\nStack print\n");
-  for(int i = 0; i<vm->length; i++) {
-    printValue(vm->stack[i]);
-    printf("--");
-  }
-  printf("\n");
-}
-
 void push(VM* vm, Value val) {
   if(vm->top == vm->length - 1)
     vm->stack = create_new(vm, vm->stack);
   vm->stack[++vm->top] = val;
-
-  printStack(vm);
 }
 
 Value pop(VM* vm) {
@@ -101,48 +63,6 @@ Value pop(VM* vm) {
 
 static Value peek(VM* vm, int distance) {
   return vm->stack[distance];
-}
-
-static bool call(ObjClosure* closure, int argCount, VM* vm) {
-  printf("\nFunction arity = %d, argCount = %d\n", closure->function->arity, argCount);
-  if(argCount != closure->function->arity) {
-    runtimeError(vm, "Expected %d arguments but got %d.", closure->function->arity, argCount);
-    return false;
-  }
-
-  if(vm->frameCount == FRAMES_MAX) {
-    runtimeError(vm, "Stack overflow.");
-    return false;
-  }
-
-  CallFrame* frame = &vm->frames[vm->frameCount++];
-  frame->closure = closure;
-  frame->ip = closure->function->iota.code;
-  frame->slots = &vm->stack[vm->top - argCount - 1];
-
-  return true;
-}
-
-static bool callValue(Value callee, int argCount, VM* vm) {
-  if(IS_OBJ(callee)) {
-    switch(OBJ_TYPE(callee)) {
-      case OBJ_CLOSURE:
-        return call(AS_CLOSURE(callee), argCount, vm);
-      case OBJ_NATIVE: {
-        NativeFn native = AS_NATIVE(callee);
-        Value result = native(argCount, &vm->stack[vm->top - argCount]);
-        vm->top -= argCount + 1;
-        push(vm, result);
-        return true;
-      }
-      default:
-        // Non-callable object type.
-        break;
-    }
-  }
-
-  runtimeError(vm, "Can call only functions and classes.");
-  return false;
 }
 
 static bool isFalsey(Value value) {
@@ -198,12 +118,10 @@ void power(VM* vm) {
 }
 
 static InterpretResult run(VM* vm) {
-    CallFrame* frame = &vm->frames[vm->frameCount - 1];
-
-#define READ_BYTE() (*frame->ip++)
-#define READ_CONSTANT() (frame->closure->function->iota.constants.values[READ_BYTE()])
+#define READ_BYTE() (*vm->ip++)
+#define READ_CONSTANT() (vm->iota->constants.values[READ_BYTE()])
 #define READ_SHORT() \
-    (frame->ip += 2, (uint16_t)((frame->ip[-2] << 8) | frame->ip[-1]))
+    (vm->ip += 2, (uint16_t)((vm->ip[-2] << 8) | vm->ip[-1]))
 #define READ_STRING() AS_STRING(READ_CONSTANT())
 
 #define BINARY_OP(valueType, op) \
@@ -227,7 +145,7 @@ static InterpretResult run(VM* vm) {
       printf(" ]");
     }
     printf("\n");
-    disassembleInstruction(&frame->closure->function->iota, (int)(frame->ip - frame->closure->function->iota->code));
+    disassembleInstruction(vm->iota, (int)(vm->ip - vm->iota->code));
 #endif
     uint8_t instruction;
     switch(instruction = READ_BYTE()) {
@@ -242,12 +160,12 @@ static InterpretResult run(VM* vm) {
       case OP_POP: pop(vm); break;
       case OP_GET_LOCAL: {
         uint8_t slot = READ_BYTE();
-        push(vm, frame->slots[slot]);
+        push(vm, vm->stack[slot]);
         break;
       }
       case OP_SET_LOCAL: {
         uint8_t slot = READ_BYTE();
-        frame->slots[slot] = peek(vm, 0);
+        vm->stack[slot] = peek(vm, 0);
         break;
       }
       case OP_GET_GLOBAL: {
@@ -331,68 +249,47 @@ static InterpretResult run(VM* vm) {
       }
       case OP_JUMP: {
         uint16_t offset = READ_SHORT();
-        frame->ip += offset;
+        vm->ip += offset;
         break;
       }
       case OP_JUMP_IF_FALSE: {
         uint16_t offset = READ_SHORT();
-        if (isFalsey(peek(vm, 0))) frame->ip += offset;
+        if (isFalsey(peek(vm, 0))) vm->ip += offset;
         break;
       }
       case OP_LOOP: {
         uint16_t offset = READ_SHORT();
-        frame->ip -= offset;
-        break;
-      }
-      case OP_CALL: {
-        int argCount = READ_BYTE();
-        printf("\nFunction arity = %d\n", AS_CLOSURE(peek(vm, argCount))->function->arity);
-        if(!callValue(peek(vm, argCount), argCount, vm)) {
-          return INTERPRET_RUNTIME_ERROR;
-        }
-        frame = &vm->frames[vm->frameCount - 1];
-        break;
-      }
-      case OP_CLOSURE: {
-        ObjFunction* function = AS_FUNCTION(READ_CONSTANT());
-        ObjClosure* closure = newClosure(function, vm);
-        push(vm, OBJ_VAL(closure));
+        vm->ip -= offset;
         break;
       }
       case OP_RETURN: {
-        Value result = pop(vm);
-
-        vm->frameCount--;
-        if(vm->frameCount == 0) {
-          pop(vm);
-          return INTERPRET_OK;
-        }
-
-        vm->stack[vm->top] = *frame->slots;
-        push(vm, result);
-
-        frame = &vm->frames[vm->frameCount - 1];
-        break;
+        // Exit interpreter
+        return INTERPRET_OK;
       }
     }
   }
 
+#undef BINARY_OP
 #undef READ_CONSTANT
 #undef READ_SHORT
 #undef READ_STRING
 #undef READ_BYTE
-#undef BINARY_OP
 }
 
 InterpretResult interpret(VM* vm, const char* source) {
-  ObjFunction* function = compile(source, vm);
-  if(function == NULL) return INTERPRET_COMPILE_ERROR;
+  Iota iota;
+  initIota(&iota);
 
-  push(vm, OBJ_VAL(function));
-  ObjClosure* closure = newClosure(function, vm);
-  pop(vm);
-  push(vm, OBJ_VAL(closure));
-  callValue(OBJ_VAL(closure), 0, vm);
+  if(!compile(source, &iota, vm)) {
+    freeIota(&iota);
+    return INTERPRET_COMPILE_ERROR;
+  }
 
-  return run(vm);
+  vm->iota = &iota;
+  vm->ip = vm->iota->code;
+
+  InterpretResult result = run(vm);
+
+  freeIota(&iota);
+  return result;
 }
