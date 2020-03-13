@@ -88,6 +88,8 @@ int disassembleInstruction(Iota* iota, int offset, FILE* file){
       return simpleInstruction("OP_SUBTRACT", offset, file);
     case OP_MULTIPLY:
       return simpleInstruction("OP_MULTIPLY", offset, file);
+		case OP_DIVIDE_INT:
+			return simpleInstruction("OP_DIVIDE_INT", offset, file);
     case OP_DIVIDE:
       return simpleInstruction("OP_DIVIDE", offset, file);
 		case OP_MODULO:
