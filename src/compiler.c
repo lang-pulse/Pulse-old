@@ -185,6 +185,7 @@ static void binary(Parser* parser, Scanner* scanner, VM* vm, bool canAssign) {
     case TOKEN_PLUS: emitByte(parser, OP_ADD);  break;
     case TOKEN_MINUS: emitByte(parser, OP_SUBTRACT); break;
     case TOKEN_STAR: emitByte(parser, OP_MULTIPLY); break;
+    case TOKEN_SLASH_INT: emitByte(parser, OP_DIVIDE_INT); break;
     case TOKEN_SLASH: emitByte(parser, OP_DIVIDE); break;
     case TOKEN_MODULO: emitByte(parser, OP_MODULO); break;
     case TOKEN_POWER: emitByte(parser, OP_POWER); break;
@@ -293,6 +294,7 @@ ParseRule rules[] = {
   { NULL,     binary,  PREC_POWER },      // TOKEN_POWER
   { NULL,     binary,  PREC_TERM },       // TOKEN_PLUS
   { NULL,     binary,  PREC_FACTOR },     // TOKEN_SLASH
+  { NULL,     binary,  PREC_FACTOR },     // TOKEN_SLASH_INT
   { NULL,     binary,  PREC_FACTOR },     // TOKEN_STAR
   { unary,    NULL,    PREC_NONE },       // TOKEN_BANG
   { NULL,     binary,  PREC_EQUALITY },   // TOKEN_BANG_EQUAL

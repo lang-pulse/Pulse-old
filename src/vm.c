@@ -105,6 +105,17 @@ static void multiply_string(VM* vm, int pos) {
   push(vm, OBJ_VAL(result));
 }
 
+bool is_int(Value val) {
+  if(IS_NUMBER(val)) {
+    double a = AS_NUMBER(val);
+    int b = a;
+    a = a - b;
+    if(a <= 0)
+      return true;
+  }
+  return false;
+}
+
 void modulo(VM* vm) {
   int b = (int)AS_NUMBER(pop(vm));
   int a = (int)AS_NUMBER(pop(vm));
@@ -226,6 +237,12 @@ static InterpretResult run(VM* vm) {
           runtimeError(vm, "Operands must be either combination of string and number or numbers only.");
           return INTERPRET_RUNTIME_ERROR;
         }
+        break;
+      }
+      case OP_DIVIDE_INT: {
+        int b = AS_NUMBER(pop(vm));
+        int a = AS_NUMBER(pop(vm));
+        push(vm, NUMBER_VAL(a / b));
         break;
       }
       case OP_DIVIDE: BINARY_OP(NUMBER_VAL, /); break;

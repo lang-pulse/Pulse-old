@@ -84,23 +84,32 @@ static void skipWhitespace(Scanner* scanner) {
         advance(scanner);
         break;
 
-      case '#':
-        while(peek(scanner) != '\n' && !isAtEnd(scanner)) advance(scanner);
-        break;
-
-      case '/':
-        if(peekNext(scanner) == '*') {
-          while(peek(scanner) != '*' && !isAtEnd(scanner)) advance(scanner);
-          if(peekNext(scanner) == '/') {
+        case '#':
+          while(peek(scanner) != '\n' && !isAtEnd(scanner))
             advance(scanner);
-            break;
+          if(!isAtEnd(scanner))
+            advance(scanner);
+          break;
+
+        case '/':
+          if(peekNext(scanner) == '*') {
+            advance(scanner);
+            advance(scanner);
+            while(peek(scanner) != '*' && !isAtEnd(scanner)) {
+              advance(scanner);
+            }
+            if(peekNext(scanner) == '/') {
+              advance(scanner);
+              advance(scanner);
+              advance(scanner);
+              break;
+            } else {
+              return;
+            }
           } else {
             return;
           }
-        } else {
-          return;
-        }
-        break;
+          break;
 
       default:
         return;
@@ -198,9 +207,6 @@ static void checkUnindent(Scanner* scanner) {
         scanner->indentLevel = 0;
       else
         scanner->indentLevel--;
-
-      if(scanner->unindentLevel > 0)
-        scanner->indentLevel = scanner->unindentLevel - 1;
     }
     if(scanner->indentLevel == 0) {
       scanner->isIndent = false;
@@ -251,7 +257,13 @@ Token scanToken(Scanner* scanner) {
     case '.': return makeToken(scanner, TOKEN_DOT);
     case '-': return makeToken(scanner, TOKEN_MINUS);
     case '+': return makeToken(scanner, TOKEN_PLUS);
-    case '/': return makeToken(scanner, TOKEN_SLASH);
+    case '/':  {
+        if(peek(scanner) == '/') {
+          advance(scanner);
+          return makeToken(scanner, TOKEN_SLASH_INT);
+        }
+        return makeToken(scanner, TOKEN_SLASH);
+    }
     case '*': return makeToken(scanner, TOKEN_STAR);
     case '%': return makeToken(scanner, TOKEN_MODULO);
     case '^': return makeToken(scanner, TOKEN_POWER);
