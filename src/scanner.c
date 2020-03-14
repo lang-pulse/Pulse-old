@@ -207,6 +207,9 @@ static void checkUnindent(Scanner* scanner) {
         scanner->indentLevel = 0;
       else
         scanner->indentLevel--;
+
+      if(scanner->unindentLevel > 0)
+        scanner->indentLevel = scanner->unindentLevel - 1;
     }
     if(scanner->indentLevel == 0) {
       scanner->isIndent = false;
