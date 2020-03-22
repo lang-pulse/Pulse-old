@@ -211,10 +211,10 @@ static void checkUnindent(Scanner* scanner) {
       if(scanner->unindentLevel > 0)
         scanner->indentLevel = scanner->unindentLevel - 1;
     }
-    if(scanner->indentLevel == 0) {
+    if(scanner->indentLevel == 0 && peekNext(scanner) == '\0') {
       scanner->isIndent = false;
       scanner->unindentLevel = 0;
-    }
+    } 
   }
 }
 
@@ -246,6 +246,7 @@ Token scanToken(Scanner* scanner) {
     case ':': {
       scanner->isIndent = true;
       scanner->indentLevel++;
+      scanner->line++;
       if(peekNextZeroth(scanner) == '\n') {
         advance(scanner);
         checkUnindent(scanner);
@@ -253,9 +254,8 @@ Token scanToken(Scanner* scanner) {
       return makeToken(scanner, TOKEN_BEGIN_BLOCK);
     }
     case '\n': {
-      printf("%d\n", scanner->indentLevel);
+      scanner->line++;
       checkUnindent(scanner);
-      printf("%d\n", scanner->indentLevel);
       return makeToken(scanner, TOKEN_NEWLINE);
     }
     case ';': return makeToken(scanner, TOKEN_SEMICOLON);
