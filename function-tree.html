@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Function Tree</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+  </head>
+  <body>
+
+    <div id="jstree">
+      <ul>
+        <li>Root node 1
+          <ul>
+            <li>Child node 1</li>
+            <li>Child node 2
+              <ul>
+                <li>Hello</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>Root node 2
+          <ul>
+            <li>Child Node 1</li>
+            <li>Child Node 2</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+        $(function () {
+          $('#jstree').jstree();
+        });
+    </script>
+  </body>
+</html>

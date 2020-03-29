@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Variable Visualizer</title>
+    <style type="text/css">
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+        text-align: center;
+      }
+
+      th {
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="vars">
+      <tr>
+        <th>S.No</th>
+        <th>Variable Name</th>
+        <th>Value</th>
+        <th>Is Alive</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>test_var_1</td>
+        <td>3.14159</td>
+        <td>True</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>test_var_2</td>
+        <td>1729</td>
+        <td>False</td>
+      </tr>
+    </table>
+
+    <script type="text/javascript">
+    var table = document.getElementById("vars");
+    for (var i = 0, row; row = table.rows[i]; i++) {
+     for (var j = 0, col; col = row.cells[j]; j++) {
+       if(col.innerHTML.toLowerCase() == "true") {
+         col.style.backgroundColor = "#00ff00";
+       } else if(col.innerHTML.toLowerCase() == "false") {
+         col.style.backgroundColor = "#ff471a";
+       }
+     }
+    }
+    </script>
+  </body>
+</html>
