@@ -47,6 +47,14 @@ static char peekNextZeroth(Scanner* scanner) {
   return scanner->current[0];
 }
 
+static char peekNextLine(Scanner* scanner) {
+  if(isAtEnd(scanner)) return '\0';
+  int i = 0;
+  while(scanner->current[i] != '\n') ++i;
+  ++i;
+  return scanner->current[i];
+}
+
 static bool match(Scanner* scanner, char expected) {
   if(isAtEnd(scanner)) return false;
   if(*scanner->current != expected) return false;
@@ -208,13 +216,21 @@ static void checkUnindent(Scanner* scanner) {
       else
         scanner->indentLevel--;
 
-      if(scanner->unindentLevel > 0)
-        scanner->indentLevel = scanner->unindentLevel - 1;
+      if(scanner->unindentLevel > 0) {
+        if(scanner->unindentLevel - 1 > 0 && peekNextLine(scanner) != '\0')
+          scanner->indentLevel = scanner->unindentLevel - 1;
+        else
+          scanner->indentLevel = localTabCount;
+      }
+
     }
-    if(scanner->indentLevel == 0 && peekNext(scanner) == '\0') {
+    if(scanner->indentLevel == 0) {
       scanner->isIndent = false;
-      scanner->unindentLevel = 0;
-    } 
+      // if(peekNext(scanner) == '\0') {
+      //   scanner->unindentLevel = 0;
+      //   scanner->isUnindent = false;
+      // }
+    }
   }
 }
 
@@ -254,6 +270,7 @@ Token scanToken(Scanner* scanner) {
       return makeToken(scanner, TOKEN_BEGIN_BLOCK);
     }
     case '\n': {
+      printf("%d\n\n", scanner->line);
       scanner->line++;
       checkUnindent(scanner);
       return makeToken(scanner, TOKEN_NEWLINE);
