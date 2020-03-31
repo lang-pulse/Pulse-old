@@ -14,8 +14,34 @@
     <p><button type="button" onclick="location.href='/Pulse'">Back</button></p>
     <div id="jstree">
       <ul>
-        <li>main(1, "function.pls")</li>
- 
+        <li>main(1, "function.pls")
+          <ul>
+            <li>initVM(vm)
+              <ul>
+                <li>initTable(vm->globals)</li>
+                <li>initTable(vm->strings)</li>
+                <li>defineNative(vm, "clock", clockNative)
+                  <ul>
+                    <li>push(vm, OBJ_VAL(copyString(name, (int)strlen(name), vm)))
+                      <ul>
+                        <li>OBJ_VAL(copyString(name, (int)strlen(name), vm))
+                          <ul>
+                            <li>copyString(name, (int)strlen(name), vm)</li>
+                          </ul>
+                        </li>
+                        <li>create_new(vm, vm->stack);
+                      </ul>
+                    </li>
+                    <li>push(vm, OBJ_VAL(newNative(function, vm)))</li>
+                    <li>tableSet(&vm->globals, AS_STRING(vm->stack[0]), vm->stack[1])</li>
+                    <li>pop(vm)</li>
+                    <li>pop(vm)</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
 
