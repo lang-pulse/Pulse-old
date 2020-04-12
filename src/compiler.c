@@ -47,6 +47,8 @@ static void advance(Parser* parser, Scanner* scanner) {
   for( ; ; ) {
     parser->current = scanToken(scanner);
     printf("Token: %d\n", parser->current.type);
+    if(parser->current.type == 6 || parser->current.type == 11)
+      printf("Line done - %d\n\n", scanner->line - 1);
     if(parser->current.type != TOKEN_ERROR) break;
     errorAtCurrent(parser, parser->current.start);
   }
