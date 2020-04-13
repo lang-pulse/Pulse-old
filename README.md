@@ -192,7 +192,7 @@
   ```
   <b>Result = e</b>
   <br><br>
-  <b>Note: Negative indexing like python is not allowed, indexes start at 0 and go to the length of string - 1.</b>
+  
   
 </details>
 
