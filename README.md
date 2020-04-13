@@ -180,9 +180,19 @@
   ```console
   "hello" * 2
   ```
-  <b>Result = hellohello<b/>
+  <b>Result = hellohello</b>
   <br><br>
   <b>Note: The order of the operands is trivial, 2 * "hello" and "hello" * 2 will produce same results.</b>
+  
+  4) String indexing:-
+  ```console
+  var a = "hello"
+  var b = a % 1
+  print(b)
+  ```
+  <b>Result = e</b>
+  <br><br>
+  <b>Note: Negative indexing like python is not allowed, indexes start at 0 and go to the length of string - 1.</b>
   
 </details>
 
