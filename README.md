@@ -184,14 +184,6 @@
   <br><br>
   <b>Note: The order of the operands is trivial, 2 * "hello" and "hello" * 2 will produce same results.</b>
   
-  4) String indexing:-
-  ```console
-  var a = "hello"
-  var b = a % 1
-  print(b)
-  ```
-  <b>Result = e</b>
-  <br><br>
   
   
 </details>
