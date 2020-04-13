@@ -246,19 +246,45 @@ static InterpretResult run(VM* vm) {
         break;
       }
       case OP_DIVIDE: BINARY_OP(NUMBER_VAL, /); break;
-      case OP_MODULO: modulo(vm); break;
+      case OP_MODULO: {
+        if(IS_STRING(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
+          int index;
+          ObjString* string;
+
+          index = AS_NUMBER(pop(vm));
+          string = AS_STRING(pop(vm));
+
+          if(index >= string->length || index < 0) {
+            runtimeError(vm, "String index out of bounds.");
+            return INTERPRET_RUNTIME_ERROR;
+          }
+
+          char* chars = ALLOCATE(char, 2);
+          chars[0] = string->chars[index];
+          chars[1] = '\0';
+
+          ObjString* result = takeString(chars, 2, vm);
+          push(vm, OBJ_VAL(result));
+        } else if(IS_NUMBER(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
+          modulo(vm); break;
+        } else {
+          runtimeError(vm, "Operands must be either a string and number or numbers only.");
+          return INTERPRET_RUNTIME_ERROR;
+        }
+      }
       case OP_POWER: power(vm); break;
       case OP_NOT:
         push(vm, BOOL_VAL(isFalsey(pop(vm))));
         break;
-       case OP_NEGATE:
-       if (!IS_NUMBER(peek(vm, 0))) {
-         runtimeError(vm, "Operand must be a number.");
-         return INTERPRET_RUNTIME_ERROR;
-       }
+       case OP_NEGATE: {
+         if (!IS_NUMBER(peek(vm, 0))) {
+           runtimeError(vm, "Operand must be a number.");
+           return INTERPRET_RUNTIME_ERROR;
+         }
 
-       push(vm, NUMBER_VAL(-AS_NUMBER(pop(vm))));
-       break;
+         push(vm, NUMBER_VAL(-AS_NUMBER(pop(vm))));
+         break;
+       }
       case OP_PRINT: {
         printValue(pop(vm));
         printf("\n");
