@@ -1,0 +1,20 @@
+0000 OP_CONSTANT         1 '30'
+0002 OP_DEFINE_GLOBAL    0 'dividend'
+0004 OP_CONSTANT         3 '8'
+0006 OP_DEFINE_GLOBAL    2 'divisor'
+0008 OP_CONSTANT         5 '3'
+0010 OP_DEFINE_GLOBAL    4 'quotient'
+0012 OP_NIL
+0013 OP_DEFINE_GLOBAL    6 'rem'
+0015 OP_GET_GLOBAL       8 'dividend'
+0017 OP_GET_GLOBAL       9 'quotient'
+0019 OP_GET_GLOBAL      10 'divisor'
+0021 OP_MULTIPLY
+0022 OP_SUBTRACT
+0023 OP_SET_GLOBAL       7 'rem'
+0025 OP_POP
+0026 OP_CONSTANT        11 'the remainder of the given number is: '
+0028 OP_PRINT
+0029 OP_GET_GLOBAL      12 'rem'
+0031 OP_PRINT
+0032 OP_RETURN
