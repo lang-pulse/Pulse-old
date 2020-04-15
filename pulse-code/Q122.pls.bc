@@ -1,0 +1,26 @@
+0000 OP_CONSTANT         1 '5000'
+0002 OP_DEFINE_GLOBAL    0 'original_price'
+0004 OP_CONSTANT         3 '75'
+0006 OP_DEFINE_GLOBAL    2 'discount'
+0008 OP_NIL
+0009 OP_DEFINE_GLOBAL    4 'price'
+0011 OP_GET_GLOBAL       6 'discount'
+0013 OP_CONSTANT         7 '100'
+0015 OP_DIVIDE
+0016 OP_GET_GLOBAL       8 'original_price'
+0018 OP_MULTIPLY
+0019 OP_SET_GLOBAL       5 'price'
+0021 OP_POP
+0022 OP_CONSTANT         9 'the original price of the dress is:'
+0024 OP_PRINT
+0025 OP_GET_GLOBAL      10 'original_price'
+0027 OP_PRINT
+0028 OP_CONSTANT        11 'the discount rate is:'
+0030 OP_PRINT
+0031 OP_GET_GLOBAL      12 'discount'
+0033 OP_PRINT
+0034 OP_CONSTANT        13 'the price Poojs bought the dress for:'
+0036 OP_PRINT
+0037 OP_GET_GLOBAL      14 'price'
+0039 OP_PRINT
+0040 OP_RETURN
