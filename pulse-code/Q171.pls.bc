@@ -1,0 +1,61 @@
+0000 OP_CONSTANT         1 '43'
+0002 OP_DEFINE_GLOBAL    0 'class_held'
+0004 OP_CONSTANT         3 '12'
+0006 OP_DEFINE_GLOBAL    2 'class_att'
+0008 OP_NIL
+0009 OP_DEFINE_GLOBAL    4 'att_per'
+0011 OP_CONSTANT         6 'Y'
+0013 OP_DEFINE_GLOBAL    5 'ml'
+0015 OP_GET_GLOBAL       8 'class_att'
+0017 OP_GET_GLOBAL       9 'class_held'
+0019 OP_DIVIDE
+0020 OP_CONSTANT        10 '100'
+0022 OP_MULTIPLY
+0023 OP_SET_GLOBAL       7 'att_per'
+0025 OP_POP
+0026 OP_CONSTANT        11 'the number of classes held:'
+0028 OP_PRINT
+0029 OP_GET_GLOBAL      12 'class_held'
+0031 OP_PRINT
+0032 OP_CONSTANT        13 'the number of classes the student has attended:'
+0034 OP_PRINT
+0035 OP_GET_GLOBAL      14 'class_att'
+0037 OP_PRINT
+0038 OP_CONSTANT        15 'the attendance percentage is:'
+0040 OP_PRINT
+0041 OP_GET_GLOBAL      16 'att_per'
+0043 OP_PRINT
+0044 OP_GET_GLOBAL      17 'att_per'
+0046 OP_CONSTANT        18 '75'
+0048 OP_LESS
+0049 OP_JUMP_IF_FALSE   49 -> 97
+0052 OP_POP
+0053 OP_CONSTANT        19 'does the student have a medical reason?'
+0055 OP_PRINT
+0056 OP_GET_GLOBAL      20 'ml'
+0058 OP_CONSTANT        21 'Y'
+0060 OP_EQUAL
+0061 OP_JUMP_IF_FALSE   61 -> 71
+0064 OP_POP
+0065 OP_CONSTANT        22 'yes'
+0067 OP_PRINT
+0068 OP_JUMP            68 -> 75
+0071 OP_POP
+0072 OP_CONSTANT        23 'no'
+0074 OP_PRINT
+0075 OP_GET_GLOBAL      24 'ml'
+0077 OP_CONSTANT        25 'Y'
+0079 OP_EQUAL
+0080 OP_JUMP_IF_FALSE   80 -> 90
+0083 OP_POP
+0084 OP_CONSTANT        26 'the student can sit for his/her exam'
+0086 OP_PRINT
+0087 OP_JUMP            87 -> 94
+0090 OP_POP
+0091 OP_CONSTANT        27 'the student cannot sit for his/her exam'
+0093 OP_PRINT
+0094 OP_JUMP            94 -> 101
+0097 OP_POP
+0098 OP_CONSTANT        28 'the student can sit for his/her exam'
+0100 OP_PRINT
+0101 OP_RETURN
