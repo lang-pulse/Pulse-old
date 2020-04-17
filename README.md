@@ -237,7 +237,7 @@
   else:
     print("1 is lesser than 2")
   ```
-  <b>Result: 1 is greater than 2</b>
+  <b>Result: 1 is lesser than 2</b>
   
   
   ### Nested if-else statement
@@ -251,7 +251,7 @@
     else:
       print("There is some error")
   ```
-  
+  <b>Result: 1 is lesser than 2</b>
 </details>
 
 <hr />
