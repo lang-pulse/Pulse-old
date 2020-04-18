@@ -1,0 +1,37 @@
+0000 OP_CONSTANT         1 '8700'
+0002 OP_DEFINE_GLOBAL    0 'infected'
+0004 OP_CONSTANT         3 '743'
+0006 OP_DEFINE_GLOBAL    2 'recovered'
+0008 OP_NIL
+0009 OP_DEFINE_GLOBAL    4 'rem'
+0011 OP_NIL
+0012 OP_DEFINE_GLOBAL    5 'rem_per'
+0014 OP_GET_GLOBAL       7 'infected'
+0016 OP_GET_GLOBAL       8 'recovered'
+0018 OP_SUBTRACT
+0019 OP_SET_GLOBAL       6 'rem'
+0021 OP_POP
+0022 OP_GET_GLOBAL      10 'rem'
+0024 OP_GET_GLOBAL      11 'infected'
+0026 OP_DIVIDE
+0027 OP_CONSTANT        12 '100'
+0029 OP_MULTIPLY
+0030 OP_SET_GLOBAL       9 'rem_per'
+0032 OP_POP
+0033 OP_CONSTANT        13 'the number of people infected with COVID-19:'
+0035 OP_PRINT
+0036 OP_GET_GLOBAL      14 'infected'
+0038 OP_PRINT
+0039 OP_CONSTANT        15 'the number of people who recovered from COVID-19:'
+0041 OP_PRINT
+0042 OP_GET_GLOBAL      16 'recovered'
+0044 OP_PRINT
+0045 OP_CONSTANT        17 'the current number of infected people:'
+0047 OP_PRINT
+0048 OP_GET_GLOBAL      18 'rem'
+0050 OP_PRINT
+0051 OP_CONSTANT        19 'the percentage of the people still infected with COVID-19:'
+0053 OP_PRINT
+0054 OP_GET_GLOBAL      20 'rem_per'
+0056 OP_PRINT
+0057 OP_RETURN
