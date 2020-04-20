@@ -214,8 +214,17 @@
 
 <details>
   <summary><b>Author Information</b></summary>
-
+  
   ### Adding author name
+  
+  ```console
+  ~ Iron Man
+  print("Hello World")
+  ```
+  
+  <b>Note: '~' is called the author token in pulse.</b>
+
+  ### Checking author name
 
   ```console
   user@programmer:~$ pulse hello.pls author
