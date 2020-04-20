@@ -228,6 +228,9 @@
   ```
 </details>
 
+
+<hr />
+
 <details>
   <summary>Conditional statements</summary>
   
