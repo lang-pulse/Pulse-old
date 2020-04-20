@@ -1,3 +1,4 @@
+~Barath
 var num=156
 var divisor=5
 var rem

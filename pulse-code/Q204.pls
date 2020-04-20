@@ -1,3 +1,4 @@
+~Harishankar
 var inc=20
 var dis=10
 var oldprice=80

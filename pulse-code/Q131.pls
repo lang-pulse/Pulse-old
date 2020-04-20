@@ -1,3 +1,4 @@
+~Barath
 var infected=8700
 var recovered=743
 var rem

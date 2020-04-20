@@ -19,7 +19,7 @@
 0030 OP_PRINT
 0031 OP_GET_GLOBAL      12 'discount'
 0033 OP_PRINT
-0034 OP_CONSTANT        13 'the price Poojs bought the dress for:'
+0034 OP_CONSTANT        13 'the price Pooja bought the dress for:'
 0036 OP_PRINT
 0037 OP_GET_GLOBAL      14 'price'
 0039 OP_PRINT

@@ -1,3 +1,4 @@
+~Barath
 var size=6
 var osize=size
 var wet=180

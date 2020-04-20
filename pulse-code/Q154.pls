@@ -1,3 +1,4 @@
+~Barath
 var angle=60
 var hypo
 var opp

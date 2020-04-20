@@ -1,3 +1,4 @@
+~Barath
 var original_price=5000
 var discount=75
 var price
