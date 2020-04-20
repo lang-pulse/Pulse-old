@@ -88,8 +88,8 @@ int main(int argc, char* argv[]) {
   } else if(argc == 2) {
     if(strcmp(get_filename_ext(argv[1]), "pls") != 0) {
       printf("Invalid file extension!\n");
-      printf("Usage pulse [filename]\n");
-      exit(60);
+      printf("Usage pulse [filename][author]\n");
+      exit(64);
     }
     char* temp = argv[1];
     remove(strcat(temp, ".bc"));
@@ -98,8 +98,37 @@ int main(int argc, char* argv[]) {
     argv[1][len - 2] = '\0';
     argv[1][len - 3] = '\0';
     runFile(&vm, argv[1]);
-  } else {
-    fprintf(stderr, "Usage: clox [path]\n");
+  } else if(argc == 3) {
+    if(strcmp(argv[2], "author") != 0) {
+      printf("Invalid command syntax!\n");
+      printf("Usage pulse [filename][author]\n");
+      exit(64);
+    }
+    char *buffer = readFile(argv[1]);
+
+    int len = strlen(buffer);
+    int i, f = 0;
+    int pos = -1;
+
+    for(i = 0; i < len; i++) {
+      if(buffer[i] == '~') {
+        pos = i;
+        break;
+      }
+    }
+    if(pos == -1) {
+      printf("Cannot find author token in the pulse file!\n");
+      exit(64);
+    } else {
+      printf("\n**File**: %s\n\n", argv[1]);
+      printf("Author\n======\n");
+      for(i = pos+1; buffer[i] != '\n'; i++) {
+        printf("%c", buffer[i]);
+      }
+      printf("\n\n");
+    }
+  }else {
+    fprintf(stderr, "Usage: clox [path][author]\n");
     exit(64);
   }
 

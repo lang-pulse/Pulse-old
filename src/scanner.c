@@ -97,6 +97,15 @@ static void skipWhitespace(Scanner* scanner) {
             advance(scanner);
           if(!isAtEnd(scanner))
             advance(scanner);
+          scanner->line++;
+          break;
+
+        case '~':
+          while(peek(scanner) != '\n' && !isAtEnd(scanner))
+            advance(scanner);
+          if(!isAtEnd(scanner))
+            advance(scanner);
+          scanner->line++;
           break;
 
         case '/':
@@ -104,9 +113,12 @@ static void skipWhitespace(Scanner* scanner) {
             advance(scanner);
             advance(scanner);
             while(peek(scanner) != '*' && !isAtEnd(scanner)) {
+              if(peek(scanner) == '\n')
+                scanner->line++;
               advance(scanner);
             }
             if(peekNext(scanner) == '/') {
+              scanner->line++;
               advance(scanner);
               advance(scanner);
               advance(scanner);
