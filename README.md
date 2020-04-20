@@ -200,7 +200,7 @@
 <hr />
 
 <details>
-  <summary>Print statement</summary>
+  <summary><b>Print statement</b></summary>
   
   ### Syntax of print statement
   
@@ -241,7 +241,7 @@
 <hr />
 
 <details>
-  <summary>Conditional statements</summary>
+  <summary><b>Conditional statements</b></summary>
   
   ### If statement
   
