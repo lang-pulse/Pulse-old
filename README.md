@@ -213,6 +213,22 @@
 <hr />
 
 <details>
+  <summary><b>Author Information</b></summary>
+
+  ### Adding author name
+
+  ```console
+  user@programmer:~$ pulse hello.pls author
+  
+  **File**: hello.pls 
+  
+  Author
+  ======
+  Iron Man
+  ```
+</details>
+
+<details>
   <summary>Conditional statements</summary>
   
   ### If statement
