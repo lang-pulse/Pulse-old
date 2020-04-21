@@ -65,6 +65,17 @@ static Value peek(VM* vm, int distance) {
   return vm->stack[distance];
 }
 
+void printStack(VM *vm, char* opcode, char* status) {
+  int i = vm->top;
+  printf("\n\n%s %s, Stack = [", status, opcode);
+  for(; i >= 0; i--) {
+    printf("%d => ", i);
+    printValue(vm->stack[i]);
+    printf(",");
+  }
+  printf("]\n");
+}
+
 static bool isFalsey(Value value) {
   return IS_NIL(value) || (IS_BOOL(value) && !AS_BOOL(value));
 }
@@ -168,7 +179,10 @@ static InterpretResult run(VM* vm) {
       case OP_NIL: push(vm, NIL_VAL); break;
       case OP_TRUE: push(vm, BOOL_VAL(true)); break;
       case OP_FALSE: push(vm, BOOL_VAL(false)); break;
-      case OP_POP: pop(vm); break;
+      case OP_POP: {
+        pop(vm);
+        break;
+      }
       case OP_GET_LOCAL: {
         uint8_t slot = READ_BYTE();
         push(vm, vm->stack[slot]);
@@ -266,11 +280,12 @@ static InterpretResult run(VM* vm) {
           ObjString* result = takeString(chars, 2, vm);
           push(vm, OBJ_VAL(result));
         } else if(IS_NUMBER(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
-          modulo(vm); break;
+          modulo(vm);
         } else {
           runtimeError(vm, "Operands must be either a string and number or numbers only.");
           return INTERPRET_RUNTIME_ERROR;
         }
+        break;
       }
       case OP_POWER: power(vm); break;
       case OP_NOT:
