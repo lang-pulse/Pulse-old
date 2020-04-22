@@ -200,7 +200,7 @@
 <hr />
 
 <details>
-  <summary>Print statement</summary>
+  <summary><b>Print statement</b></summary>
   
   ### Syntax of print statement
   
@@ -213,7 +213,35 @@
 <hr />
 
 <details>
-  <summary>Conditional statements</summary>
+  <summary><b>Author Information</b></summary>
+  
+  ### Adding author name
+  
+  ```console
+  ~ Iron Man
+  print("Hello World")
+  ```
+  
+  <b>Note: '~' is called the author token in pulse.</b>
+
+  ### Checking author name
+
+  ```console
+  user@programmer:~$ pulse hello.pls author
+  
+  **File**: hello.pls 
+  
+  Author
+  ======
+  Iron Man
+  ```
+</details>
+
+
+<hr />
+
+<details>
+  <summary><b>Conditional statements</b></summary>
   
   ### If statement
   
@@ -237,7 +265,7 @@
   else:
     print("1 is lesser than 2")
   ```
-  <b>Result: 1 is greater than 2</b>
+  <b>Result: 1 is lesser than 2</b>
   
   
   ### Nested if-else statement
@@ -251,7 +279,7 @@
     else:
       print("There is some error")
   ```
-  
+  <b>Result: 1 is lesser than 2</b>
 </details>
 
 <hr />

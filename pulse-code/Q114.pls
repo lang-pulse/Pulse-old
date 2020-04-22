@@ -1,3 +1,4 @@
+~Barath
 var side=3
 var vcube
 var rincm=1.5
