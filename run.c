@@ -8,6 +8,8 @@
 #include "includes/scanner.h"
 #include "includes/vm.h"
 
+#define VERSION "v0.0.0"
+
 const char *get_filename_ext(const char *filename) {
     const char *dot = strrchr(filename, '.');
     if(!dot || dot == filename) return "";
@@ -86,18 +88,24 @@ int main(int argc, char* argv[]) {
   if(argc == 1) {
     repl(&vm);
   } else if(argc == 2) {
-    if(strcmp(get_filename_ext(argv[1]), "pls") != 0) {
-      printf("Invalid file extension!\n");
-      printf("Usage pulse [filename][author]\n");
-      exit(64);
+    if(strcmp(argv[1], "version") == 0) {
+      printf("\nPulse version\n=============\n");
+      puts(VERSION);
+      printf("\n");
+    } else {
+      if(strcmp(get_filename_ext(argv[1]), "pls") != 0) {
+        printf("Invalid file extension!\n");
+        printf("Usage pulse [filename][author]\n");
+        exit(64);
+      }
+      char* temp = argv[1];
+      remove(strcat(temp, ".bc"));
+      int len = strlen(argv[1]);
+      argv[1][len - 1] = '\0';
+      argv[1][len - 2] = '\0';
+      argv[1][len - 3] = '\0';
+      runFile(&vm, argv[1]);
     }
-    char* temp = argv[1];
-    remove(strcat(temp, ".bc"));
-    int len = strlen(argv[1]);
-    argv[1][len - 1] = '\0';
-    argv[1][len - 2] = '\0';
-    argv[1][len - 3] = '\0';
-    runFile(&vm, argv[1]);
   } else if(argc == 3) {
     if(strcmp(argv[2], "author") != 0) {
       printf("Invalid command syntax!\n");
