@@ -194,6 +194,18 @@
   <br><br>
   <b>Note: Negative indexing like python is not allowed, indexes start at 0 and go to the length of string - 1.</b>
   
+  5) Check string end:-
+  ```
+  console
+  var a = "hello"
+  var i = 0
+  while((a % i) != "~"):
+      i = i + 1
+  print(i)
+  ```
+  <b>Result = 5</b>
+  <br><br>
+  <b>Note: ~ is the string ending character, using that the string end can be found.</b>
   
 </details>
 
