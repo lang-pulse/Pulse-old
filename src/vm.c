@@ -273,11 +273,10 @@ static InterpretResult run(VM* vm) {
             return INTERPRET_RUNTIME_ERROR;
           }
 
-          char* chars = ALLOCATE(char, 2);
+          char* chars = ALLOCATE(char, 1);
           chars[0] = string->chars[index];
-          chars[1] = '\0';
 
-          ObjString* result = takeString(chars, 2, vm);
+          ObjString* result = takeString(chars, 1, vm);
           push(vm, OBJ_VAL(result));
         } else if(IS_NUMBER(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
           modulo(vm);
