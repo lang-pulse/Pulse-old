@@ -237,6 +237,23 @@
   ```
 </details>
 
+<hr />
+
+<details>
+  <summary><b>Check Version</b></summary>
+  
+  ### Check pulse version
+  
+  ```console
+  user@programmer:~$ pulse version
+  
+  Pulse version
+  =============
+  v0.0.1
+  
+  ```
+
+</details>
 
 <hr />
 
