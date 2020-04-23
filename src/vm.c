@@ -268,16 +268,24 @@ static InterpretResult run(VM* vm) {
           index = AS_NUMBER(pop(vm));
           string = AS_STRING(pop(vm));
 
-          if(index >= string->length || index < 0) {
-            runtimeError(vm, "String index out of bounds.");
-            return INTERPRET_RUNTIME_ERROR;
+          if(index == string->length) {
+            char* chars = ALLOCATE(char, 1);
+            chars[0] = '~';
+
+            ObjString* result = takeString(chars, 1, vm);
+            push(vm, OBJ_VAL(result));
+          } else {
+            if(index >= string->length || index < 0) {
+              runtimeError(vm, "String index out of bounds.");
+              return INTERPRET_RUNTIME_ERROR;
+            }
+
+            char* chars = ALLOCATE(char, 1);
+            chars[0] = string->chars[index];
+
+            ObjString* result = takeString(chars, 1, vm);
+            push(vm, OBJ_VAL(result));
           }
-
-          char* chars = ALLOCATE(char, 1);
-          chars[0] = string->chars[index];
-
-          ObjString* result = takeString(chars, 1, vm);
-          push(vm, OBJ_VAL(result));
         } else if(IS_NUMBER(peek(vm, 0)) && IS_NUMBER(peek(vm, 1))) {
           modulo(vm);
         } else {
