@@ -1,4 +1,4 @@
-~Pranav Singh
+~Pranav
 var n = 50
 var s = 0
 var p = 0
