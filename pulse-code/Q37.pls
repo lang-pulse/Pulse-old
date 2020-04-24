@@ -1,4 +1,4 @@
-~Pranav Singh
+~Pranav
 var a = 5
 var b = 7
 var i = 2
