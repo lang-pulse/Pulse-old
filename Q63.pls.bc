@@ -1,3 +1,0 @@
-0000 OP_CONSTANT         0 'Hello Worls!'
-0002 OP_PRINT
-0003 OP_RETURN
