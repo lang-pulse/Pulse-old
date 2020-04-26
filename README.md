@@ -52,74 +52,74 @@
   2 ^ 3
   ```
   <b>Result = 8</b>
-  
+
   ### Relational operator
-  
+
   1) Less than (<):-
-  
+
   ```console
   1 < 2
   ```
   <b>Result = true</b>
-  
+
   2) Greater than (>):-
-  
+
   ```console
   1 > 2
   ```
   <b>Result = false</b>
-  
+
   3) Equal to (==):-
   ```console
   1 == 2
   ```
   <b>Result = false</b>
-  
+
   4) Less than equal to (<=):-
   ```console
   1 <= 2
   ```
   <b>Result = true</b>
-  
+
   5) Greater than equal to (>=):-
   ```console
   1 >= 2
   ```
   <b>Result = false</b>
-  
+
   6) Not equal to (!=):-
   ```console
   1 != 2
   ```
   <b>Result = true</b>
-  
+
   ### Assignment operator
-  
+
   ```console
   a = 1
   ```
   <b>Note: Further details about assignment can be found in the variables section.</b>
-  
+
   ### Logical operator
-  
+
   1) Not operator (!):-
   ```console
   !true
   ```
   <b>Result = false</b>
-  
+
   2) And operator (and):-
   ```console
   (1 < 2) and (3 > 4)
   ```
   <b>Result = false</b>
-  
+
   3) Or operator (or):-
   ```console
   (1 < 2) or (3 > 4)
   ```
   <b>Result = true</b>
-  
+
 </details>
 
 <hr />
@@ -153,29 +153,29 @@
 
 <details>
   <summary><b>Strings</b></summary>
-  
+
   ### Initializing a string variable
-  
+
   ```console
   var a = "Hello"
   ```
   <b>Note: Strings should be enclosed within double quotes (" ") in pulse, single quotes (' ') are not supported yet.</b>
-  
+
   ### String operations
-  
+
   1) String equality:-
-  
+
   ```console
   "hello" == "hello"
   ```
   <b>Result = true</b>
-  
+
   2) String concatenation:-
   ```console
   "hello" + " world"
   ```
   <b>Result = hello world</b>
-  
+
   3) String multiplication:-
   ```console
   "hello" * 2
@@ -183,7 +183,7 @@
   <b>Result = hellohello</b>
   <br><br>
   <b>Note: The order of the operands is trivial, 2 * "hello" and "hello" * 2 will produce same results.</b>
-  
+
   4) String indexing:-
   ```console
   var a = "hello"
@@ -193,7 +193,7 @@
   <b>Result = e</b>
   <br><br>
   <b>Note: Negative indexing like python is not allowed, indexes start at 0 and go to the length of string - 1.</b>
-  
+
   5) Check string end:-
   ```
   console
@@ -206,43 +206,54 @@
   <b>Result = 5</b>
   <br><br>
   <b>Note: ~ is the string ending character, using that the string end can be found.</b>
-  
+
 </details>
 
 <hr />
 
 <details>
   <summary><b>Print statement</b></summary>
-  
+
   ### Syntax of print statement
-  
+
   ```console
   print("Hello World")
   ```
-  
+
+  <b>Result = Hello World</b>
+
+  ### Syntax of print statement not ending with "\n"
+
+  ```console
+  print("Hello", "+")
+  print("World")
+  ```
+
+  <b>Result = Hello+World</b>
+
 </details>
 
 <hr />
 
 <details>
   <summary><b>Author Information</b></summary>
-  
+
   ### Adding author name
-  
+
   ```console
   ~ Iron Man
   print("Hello World")
   ```
-  
+
   <b>Note: '~' is called the author token in pulse.</b>
 
   ### Checking author name
 
   ```console
   user@programmer:~$ pulse hello.pls author
-  
-  **File**: hello.pls 
-  
+
+  **File**: hello.pls
+
   Author
   ======
   Iron Man
@@ -253,16 +264,16 @@
 
 <details>
   <summary><b>Check Version</b></summary>
-  
+
   ### Check pulse version
-  
+
   ```console
   user@programmer:~$ pulse version
-  
+
   Pulse version
   =============
   v0.0.1
-  
+
   ```
 
 </details>
@@ -271,23 +282,23 @@
 
 <details>
   <summary><b>Conditional statements</b></summary>
-  
+
   ### If statement
-  
+
   ```console
   if(1 < 2):
     print("1 is less than 2")
     print("Inside if")
   ```
-  <b>Result:<br> 
+  <b>Result:<br>
     1 is less than 2 <br>
     Inside if
   </b>
   <br><br>
   <b>Note: In pulse, for creating blocks indentation is used (like Python). A block begins with : and every line that is indented (one tab to the right) of the immediately above block is part of that block. To put a statement outside of a block, it should be unindented (one tab backwards, indentation becomes equal to the immediate upper block).</b>
-  
+
   ### If-else statement
-  
+
   ```console
   if(1 > 2):
     print("1 is greater than 2")
@@ -295,10 +306,10 @@
     print("1 is lesser than 2")
   ```
   <b>Result: 1 is lesser than 2</b>
-  
-  
+
+
   ### Nested if-else statement
-  
+
   ```console
   if(1 > 2):
     print("1 is greater than 2")
@@ -315,9 +326,9 @@
 
 <details>
   <summary><b>Looping statements</b></summary>
-  
+
   ### While statement
-  
+
   ```console
   var i = 0
   while(i < 10):
@@ -336,5 +347,5 @@
   8 <br>
   9 <br>
   </b>
-  
+
 </details>
