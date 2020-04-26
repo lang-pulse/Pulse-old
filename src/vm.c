@@ -312,6 +312,12 @@ static InterpretResult run(VM* vm) {
         printf("\n");
         break;
       }
+      case OP_PRINT_END: {
+        Value end = pop(vm);
+        printValue(pop(vm));
+        printValue(end);
+        break;
+      }
       case OP_JUMP: {
         uint16_t offset = READ_SHORT();
         vm->ip += offset;
@@ -329,6 +335,7 @@ static InterpretResult run(VM* vm) {
       }
       case OP_RETURN: {
         // Exit interpreter
+        printf("\n");
         return INTERPRET_OK;
       }
     }

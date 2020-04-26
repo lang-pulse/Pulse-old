@@ -561,9 +561,17 @@ static void ifStatement(Parser* parser, Scanner* scanner, VM* vm) {
 static void printStatement(Parser* parser, Scanner* scanner, VM* vm) {
   consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after print keyword.");
   expression(parser, scanner, vm);
+  int flag_end = 0;
+  if(match(parser, scanner, TOKEN_COMMA)) {
+    expression(parser, scanner, vm);
+    flag_end = 1;
+  }
   consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after expression in print.");
   consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' character after print.");
-  emitByte(parser, OP_PRINT);
+  if(flag_end)
+    emitByte(parser, OP_PRINT_END);
+  else
+    emitByte(parser, OP_PRINT);
 }
 
 static void whileStatement(Parser* parser, Scanner* scanner, VM* vm) {
