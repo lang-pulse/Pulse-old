@@ -17,6 +17,6 @@ while((a % i) != " "):
 	j = j + 1
 	i = i + 1
 if(flag == 6):
-	print("The word 'orange' is present in string.")
+	print("The word orange is present in string.")
 else:
-	print("The word 'orange' is not in string.")
+	print("The word orange is not in string.")
