@@ -1,0 +1,46 @@
+0000 OP_CONSTANT         1 '3.5'
+0002 OP_DEFINE_GLOBAL    0 'r_cone'
+0004 OP_CONSTANT         3 '3.5'
+0006 OP_DEFINE_GLOBAL    2 'r_hemisphere'
+0008 OP_CONSTANT         5 '15.5'
+0010 OP_DEFINE_GLOBAL    4 'total_length'
+0012 OP_GET_GLOBAL       7 'total_length'
+0014 OP_GET_GLOBAL       8 'r_hemisphere'
+0016 OP_SUBTRACT
+0017 OP_DEFINE_GLOBAL    6 'cone_length'
+0019 OP_CONSTANT        10 '2'
+0021 OP_CONSTANT        11 '22'
+0023 OP_CONSTANT        12 '7'
+0025 OP_DIVIDE
+0026 OP_MULTIPLY
+0027 OP_CONSTANT        13 '3.5'
+0029 OP_CONSTANT        14 '2'
+0031 OP_POWER
+0032 OP_MULTIPLY
+0033 OP_DEFINE_GLOBAL    9 'surface_area_hemisphere'
+0035 OP_GET_GLOBAL      16 'cone_length'
+0037 OP_CONSTANT        17 '2'
+0039 OP_POWER
+0040 OP_GET_GLOBAL      18 'r_cone'
+0042 OP_CONSTANT        19 '2'
+0044 OP_POWER
+0045 OP_ADD
+0046 OP_CONSTANT        20 '0.5'
+0048 OP_POWER
+0049 OP_DEFINE_GLOBAL   15 'slant_height_cone'
+0051 OP_CONSTANT        22 '22'
+0053 OP_CONSTANT        23 '7'
+0055 OP_DIVIDE
+0056 OP_GET_GLOBAL      24 'r_cone'
+0058 OP_MULTIPLY
+0059 OP_GET_GLOBAL      25 'slant_height_cone'
+0061 OP_MULTIPLY
+0062 OP_DEFINE_GLOBAL   21 'surface_area_cone'
+0064 OP_GET_GLOBAL      27 'surface_area_hemisphere'
+0066 OP_GET_GLOBAL      28 'surface_area_cone'
+0068 OP_ADD
+0069 OP_DEFINE_GLOBAL   26 'total_surface_area'
+0071 OP_GET_GLOBAL      29 'total_surface_area'
+0073 OP_CONSTANT        30 ' cm2'
+0075 OP_PRINT_END
+0076 OP_RETURN
