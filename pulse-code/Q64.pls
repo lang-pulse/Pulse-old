@@ -30,5 +30,5 @@ while(sum!=0):
 	sum=sum//10
 print("the decimal number is:")
 print(temp1)
-print("it's equivalent hexadecimal number is:")
+print("the equivalent hexadecimal number is:")
 print(rev)
