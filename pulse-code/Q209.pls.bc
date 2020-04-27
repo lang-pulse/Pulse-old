@@ -1,0 +1,131 @@
+0000 OP_CONSTANT         1 '12'
+0002 OP_DEFINE_GLOBAL    0 'dc'
+0004 OP_NIL
+0005 OP_DEFINE_GLOBAL    2 'rc'
+0007 OP_CONSTANT         4 '15'
+0009 OP_DEFINE_GLOBAL    3 'hc'
+0011 OP_NIL
+0012 OP_DEFINE_GLOBAL    5 'volcy'
+0014 OP_CONSTANT         7 '12'
+0016 OP_DEFINE_GLOBAL    6 'hco'
+0018 OP_CONSTANT         9 '6'
+0020 OP_DEFINE_GLOBAL    8 'dco'
+0022 OP_NIL
+0023 OP_DEFINE_GLOBAL   10 'rco'
+0025 OP_NIL
+0026 OP_DEFINE_GLOBAL   11 'volco'
+0028 OP_NIL
+0029 OP_DEFINE_GLOBAL   12 'volh'
+0031 OP_NIL
+0032 OP_DEFINE_GLOBAL   13 'volic'
+0034 OP_NIL
+0035 OP_DEFINE_GLOBAL   14 'n'
+0037 OP_GET_GLOBAL      16 'dc'
+0039 OP_CONSTANT        17 '2'
+0041 OP_DIVIDE
+0042 OP_SET_GLOBAL      15 'rc'
+0044 OP_POP
+0045 OP_GET_GLOBAL      19 'dco'
+0047 OP_CONSTANT        20 '2'
+0049 OP_DIVIDE
+0050 OP_SET_GLOBAL      18 'rco'
+0052 OP_POP
+0053 OP_CONSTANT        22 '3.14'
+0055 OP_GET_GLOBAL      23 'hc'
+0057 OP_MULTIPLY
+0058 OP_GET_GLOBAL      24 'rc'
+0060 OP_CONSTANT        25 '2'
+0062 OP_POWER
+0063 OP_MULTIPLY
+0064 OP_SET_GLOBAL      21 'volcy'
+0066 OP_POP
+0067 OP_CONSTANT        27 '1'
+0069 OP_CONSTANT        28 '3'
+0071 OP_DIVIDE
+0072 OP_CONSTANT        29 '3.14'
+0074 OP_MULTIPLY
+0075 OP_GET_GLOBAL      30 'hco'
+0077 OP_MULTIPLY
+0078 OP_GET_GLOBAL      31 'rco'
+0080 OP_CONSTANT        32 '2'
+0082 OP_POWER
+0083 OP_MULTIPLY
+0084 OP_SET_GLOBAL      26 'volco'
+0086 OP_POP
+0087 OP_CONSTANT        34 '2'
+0089 OP_CONSTANT        35 '3'
+0091 OP_DIVIDE
+0092 OP_CONSTANT        36 '3.14'
+0094 OP_MULTIPLY
+0095 OP_GET_GLOBAL      37 'rco'
+0097 OP_CONSTANT        38 '3'
+0099 OP_POWER
+0100 OP_MULTIPLY
+0101 OP_SET_GLOBAL      33 'volh'
+0103 OP_POP
+0104 OP_GET_GLOBAL      40 'volco'
+0106 OP_GET_GLOBAL      41 'volh'
+0108 OP_ADD
+0109 OP_SET_GLOBAL      39 'volic'
+0111 OP_POP
+0112 OP_GET_GLOBAL      43 'volcy'
+0114 OP_GET_GLOBAL      44 'volic'
+0116 OP_DIVIDE
+0117 OP_SET_GLOBAL      42 'n'
+0119 OP_POP
+0120 OP_CONSTANT        45 'the height of the container is: '
+0122 OP_GET_GLOBAL      46 'hc'
+0124 OP_PRINT_END
+0125 OP_CONSTANT        47 ' m'
+0127 OP_PRINT
+0128 OP_CONSTANT        48 'the diameter of the container is: '
+0130 OP_GET_GLOBAL      49 'dc'
+0132 OP_PRINT_END
+0133 OP_CONSTANT        50 ' m'
+0135 OP_PRINT
+0136 OP_CONSTANT        51 'the radius of the container is: '
+0138 OP_GET_GLOBAL      52 'rc'
+0140 OP_PRINT_END
+0141 OP_CONSTANT        53 ' m'
+0143 OP_PRINT
+0144 OP_CONSTANT        54 'the volume of the container/amount of ice-cream is: '
+0146 OP_GET_GLOBAL      55 'volcy'
+0148 OP_PRINT_END
+0149 OP_CONSTANT        56 ' m.cb'
+0151 OP_PRINT
+0152 OP_CONSTANT        57 'the height of the ice cream cone is: '
+0154 OP_GET_GLOBAL      58 'hco'
+0156 OP_PRINT_END
+0157 OP_CONSTANT        59 ' m'
+0159 OP_PRINT
+0160 OP_CONSTANT        60 'the diameter of the ice cream cone is: '
+0162 OP_GET_GLOBAL      61 'dco'
+0164 OP_PRINT_END
+0165 OP_CONSTANT        62 ' m'
+0167 OP_PRINT
+0168 OP_CONSTANT        63 'the radius of the ice cream cone is: '
+0170 OP_GET_GLOBAL      64 'rco'
+0172 OP_PRINT_END
+0173 OP_CONSTANT        65 ' m'
+0175 OP_PRINT
+0176 OP_CONSTANT        66 'the volume of the conical part of the ice cream cone is: '
+0178 OP_GET_GLOBAL      67 'volco'
+0180 OP_PRINT_END
+0181 OP_CONSTANT        68 ' m.cb'
+0183 OP_PRINT
+0184 OP_CONSTANT        69 'the volume of the hemispherical part of the ice cream is: '
+0186 OP_GET_GLOBAL      70 'volh'
+0188 OP_PRINT_END
+0189 OP_CONSTANT        71 ' m.cb'
+0191 OP_PRINT
+0192 OP_CONSTANT        72 'Therefore, the volume of the ice cream cone is: '
+0194 OP_GET_GLOBAL      73 'volic'
+0196 OP_PRINT_END
+0197 OP_CONSTANT        74 ' m.cb'
+0199 OP_PRINT
+0200 OP_CONSTANT        75 'Hence the number of the cones that can be filled is: '
+0202 OP_GET_GLOBAL      76 'n'
+0204 OP_PRINT_END
+0205 OP_CONSTANT        77 ' cones'
+0207 OP_PRINT
+0208 OP_RETURN
