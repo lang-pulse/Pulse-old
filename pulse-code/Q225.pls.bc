@@ -1,0 +1,122 @@
+0000 OP_CONSTANT         1 '5'
+0002 OP_DEFINE_GLOBAL    0 'gb_h'
+0004 OP_CONSTANT         3 '2.8'
+0006 OP_DEFINE_GLOBAL    2 'gb_d'
+0008 OP_NIL
+0009 OP_DEFINE_GLOBAL    4 'gb_r'
+0011 OP_NIL
+0012 OP_DEFINE_GLOBAL    5 'cylinder_h'
+0014 OP_NIL
+0015 OP_DEFINE_GLOBAL    6 'vol_cylinder'
+0017 OP_NIL
+0018 OP_DEFINE_GLOBAL    7 'vol_hemi'
+0020 OP_NIL
+0021 OP_DEFINE_GLOBAL    8 'vol_hemis'
+0023 OP_NIL
+0024 OP_DEFINE_GLOBAL    9 'vol_gb'
+0026 OP_NIL
+0027 OP_DEFINE_GLOBAL   10 'vol_gb45'
+0029 OP_CONSTANT        12 '30'
+0031 OP_DEFINE_GLOBAL   11 'sugar'
+0033 OP_NIL
+0034 OP_DEFINE_GLOBAL   13 'amt_sugar'
+0036 OP_GET_GLOBAL      15 'gb_d'
+0038 OP_CONSTANT        16 '2'
+0040 OP_DIVIDE
+0041 OP_SET_GLOBAL      14 'gb_r'
+0043 OP_POP
+0044 OP_GET_GLOBAL      18 'gb_h'
+0046 OP_CONSTANT        19 '2'
+0048 OP_GET_GLOBAL      20 'gb_r'
+0050 OP_MULTIPLY
+0051 OP_SUBTRACT
+0052 OP_SET_GLOBAL      17 'cylinder_h'
+0054 OP_POP
+0055 OP_CONSTANT        22 '3.14'
+0057 OP_GET_GLOBAL      23 'gb_r'
+0059 OP_CONSTANT        24 '2'
+0061 OP_POWER
+0062 OP_MULTIPLY
+0063 OP_GET_GLOBAL      25 'cylinder_h'
+0065 OP_MULTIPLY
+0066 OP_SET_GLOBAL      21 'vol_cylinder'
+0068 OP_POP
+0069 OP_CONSTANT        27 '2'
+0071 OP_CONSTANT        28 '3'
+0073 OP_DIVIDE
+0074 OP_CONSTANT        29 '3.14'
+0076 OP_MULTIPLY
+0077 OP_GET_GLOBAL      30 'gb_r'
+0079 OP_CONSTANT        31 '3'
+0081 OP_POWER
+0082 OP_MULTIPLY
+0083 OP_SET_GLOBAL      26 'vol_hemi'
+0085 OP_POP
+0086 OP_CONSTANT        33 '2'
+0088 OP_GET_GLOBAL      34 'vol_hemi'
+0090 OP_MULTIPLY
+0091 OP_SET_GLOBAL      32 'vol_hemis'
+0093 OP_POP
+0094 OP_GET_GLOBAL      36 'vol_hemis'
+0096 OP_GET_GLOBAL      37 'vol_cylinder'
+0098 OP_ADD
+0099 OP_SET_GLOBAL      35 'vol_gb'
+0101 OP_POP
+0102 OP_CONSTANT        39 '45'
+0104 OP_GET_GLOBAL      40 'vol_gb'
+0106 OP_MULTIPLY
+0107 OP_SET_GLOBAL      38 'vol_gb45'
+0109 OP_POP
+0110 OP_GET_GLOBAL      42 'sugar'
+0112 OP_CONSTANT        43 '100'
+0114 OP_DIVIDE
+0115 OP_GET_GLOBAL      44 'vol_gb45'
+0117 OP_MULTIPLY
+0118 OP_SET_GLOBAL      41 'amt_sugar'
+0120 OP_POP
+0121 OP_CONSTANT        45 'the height of gulab jamun is: '
+0123 OP_GET_GLOBAL      46 'gb_h'
+0125 OP_PRINT_END
+0126 OP_CONSTANT        47 ' cm'
+0128 OP_PRINT
+0129 OP_CONSTANT        48 'the radius of the gulab jamun is: '
+0131 OP_GET_GLOBAL      49 'gb_r'
+0133 OP_PRINT_END
+0134 OP_CONSTANT        50 ' cm'
+0136 OP_PRINT
+0137 OP_CONSTANT        51 'the height of the cylinderical part is: '
+0139 OP_GET_GLOBAL      52 'cylinder_h'
+0141 OP_PRINT_END
+0142 OP_CONSTANT        53 ' cm'
+0144 OP_PRINT
+0145 OP_CONSTANT        54 'the volume of the cylinderical part of the gulab jamun is: '
+0147 OP_GET_GLOBAL      55 'vol_cylinder'
+0149 OP_PRINT_END
+0150 OP_CONSTANT        56 ' cm.cb'
+0152 OP_PRINT
+0153 OP_CONSTANT        57 'the volume of the hemispherical part of the gulab jamun is: '
+0155 OP_GET_GLOBAL      58 'vol_hemi'
+0157 OP_PRINT_END
+0158 OP_CONSTANT        59 ' cm.cb'
+0160 OP_PRINT
+0161 OP_CONSTANT        60 'the volume of one gulab jamun is: '
+0163 OP_GET_GLOBAL      61 'vol_gb'
+0165 OP_PRINT_END
+0166 OP_CONSTANT        62 ' cm.cb'
+0168 OP_PRINT
+0169 OP_CONSTANT        63 'the volume of 45 gulab jamuns is: '
+0171 OP_GET_GLOBAL      64 'vol_gb45'
+0173 OP_PRINT_END
+0174 OP_CONSTANT        65 ' cm.cb'
+0176 OP_PRINT
+0177 OP_CONSTANT        66 'the amount of sugar in one gulab jamun is: '
+0179 OP_GET_GLOBAL      67 'sugar'
+0181 OP_PRINT_END
+0182 OP_CONSTANT        68 '%'
+0184 OP_PRINT
+0185 OP_CONSTANT        69 'Therefore the amount of sugar in 45 gulab jamun is: '
+0187 OP_GET_GLOBAL      70 'amt_sugar'
+0189 OP_PRINT_END
+0190 OP_CONSTANT        71 ' cm.cb'
+0192 OP_PRINT
+0193 OP_RETURN
