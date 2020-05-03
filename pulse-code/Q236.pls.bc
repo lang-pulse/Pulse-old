@@ -1,0 +1,165 @@
+0000 OP_CONSTANT         1 '45'
+0002 OP_DEFINE_GLOBAL    0 'bucket_dia1'
+0004 OP_CONSTANT         3 '25'
+0006 OP_DEFINE_GLOBAL    2 'bucket_dia2'
+0008 OP_NIL
+0009 OP_DEFINE_GLOBAL    4 'bucket_rad1'
+0011 OP_NIL
+0012 OP_DEFINE_GLOBAL    5 'bucket_rad2'
+0014 OP_CONSTANT         7 '40'
+0016 OP_DEFINE_GLOBAL    6 'bucket_h'
+0018 OP_NIL
+0019 OP_DEFINE_GLOBAL    8 'frustum_h'
+0021 OP_CONSTANT        10 '6'
+0023 OP_DEFINE_GLOBAL    9 'cylinder_height'
+0025 OP_NIL
+0026 OP_DEFINE_GLOBAL   11 'bucket_rad_sum'
+0028 OP_NIL
+0029 OP_DEFINE_GLOBAL   12 'frustum_vol'
+0031 OP_NIL
+0032 OP_DEFINE_GLOBAL   13 'frustum_l'
+0034 OP_NIL
+0035 OP_DEFINE_GLOBAL   14 'frustum_csa'
+0037 OP_NIL
+0038 OP_DEFINE_GLOBAL   15 'bucket_base'
+0040 OP_NIL
+0041 OP_DEFINE_GLOBAL   16 'cylinder_csa'
+0043 OP_NIL
+0044 OP_DEFINE_GLOBAL   17 'metallic_sheet'
+0046 OP_GET_GLOBAL      19 'bucket_dia1'
+0048 OP_CONSTANT        20 '2'
+0050 OP_DIVIDE
+0051 OP_SET_GLOBAL      18 'bucket_rad1'
+0053 OP_POP
+0054 OP_GET_GLOBAL      22 'bucket_dia2'
+0056 OP_CONSTANT        23 '2'
+0058 OP_DIVIDE
+0059 OP_SET_GLOBAL      21 'bucket_rad2'
+0061 OP_POP
+0062 OP_GET_GLOBAL      25 'bucket_h'
+0064 OP_GET_GLOBAL      26 'cylinder_height'
+0066 OP_SUBTRACT
+0067 OP_SET_GLOBAL      24 'frustum_h'
+0069 OP_POP
+0070 OP_GET_GLOBAL      28 'bucket_rad1'
+0072 OP_CONSTANT        29 '2'
+0074 OP_POWER
+0075 OP_GET_GLOBAL      30 'bucket_rad2'
+0077 OP_CONSTANT        31 '2'
+0079 OP_POWER
+0080 OP_ADD
+0081 OP_GET_GLOBAL      32 'bucket_rad1'
+0083 OP_GET_GLOBAL      33 'bucket_rad2'
+0085 OP_MULTIPLY
+0086 OP_ADD
+0087 OP_SET_GLOBAL      27 'bucket_rad_sum'
+0089 OP_POP
+0090 OP_CONSTANT        35 '1'
+0092 OP_CONSTANT        36 '3'
+0094 OP_DIVIDE
+0095 OP_CONSTANT        37 '3.14'
+0097 OP_MULTIPLY
+0098 OP_GET_GLOBAL      38 'frustum_h'
+0100 OP_MULTIPLY
+0101 OP_GET_GLOBAL      39 'bucket_rad_sum'
+0103 OP_MULTIPLY
+0104 OP_SET_GLOBAL      34 'frustum_vol'
+0106 OP_POP
+0107 OP_GET_GLOBAL      41 'frustum_vol'
+0109 OP_CONSTANT        42 '1000'
+0111 OP_DIVIDE
+0112 OP_SET_GLOBAL      40 'frustum_vol'
+0114 OP_POP
+0115 OP_GET_GLOBAL      44 'frustum_h'
+0117 OP_CONSTANT        45 '2'
+0119 OP_POWER
+0120 OP_GET_GLOBAL      46 'bucket_rad1'
+0122 OP_GET_GLOBAL      47 'bucket_rad2'
+0124 OP_SUBTRACT
+0125 OP_CONSTANT        48 '2'
+0127 OP_POWER
+0128 OP_ADD
+0129 OP_CONSTANT        49 '1'
+0131 OP_CONSTANT        50 '2'
+0133 OP_DIVIDE
+0134 OP_POWER
+0135 OP_SET_GLOBAL      43 'frustum_l'
+0137 OP_POP
+0138 OP_CONSTANT        52 '3.14'
+0140 OP_GET_GLOBAL      53 'frustum_l'
+0142 OP_MULTIPLY
+0143 OP_GET_GLOBAL      54 'bucket_rad1'
+0145 OP_GET_GLOBAL      55 'bucket_rad2'
+0147 OP_ADD
+0148 OP_MULTIPLY
+0149 OP_SET_GLOBAL      51 'frustum_csa'
+0151 OP_POP
+0152 OP_CONSTANT        57 '3.14'
+0154 OP_GET_GLOBAL      58 'bucket_rad2'
+0156 OP_CONSTANT        59 '2'
+0158 OP_POWER
+0159 OP_MULTIPLY
+0160 OP_SET_GLOBAL      56 'bucket_base'
+0162 OP_POP
+0163 OP_CONSTANT        61 '2'
+0165 OP_CONSTANT        62 '3.14'
+0167 OP_MULTIPLY
+0168 OP_GET_GLOBAL      63 'bucket_rad2'
+0170 OP_MULTIPLY
+0171 OP_GET_GLOBAL      64 'cylinder_height'
+0173 OP_MULTIPLY
+0174 OP_SET_GLOBAL      60 'cylinder_csa'
+0176 OP_POP
+0177 OP_GET_GLOBAL      66 'frustum_csa'
+0179 OP_GET_GLOBAL      67 'bucket_base'
+0181 OP_ADD
+0182 OP_GET_GLOBAL      68 'cylinder_csa'
+0184 OP_ADD
+0185 OP_SET_GLOBAL      65 'metallic_sheet'
+0187 OP_POP
+0188 OP_CONSTANT        69 'the height of the bucket is: '
+0190 OP_GET_GLOBAL      70 'bucket_h'
+0192 OP_PRINT_END
+0193 OP_CONSTANT        71 ' cm'
+0195 OP_PRINT
+0196 OP_CONSTANT        72 'the diameter of the upper end of the bucket is: '
+0198 OP_GET_GLOBAL      73 'bucket_dia1'
+0200 OP_PRINT_END
+0201 OP_CONSTANT        74 ' cm'
+0203 OP_PRINT
+0204 OP_CONSTANT        75 'the diameter of the lower end of the bucket is: '
+0206 OP_GET_GLOBAL      76 'bucket_dia2'
+0208 OP_PRINT_END
+0209 OP_CONSTANT        77 ' cm'
+0211 OP_PRINT
+0212 OP_CONSTANT        78 'the height of the bucket is: '
+0214 OP_GET_GLOBAL      79 'bucket_h'
+0216 OP_PRINT_END
+0217 OP_CONSTANT        80 ' cm'
+0219 OP_PRINT
+0220 OP_CONSTANT        81 'the curved surface area of the frustum is: '
+0222 OP_GET_GLOBAL      82 'frustum_csa'
+0224 OP_PRINT_END
+0225 OP_CONSTANT        83 ' cm.sq'
+0227 OP_PRINT
+0228 OP_CONSTANT        84 'the curved surface area of the cylinderical part of the bucket is: '
+0230 OP_GET_GLOBAL      85 'cylinder_csa'
+0232 OP_PRINT_END
+0233 OP_CONSTANT        86 ' cm.sq'
+0235 OP_PRINT
+0236 OP_CONSTANT        87 'the base area of the bucket is: '
+0238 OP_GET_GLOBAL      88 'bucket_base'
+0240 OP_PRINT_END
+0241 OP_CONSTANT        89 ' cm.sq'
+0243 OP_PRINT
+0244 OP_CONSTANT        90 'Therefore, the area of metallic sheet required to make the bucket is: '
+0246 OP_GET_GLOBAL      91 'metallic_sheet'
+0248 OP_PRINT_END
+0249 OP_CONSTANT        92 ' cm.sq'
+0251 OP_PRINT
+0252 OP_CONSTANT        93 'the amount of water the bucket can hold is: '
+0254 OP_GET_GLOBAL      94 'frustum_vol'
+0256 OP_PRINT_END
+0257 OP_CONSTANT        95 ' L'
+0259 OP_PRINT
+0260 OP_RETURN
