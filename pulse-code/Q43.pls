@@ -15,7 +15,7 @@ while(smith_input > 1):
 		smith_input = smith_input / i_smith
 	else:
 		i_smith = i_smith + 1
-if(p_smith == k_digit):
+if(p_smith == k_sum):
 	print("Smith number")
 else:
 	print("Not a Smith number")

@@ -7,7 +7,7 @@ var d_twin = 0
 while(i_twin <= b_twin):
 	if(a_twin % i_twin == 0):
 		k_twin = k_twin + 1
-	if(b % i_twin == 0):
+	if(b_twin % i_twin == 0):
 		d_twin = d_twin + 1
 	i_twin = i_twin + 1
 var f_twin = b_twin - a_twin
