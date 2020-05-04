@@ -1,0 +1,33 @@
+0000 OP_CONSTANT         1 '4'
+0002 OP_DEFINE_GLOBAL    0 'speed_upstream'
+0004 OP_CONSTANT         3 '10'
+0006 OP_DEFINE_GLOBAL    2 'speed_downstream'
+0008 OP_CONSTANT         5 '3'
+0010 OP_DEFINE_GLOBAL    4 'speed_down_org'
+0012 OP_CONSTANT         7 '4200'
+0014 OP_DEFINE_GLOBAL    6 'dist_travel_up'
+0016 OP_GET_GLOBAL       9 'dist_travel_up'
+0018 OP_GET_GLOBAL      10 'speed_upstream'
+0020 OP_DIVIDE
+0021 OP_DEFINE_GLOBAL    8 'time_upstream'
+0023 OP_GET_GLOBAL      12 'time_upstream'
+0025 OP_GET_GLOBAL      13 'speed_down_org'
+0027 OP_MULTIPLY
+0028 OP_DEFINE_GLOBAL   11 'dist_travel_down'
+0030 OP_GET_GLOBAL      15 'dist_travel_down'
+0032 OP_GET_GLOBAL      16 'dist_travel_up'
+0034 OP_ADD
+0035 OP_DEFINE_GLOBAL   14 'tot_dist'
+0037 OP_CONSTANT        18 '4'
+0039 OP_DEFINE_GLOBAL   17 'rel_speed'
+0041 OP_GET_GLOBAL      20 'tot_dist'
+0043 OP_GET_GLOBAL      21 'rel_speed'
+0045 OP_DIVIDE
+0046 OP_DEFINE_GLOBAL   19 'time'
+0048 OP_GET_GLOBAL      23 'time'
+0050 OP_GET_GLOBAL      24 'time_upstream'
+0052 OP_ADD
+0053 OP_DEFINE_GLOBAL   22 'total_time'
+0055 OP_GET_GLOBAL      25 'total_time'
+0057 OP_PRINT
+0058 OP_RETURN
