@@ -1,0 +1,76 @@
+0000 OP_CONSTANT         1 '100'
+0002 OP_DEFINE_GLOBAL    0 'train1_l'
+0004 OP_CONSTANT         3 '100'
+0006 OP_DEFINE_GLOBAL    2 'train2_l'
+0008 OP_CONSTANT         5 '10'
+0010 OP_DEFINE_GLOBAL    4 'train1_time'
+0012 OP_CONSTANT         7 '20'
+0014 OP_DEFINE_GLOBAL    6 'train2_time'
+0016 OP_NIL
+0017 OP_DEFINE_GLOBAL    8 'train1_v'
+0019 OP_NIL
+0020 OP_DEFINE_GLOBAL    9 'train2_v'
+0022 OP_NIL
+0023 OP_DEFINE_GLOBAL   10 'ovrtaking_rv'
+0025 OP_NIL
+0026 OP_DEFINE_GLOBAL   11 'crossing_rv'
+0028 OP_NIL
+0029 OP_DEFINE_GLOBAL   12 'total_dist'
+0031 OP_GET_GLOBAL      14 'train1_l'
+0033 OP_GET_GLOBAL      15 'train2_l'
+0035 OP_ADD
+0036 OP_SET_GLOBAL      13 'total_dist'
+0038 OP_POP
+0039 OP_GET_GLOBAL      17 'total_dist'
+0041 OP_GET_GLOBAL      18 'train2_time'
+0043 OP_DIVIDE
+0044 OP_SET_GLOBAL      16 'ovrtaking_rv'
+0046 OP_POP
+0047 OP_GET_GLOBAL      20 'total_dist'
+0049 OP_GET_GLOBAL      21 'train1_time'
+0051 OP_DIVIDE
+0052 OP_SET_GLOBAL      19 'crossing_rv'
+0054 OP_POP
+0055 OP_GET_GLOBAL      23 'ovrtaking_rv'
+0057 OP_GET_GLOBAL      24 'crossing_rv'
+0059 OP_ADD
+0060 OP_CONSTANT        25 '2'
+0062 OP_DIVIDE
+0063 OP_SET_GLOBAL      22 'train1_v'
+0065 OP_POP
+0066 OP_GET_GLOBAL      27 'train1_v'
+0068 OP_GET_GLOBAL      28 'ovrtaking_rv'
+0070 OP_SUBTRACT
+0071 OP_SET_GLOBAL      26 'train2_v'
+0073 OP_POP
+0074 OP_CONSTANT        29 'the length of train 1 is: '
+0076 OP_GET_GLOBAL      30 'train1_l'
+0078 OP_PRINT_END
+0079 OP_CONSTANT        31 ' m'
+0081 OP_PRINT
+0082 OP_CONSTANT        32 'the length of train 2 is: '
+0084 OP_GET_GLOBAL      33 'train2_l'
+0086 OP_PRINT_END
+0087 OP_CONSTANT        34 ' m'
+0089 OP_PRINT
+0090 OP_CONSTANT        35 'time taken to overtake the other train: '
+0092 OP_GET_GLOBAL      36 'train1_time'
+0094 OP_PRINT_END
+0095 OP_CONSTANT        37 ' s'
+0097 OP_PRINT
+0098 OP_CONSTANT        38 'time to taken cross the other train is: '
+0100 OP_GET_GLOBAL      39 'train2_time'
+0102 OP_PRINT_END
+0103 OP_CONSTANT        40 ' s'
+0105 OP_PRINT
+0106 OP_CONSTANT        41 'Therefore, the velocity of train 1 is: '
+0108 OP_GET_GLOBAL      42 'train1_v'
+0110 OP_PRINT_END
+0111 OP_CONSTANT        43 ' m/s'
+0113 OP_PRINT
+0114 OP_CONSTANT        44 'Therefore, the velocity of train 2 is: '
+0116 OP_GET_GLOBAL      45 'train2_v'
+0118 OP_PRINT_END
+0119 OP_CONSTANT        46 ' m/s'
+0121 OP_PRINT
+0122 OP_RETURN
