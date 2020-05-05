@@ -4,6 +4,20 @@
 
 [![Pulse Contributing](https://img.youtube.com/vi/tG_y5o9qkNk/0.jpg)](https://youtu.be/tG_y5o9qkNk)
 
+# Standards
+
+1) Name of file should start with Q (upper-case) followed by the question number and then pulse file extension. Eg:- Q134.pls
+
+2) Name of branch should start with q (lower-case) followed by - and the question numbers if they are random. Eg:- q-1-67-29-134. If the questions are in sequence like 1, 2, 3, 4, 5 then branch name should be q (lower-case) followed by - , then the first question number, another -, and finally the last question number. Eg:- q-1-5. If some are in sequence and others are random like 1, 2, 3, 67, 100 then the random questions should be listed separated by -. Eg:- p-1-3-67-100.
+
+3) Every file should contain an Author Token (~) that stores the name of the person who wrote the code. 
+
+4) Commit messages should contain the numbers of questions separated by comma (,). Even if the questions are continuous still all of them should be listed in the commit message. The commit message should not contain anything other than the question numbers. Eg:- “1, 2, 3, 4, 5” or “1, 2, 3, 67, 100”.
+
+5) Questions should be moved to complete only after your PR (Pull Request) is merged into test-pulse branch.
+
+6) PR should be made to test-pulse branch and no other branch.
+
 # Syntax
 
 <details>
