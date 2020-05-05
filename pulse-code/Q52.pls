@@ -1,10 +1,10 @@
 ~Pranav
-var n = 50
-var s = 0
-var p = 0
-var i = 1
-while(i < n):
-	s = i % 10
-	if(( s == 4) or (s == 7)):
-		print(i)
-	i = i + 1
+var n_lucky = 50
+var s_lucky = 0
+var p_lucky = 0
+var i_lucky = 1
+while(i_lucky < n_lucky):
+	s_lucky = i_lucky % 10
+	if(( s_lucky == 4) or (s_lucky == 7)):
+		print(i_lucky)
+	i_lucky = i_lucky + 1

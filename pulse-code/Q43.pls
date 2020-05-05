@@ -1,22 +1,21 @@
 ~Pranav
-var a = 4
-var s = 0
-var k = 0
-var d = a
-var i = 2
-var p = 0
-var t = a
-while(d > 0):
-	s = d % 10
-	k = k + s
-	d= d / 10
-while(a > 1):
-	if(a % i == 0):
-		p = p + i
-		a = a / i
+var smith_input = 4
+var s_digit = 0
+var k_sum = 0
+var c_smith = smith_input
+var i_smith = 2
+var p_smith = 0
+while(c_smith > 0):
+	s_digit = c_smith % 10
+	k_sum = k_sum + s_digit
+	c_smith = c_smith / 10
+while(smith_input > 1):
+	if(smith_input % i_smith == 0):
+		p_smith = p_smith + i_smith
+		smith_input = smith_input / i_smith
 	else:
-		i = i + 1
-if(p == k):
+		i_smith = i_smith + 1
+if(p_smith == k_sum):
 	print("Smith number")
 else:
 	print("Not a Smith number")
