@@ -268,7 +268,7 @@
 
   <b>Result = Enter an integer: 12</b>
 
-	### Syntax of input function for floating point input
+  ### Syntax of input function for floating point input
 
   ```console
   var a = input("Enter a floating point: ", "f")
@@ -276,7 +276,7 @@
 
   <b>Result = Enter an floating point: 3.14159</b>
 
-	### Syntax of input function for string input
+  ### Syntax of input function for string input
 
   ```console
   var a = input("Enter a string: ", "s")
@@ -284,7 +284,7 @@
 
   <b>Result = Enter a string: Hello World</b>
 
-	<b>Note: The default type of input function takes (first example in this section) takes string input by default.</b>
+  <b>Note: The default type of input function takes (first example in this section) takes string input by default.</b>
 
 </details>
 
