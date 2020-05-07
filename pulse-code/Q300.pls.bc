@@ -1,0 +1,17 @@
+0000 OP_CONSTANT         1 '40'
+0002 OP_DEFINE_GLOBAL    0 'avg_speed1'
+0004 OP_CONSTANT         3 '60'
+0006 OP_DEFINE_GLOBAL    2 'avg_speed2'
+0008 OP_CONSTANT         5 '2'
+0010 OP_GET_GLOBAL       6 'avg_speed1'
+0012 OP_MULTIPLY
+0013 OP_GET_GLOBAL       7 'avg_speed2'
+0015 OP_MULTIPLY
+0016 OP_GET_GLOBAL       8 'avg_speed1'
+0018 OP_GET_GLOBAL       9 'avg_speed2'
+0020 OP_ADD
+0021 OP_DIVIDE
+0022 OP_DEFINE_GLOBAL    4 'total_avg_speed'
+0024 OP_GET_GLOBAL      10 'total_avg_speed'
+0026 OP_PRINT
+0027 OP_RETURN
