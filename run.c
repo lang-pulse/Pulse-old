@@ -8,7 +8,7 @@
 #include "includes/scanner.h"
 #include "includes/vm.h"
 
-#define VERSION "v0.0.2"
+#define VERSION "v0.0.3"
 
 const char *get_filename_ext(const char *filename) {
     const char *dot = strrchr(filename, '.');

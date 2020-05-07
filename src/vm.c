@@ -139,6 +139,24 @@ void power(VM* vm) {
   push(vm, NUMBER_VAL(pow(a, b)));
 }
 
+char *inputString(FILE* fp, size_t size){
+    char *str;
+    int ch;
+    size_t len = 0;
+    str = realloc(NULL, sizeof(char)*size);
+    if(!str)return str;
+    while(EOF!=(ch=fgetc(fp)) && ch != '\n'){
+        str[len++]=ch;
+        if(len==size){
+            str = realloc(str, sizeof(char)*(size+=16));
+            if(!str)return str;
+        }
+    }
+    str[len++]='\0';
+
+    return realloc(str, sizeof(char)*len);
+}
+
 static InterpretResult run(VM* vm) {
 #define READ_BYTE() (*vm->ip++)
 #define READ_CONSTANT() (vm->iota->constants.values[READ_BYTE()])
@@ -318,6 +336,47 @@ static InterpretResult run(VM* vm) {
         printValue(end);
         break;
       }
+			case OP_INPUT: {
+				printValue(pop(vm));
+				char* user_input = inputString(stdin, 5);
+				int length = strlen(user_input);
+
+				ObjString* result = takeString(user_input, length, vm);
+			  push(vm, OBJ_VAL(result));
+				break;
+			}
+			case OP_INPUT_END: {
+				Value end = pop(vm);
+
+				if(!IS_STRING(end)) {
+					runtimeError(vm, "Type given to input should be in string format.");
+					return INTERPRET_RUNTIME_ERROR;
+				}
+
+				ObjString* dtype = AS_STRING(end);
+				printValue(pop(vm));
+
+				if(strcmp(dtype->chars, "i") == 0) {
+					int integer_input;
+					scanf("%d", &integer_input);
+					push(vm, NUMBER_VAL(integer_input));
+				} else if(strcmp(dtype->chars, "d") == 0) {
+					double double_input;
+					scanf("%lf", &double_input);
+					push(vm, NUMBER_VAL(double_input));
+				} else if(strcmp(dtype->chars, "s") == 0) {
+					char* string_input = inputString(stdin, 5);
+					int length = strlen(string_input);
+
+					ObjString* result = takeString(string_input, length, vm);
+					push(vm, OBJ_VAL(result));
+				} else {
+					runtimeError(vm, "Unknown datatype passed to input.");
+					return INTERPRET_RUNTIME_ERROR;
+				}
+
+				break;
+			}
       case OP_JUMP: {
         uint16_t offset = READ_SHORT();
         vm->ip += offset;

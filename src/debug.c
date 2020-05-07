@@ -104,6 +104,10 @@ int disassembleInstruction(Iota* iota, int offset, FILE* file){
 			return simpleInstruction("OP_PRINT", offset, file);
 		case OP_PRINT_END:
 			return simpleInstruction("OP_PRINT_END", offset, file);
+		case OP_INPUT:
+			return simpleInstruction("OP_INPUT", offset, file);
+		case OP_INPUT_END:
+			return simpleInstruction("OP_INPUT_END", offset, file);
 		case OP_JUMP:
       return jumpInstruction("OP_JUMP", 1, iota, offset, file);
     case OP_JUMP_IF_FALSE:

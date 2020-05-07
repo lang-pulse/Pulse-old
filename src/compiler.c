@@ -320,6 +320,7 @@ ParseRule rules[] = {
   { literal,  NULL,    PREC_NONE },       // TOKEN_NIL
   { NULL,     or_,     PREC_OR },         // TOKEN_OR
   { NULL,     NULL,    PREC_NONE },       // TOKEN_PRINT
+	{ NULL,     NULL,    PREC_NONE },       // TOKEN_INPUT
   { NULL,     NULL,    PREC_NONE },       // TOKEN_RETURN
   { NULL,     NULL,    PREC_NONE },       // TOKEN_SUPER
   { NULL,     NULL,    PREC_NONE },       // TOKEN_THIS
@@ -451,16 +452,26 @@ static void block(Parser* parser, Scanner* scanner, VM* vm) {
   consume(parser, scanner, TOKEN_UNINDENT, "Expect 'unindent' after block.");
 }
 
+static void inputStatement(Parser* parser, Scanner* scanner, VM* vm);
+
 static void varDeclaration(Parser* parser, Scanner* scanner, VM* vm) {
   uint8_t global = parseVariable(parser, scanner, vm, "Expect variable name.");
 
+	int input_flag = 0;
+
   if(match(parser, scanner, TOKEN_EQUAL)) {
-    expression(parser, scanner, vm);
+		if(match(parser, scanner, TOKEN_INPUT)) {
+			input_flag = 1;
+			inputStatement(parser, scanner, vm);
+		} else {
+			expression(parser, scanner, vm);
+		}
   } else {
     emitByte(parser, OP_NIL);
   }
 
-  consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' after variable declaration.");
+	if(!input_flag)
+  	consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' after variable declaration.");
 
   defineVariable(parser, global);
 }
@@ -574,6 +585,25 @@ static void printStatement(Parser* parser, Scanner* scanner, VM* vm) {
     emitByte(parser, OP_PRINT);
 }
 
+static void inputStatement(Parser* parser, Scanner* scanner, VM* vm) {
+	consume(parser, scanner, TOKEN_LEFT_PAREN, "Expect '(' after input keyword.");
+	expression(parser, scanner, vm);
+	int flag_end = 0;
+	printf("%d\n\n", parser->current.type);
+	if(match(parser, scanner, TOKEN_COMMA)) {
+		expression(parser, scanner, vm);
+		flag_end = 1;
+	}
+	consume(parser, scanner, TOKEN_RIGHT_PAREN, "Expect ')' after expression in input.");
+	consume(parser, scanner, TOKEN_NEWLINE, "Expect 'newline' character after input.");
+	if(flag_end) {
+			printf("\n\nHello\n\n");
+			emitByte(parser, OP_INPUT_END);
+	}
+	else
+		emitByte(parser, OP_INPUT);
+}
+
 static void whileStatement(Parser* parser, Scanner* scanner, VM* vm) {
   int loopStart = currentIota()->count;
 
@@ -607,6 +637,7 @@ static void synchronize(Parser* parser, Scanner* scanner) {
       case TOKEN_IF:
       case TOKEN_WHILE:
       case TOKEN_PRINT:
+			case TOKEN_INPUT:
       case TOKEN_RETURN:
         return;
       default:
@@ -620,7 +651,9 @@ static void synchronize(Parser* parser, Scanner* scanner) {
 static void statement(Parser* parser, Scanner* scanner, VM* vm) {
   if(match(parser, scanner, TOKEN_PRINT)) {
     printStatement(parser, scanner, vm);
-  } else if(match(parser, scanner, TOKEN_FOR)) {
+  } else if(match(parser, scanner, TOKEN_INPUT)) {
+		inputStatement(parser, scanner, vm);
+	} else if(match(parser, scanner, TOKEN_FOR)) {
     forStatement(parser, scanner, vm);
   } else if(match(parser, scanner, TOKEN_IF)) {
     ifStatement(parser, scanner, vm);
