@@ -1,5 +1,5 @@
 ~Kaustuv
 var bash = 10
-var height = 10
-var volume = 1/2*bash*height*height
-print(volume)
+var height_shape = 10
+var volume_of_the_shape = 1/2*bash*height_shape*height_shape
+print(volume_of_the_shape)
