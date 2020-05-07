@@ -10,7 +10,7 @@
 
 2) Name of branch should start with q (lower-case) followed by - and the question numbers if they are random. Eg:- q-1-67-29-134. If the questions are in sequence like 1, 2, 3, 4, 5 then branch name should be q (lower-case) followed by - , then the first question number, another -, and finally the last question number. Eg:- q-1-5. If some are in sequence and others are random like 1, 2, 3, 67, 100 then the random questions should be listed separated by -. Eg:- p-1-3-67-100.
 
-3) Every file should contain an Author Token (~) that stores the name of the person who wrote the code. 
+3) Every file should contain an Author Token (~) that stores the name of the person who wrote the code.
 
 4) Commit messages should contain the numbers of questions separated by comma (,). Even if the questions are continuous still all of them should be listed in the commit message. The commit message should not contain anything other than the question numbers. Eg:- “1, 2, 3, 4, 5” or “1, 2, 3, 67, 100”.
 
@@ -244,6 +244,47 @@
   ```
 
   <b>Result = Hello+World</b>
+
+</details>
+
+<hr />
+
+<details>
+  <summary><b>Input function</b></summary>
+
+  ### Syntax of input function
+
+  ```console
+  var a = input("Enter something: ")
+  ```
+
+  <b>Enter something: Hello World</b>
+
+  ### Syntax of input function for integer input
+
+  ```console
+  var a = input("Enter an integer: ", "i")
+  ```
+
+  <b>Result = Enter an integer: 12</b>
+
+	### Syntax of input function for floating point input
+
+  ```console
+  var a = input("Enter a floating point: ", "f")
+  ```
+
+  <b>Result = Enter an floating point: 3.14159</b>
+
+	### Syntax of input function for string input
+
+  ```console
+  var a = input("Enter a string: ", "s")
+  ```
+
+  <b>Result = Enter a string: Hello World</b>
+
+	<b>Note: The default type of input function takes (first example in this section) takes string input by default.</b>
 
 </details>
 
