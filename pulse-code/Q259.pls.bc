@@ -1,0 +1,43 @@
+0000 OP_CONSTANT         1 '9e+008'
+0002 OP_DEFINE_GLOBAL    0 'first_number'
+0004 OP_CONSTANT         3 '800000'
+0006 OP_DEFINE_GLOBAL    2 'second_number'
+0008 OP_GET_GLOBAL       5 'first_number'
+0010 OP_GET_GLOBAL       6 'second_number'
+0012 OP_ADD
+0013 OP_DEFINE_GLOBAL    4 'sum_of_numbers'
+0015 OP_CONSTANT         8 '0'
+0017 OP_DEFINE_GLOBAL    7 'digits_counter'
+0019 OP_GET_GLOBAL      10 'sum_of_numbers'
+0021 OP_DEFINE_GLOBAL    9 'copy_sum'
+0023 OP_GET_GLOBAL      11 'sum_of_numbers'
+0025 OP_CONSTANT        12 '0'
+0027 OP_GREATER
+0028 OP_JUMP_IF_FALSE   28 -> 51
+0031 OP_POP
+0032 OP_GET_GLOBAL      14 'sum_of_numbers'
+0034 OP_CONSTANT        15 '10'
+0036 OP_DIVIDE_INT
+0037 OP_SET_GLOBAL      13 'sum_of_numbers'
+0039 OP_POP
+0040 OP_GET_GLOBAL      17 'digits_counter'
+0042 OP_CONSTANT        18 '1'
+0044 OP_ADD
+0045 OP_SET_GLOBAL      16 'digits_counter'
+0047 OP_POP
+0048 OP_LOOP            48 -> 23
+0051 OP_POP
+0052 OP_GET_GLOBAL      19 'digits_counter'
+0054 OP_CONSTANT        20 '8'
+0056 OP_GREATER
+0057 OP_JUMP_IF_FALSE   57 -> 70
+0060 OP_POP
+0061 OP_CONSTANT        21 'Sum has more than 8 digits'
+0063 OP_PRINT
+0064 OP_CONSTANT        22 'Overflow'
+0066 OP_PRINT
+0067 OP_JUMP            67 -> 74
+0070 OP_POP
+0071 OP_GET_GLOBAL      23 'copy_sum'
+0073 OP_PRINT
+0074 OP_RETURN
