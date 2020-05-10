@@ -1,4 +1,4 @@
-~ Harishankar PV
+~ Harishankar
 var pi=3.14
 var density_wire = 8.88
 var mass_wire
