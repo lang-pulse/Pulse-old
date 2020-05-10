@@ -1,4 +1,4 @@
-~ Harishankar PV
+~ Harishankar
 var radius=15
 var theta = 60
 var pi = 3.14
