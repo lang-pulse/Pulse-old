@@ -1,4 +1,4 @@
-~ Harishankar PV
+~ Harishankar
 var pi = 3.14
 var R_upper_circularend_frustum = 18/2
 var r_lower_circularend_fustum = 8/2
