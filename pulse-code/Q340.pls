@@ -1,4 +1,4 @@
-~ Harishankar PV
+~ Harishankar
 var pi=3.14
 var side_cube = 7
 var diameter_hemisphere = side_cube
