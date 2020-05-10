@@ -1,0 +1,32 @@
+0000 OP_CONSTANT         1 '150'
+0002 OP_CONSTANT         2 '120'
+0004 OP_MULTIPLY
+0005 OP_CONSTANT         3 '110'
+0007 OP_MULTIPLY
+0008 OP_DEFINE_GLOBAL    0 'volume_cistern'
+0010 OP_CONSTANT         5 '129600'
+0012 OP_DEFINE_GLOBAL    4 'volume_water'
+0014 OP_CONSTANT         7 '22.5'
+0016 OP_CONSTANT         8 '7.5'
+0018 OP_MULTIPLY
+0019 OP_CONSTANT         9 '6.5'
+0021 OP_MULTIPLY
+0022 OP_DEFINE_GLOBAL    6 'volume_brick'
+0024 OP_CONSTANT        11 '1'
+0026 OP_CONSTANT        12 '17'
+0028 OP_DIVIDE
+0029 OP_GET_GLOBAL      13 'volume_brick'
+0031 OP_MULTIPLY
+0032 OP_DEFINE_GLOBAL   10 'volume_water_absorbed'
+0034 OP_NIL
+0035 OP_DEFINE_GLOBAL   14 'required_bricks'
+0037 OP_CONSTANT        16 '1.7874e+06'
+0039 OP_CONSTANT        17 '1032.36'
+0041 OP_DIVIDE
+0042 OP_SET_GLOBAL      15 'required_bricks'
+0044 OP_POP
+0045 OP_CONSTANT        18 'The number of bricks that acan be put inside the cistern:'
+0047 OP_PRINT
+0048 OP_GET_GLOBAL      19 'required_bricks'
+0050 OP_PRINT
+0051 OP_RETURN

@@ -1,0 +1,49 @@
+0000 OP_CONSTANT         1 '20'
+0002 OP_DEFINE_GLOBAL    0 'trainA_speed'
+0004 OP_CONSTANT         3 '50'
+0006 OP_DEFINE_GLOBAL    2 'trainA_time'
+0008 OP_NIL
+0009 OP_DEFINE_GLOBAL    4 'trainA_distance'
+0011 OP_GET_GLOBAL       6 'trainA_speed'
+0013 OP_GET_GLOBAL       7 'trainA_time'
+0015 OP_MULTIPLY
+0016 OP_SET_GLOBAL       5 'trainA_distance'
+0018 OP_POP
+0019 OP_CONSTANT         9 '20'
+0021 OP_DEFINE_GLOBAL    8 'trainB_speed'
+0023 OP_CONSTANT        11 '50'
+0025 OP_DEFINE_GLOBAL   10 'trainB_time'
+0027 OP_CONSTANT        13 '1'
+0029 OP_DEFINE_GLOBAL   12 'trainB_acceleration'
+0031 OP_NIL
+0032 OP_DEFINE_GLOBAL   14 'trainB_distance'
+0034 OP_GET_GLOBAL      16 'trainB_speed'
+0036 OP_GET_GLOBAL      17 'trainB_time'
+0038 OP_MULTIPLY
+0039 OP_CONSTANT        18 '1'
+0041 OP_CONSTANT        19 '2'
+0043 OP_DIVIDE
+0044 OP_GET_GLOBAL      20 'trainB_acceleration'
+0046 OP_MULTIPLY
+0047 OP_GET_GLOBAL      21 'trainB_time'
+0049 OP_CONSTANT        22 '2'
+0051 OP_POWER
+0052 OP_MULTIPLY
+0053 OP_ADD
+0054 OP_SET_GLOBAL      15 'trainB_distance'
+0056 OP_POP
+0057 OP_GET_GLOBAL      24 'trainB_distance'
+0059 OP_GET_GLOBAL      25 'trainA_distance'
+0061 OP_SUBTRACT
+0062 OP_DEFINE_GLOBAL   23 'diff_distance'
+0064 OP_CONSTANT        27 '400'
+0066 OP_DEFINE_GLOBAL   26 'length_train'
+0068 OP_GET_GLOBAL      29 'diff_distance'
+0070 OP_GET_GLOBAL      30 'length_train'
+0072 OP_SUBTRACT
+0073 OP_DEFINE_GLOBAL   28 'distance_between_AB'
+0075 OP_CONSTANT        31 'Original distance b/n the train A and train B:'
+0077 OP_PRINT
+0078 OP_GET_GLOBAL      32 'distance_between_AB'
+0080 OP_PRINT
+0081 OP_RETURN
