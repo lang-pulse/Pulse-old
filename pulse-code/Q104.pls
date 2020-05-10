@@ -1,5 +1,5 @@
 ~Harishankar
-var i=1
-while(i<=25):
-	print(i)
-	i=i+1
+var i_counter=1
+while(i_counter<=25):
+	print(i_counter)
+	i_counter=i_counter+1

@@ -1,3 +1,3 @@
 ~Kaustuv
-var a = "Hello"
-print(a)
+var a_var = "Hello"
+print(a_var)

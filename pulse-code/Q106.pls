@@ -1,8 +1,8 @@
 ~Harishankar
 var n=3
-var i=1
-var prod=1
-while(i<=10):
-	prod=n*i
-	i=i+1
-	print(prod)
+var iterate=1
+var prod_of_iterate=1
+while(iterate<=10):
+	prod_of_iterate=n*iterate
+	iterate=iterate+1
+	print(prod_of_iterate)

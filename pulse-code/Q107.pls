@@ -1,6 +1,6 @@
 ~Harishankar
 var m=2
-var n=5
-var pow
-pow = 2^5
-print(pow)
+var exponent=5
+var power_result
+power_result = m^exponent
+print(power_result)
