@@ -1,4 +1,4 @@
-~ Harishankar PV
+~ Harishankar
 var circumference = 22
 var pi  =3.14
 var radius
