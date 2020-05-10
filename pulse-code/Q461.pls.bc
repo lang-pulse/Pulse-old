@@ -1,0 +1,29 @@
+0000 OP_CONSTANT         1 '50'
+0002 OP_DEFINE_GLOBAL    0 'nominal_value'
+0004 OP_GET_GLOBAL       3 'nominal_value'
+0006 OP_CONSTANT         4 '10'
+0008 OP_CONSTANT         5 '100'
+0010 OP_DIVIDE
+0011 OP_GET_GLOBAL       6 'nominal_value'
+0013 OP_MULTIPLY
+0014 OP_SUBTRACT
+0015 OP_DEFINE_GLOBAL    2 'market_value'
+0017 OP_CONSTANT         8 '20'
+0019 OP_CONSTANT         9 '100'
+0021 OP_DIVIDE
+0022 OP_DEFINE_GLOBAL    7 'profit_percent'
+0024 OP_GET_GLOBAL      11 'profit_percent'
+0026 OP_GET_GLOBAL      12 'market_value'
+0028 OP_MULTIPLY
+0029 OP_DEFINE_GLOBAL   10 'profit_oneach'
+0031 OP_GET_GLOBAL      14 'profit_oneach'
+0033 OP_GET_GLOBAL      15 'nominal_value'
+0035 OP_DIVIDE
+0036 OP_CONSTANT        16 '100'
+0038 OP_MULTIPLY
+0039 OP_DEFINE_GLOBAL   13 'dividend'
+0041 OP_CONSTANT        17 'Dividend %:'
+0043 OP_PRINT
+0044 OP_GET_GLOBAL      18 'dividend'
+0046 OP_PRINT
+0047 OP_RETURN

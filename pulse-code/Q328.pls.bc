@@ -1,0 +1,27 @@
+0000 OP_CONSTANT         1 '90'
+0002 OP_DEFINE_GLOBAL    0 'discs'
+0004 OP_CONSTANT         3 '81'
+0006 OP_DEFINE_GLOBAL    2 'td'
+0008 OP_CONSTANT         5 '9'
+0010 OP_DEFINE_GLOBAL    4 'ps'
+0012 OP_CONSTANT         7 '14'
+0014 OP_DEFINE_GLOBAL    6 'number'
+0016 OP_CONSTANT         8 'probability of a two digit number:'
+0018 OP_PRINT
+0019 OP_GET_GLOBAL       9 'td'
+0021 OP_GET_GLOBAL      10 'discs'
+0023 OP_DIVIDE
+0024 OP_PRINT
+0025 OP_CONSTANT        11 'probability of a perfect square:'
+0027 OP_PRINT
+0028 OP_GET_GLOBAL      12 'ps'
+0030 OP_GET_GLOBAL      13 'discs'
+0032 OP_DIVIDE
+0033 OP_PRINT
+0034 OP_CONSTANT        14 'probability of a number divisible by 5:'
+0036 OP_PRINT
+0037 OP_GET_GLOBAL      15 'number'
+0039 OP_GET_GLOBAL      16 'discs'
+0041 OP_DIVIDE
+0042 OP_PRINT
+0043 OP_RETURN
