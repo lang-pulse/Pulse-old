@@ -1,0 +1,53 @@
+0000 OP_CONSTANT         1 '1'
+0002 OP_DEFINE_GLOBAL    0 'loopiterator'
+0004 OP_GET_GLOBAL       2 'loopiterator'
+0006 OP_CONSTANT         3 '15'
+0008 OP_GREATER
+0009 OP_NOT
+0010 OP_JUMP_IF_FALSE   10 -> 87
+0013 OP_POP
+0014 OP_GET_GLOBAL       4 'loopiterator'
+0016 OP_CONSTANT         5 '2'
+0018 OP_MODULO
+0019 OP_CONSTANT         6 '0'
+0021 OP_EQUAL
+0022 OP_NOT
+0023 OP_JUMP_IF_FALSE   23 -> 33
+0026 OP_POP
+0027 OP_GET_GLOBAL       7 'loopiterator'
+0029 OP_CONSTANT         8 '9'
+0031 OP_GREATER
+0032 OP_NOT
+0033 OP_JUMP_IF_FALSE   33 -> 43
+0036 OP_POP
+0037 OP_CONSTANT         9 '* * * * * * =================================='
+0039 OP_PRINT
+0040 OP_JUMP            40 -> 76
+0043 OP_POP
+0044 OP_GET_GLOBAL      10 'loopiterator'
+0046 OP_CONSTANT        11 '2'
+0048 OP_MODULO
+0049 OP_CONSTANT        12 '0'
+0051 OP_EQUAL
+0052 OP_JUMP_IF_FALSE   52 -> 62
+0055 OP_POP
+0056 OP_GET_GLOBAL      13 'loopiterator'
+0058 OP_CONSTANT        14 '9'
+0060 OP_GREATER
+0061 OP_NOT
+0062 OP_JUMP_IF_FALSE   62 -> 72
+0065 OP_POP
+0066 OP_CONSTANT        15 ' * * * * *  =================================='
+0068 OP_PRINT
+0069 OP_JUMP            69 -> 76
+0072 OP_POP
+0073 OP_CONSTANT        16 '=============================================='
+0075 OP_PRINT
+0076 OP_GET_GLOBAL      18 'loopiterator'
+0078 OP_CONSTANT        19 '1'
+0080 OP_ADD
+0081 OP_SET_GLOBAL      17 'loopiterator'
+0083 OP_POP
+0084 OP_LOOP            84 -> 4
+0087 OP_POP
+0088 OP_RETURN
