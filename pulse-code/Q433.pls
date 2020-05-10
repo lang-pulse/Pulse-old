@@ -1,4 +1,4 @@
-~Soumya - 433
+~Soumya
 var percentage_copper = 26
 print("The percentage of copper in an alloy is: ", percentage_copper)
 print("%")
