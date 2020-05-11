@@ -1,0 +1,22 @@
+0000 OP_CONSTANT         1 '6'
+0002 OP_CONSTANT         2 '6'
+0004 OP_MULTIPLY
+0005 OP_DEFINE_GLOBAL    0 'roll_dice'
+0007 OP_CONSTANT         4 '2'
+0009 OP_CONSTANT         5 '6'
+0011 OP_DIVIDE
+0012 OP_DEFINE_GLOBAL    3 'get_three'
+0014 OP_CONSTANT         7 '5'
+0016 OP_GET_GLOBAL       8 'roll_dice'
+0018 OP_DIVIDE
+0019 OP_DEFINE_GLOBAL    6 'get_eight'
+0021 OP_GET_GLOBAL      10 'get_three'
+0023 OP_GET_GLOBAL      11 'get_eight'
+0025 OP_ADD
+0026 OP_DEFINE_GLOBAL    9 'ans_wer'
+0028 OP_CONSTANT        12 'Probability of getting multiple of 3 in first throw and sum of eight is '
+0030 OP_CONSTANT        13 ''
+0032 OP_PRINT_END
+0033 OP_GET_GLOBAL      14 'ans_wer'
+0035 OP_PRINT
+0036 OP_RETURN
