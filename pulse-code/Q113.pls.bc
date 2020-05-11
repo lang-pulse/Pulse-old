@@ -3,7 +3,7 @@
 0004 OP_CONSTANT         3 '21'
 0006 OP_DEFINE_GLOBAL    2 'h'
 0008 OP_NIL
-0009 OP_DEFINE_GLOBAL    4 'area'
+0009 OP_DEFINE_GLOBAL    4 'area_cyl'
 0011 OP_NIL
 0012 OP_DEFINE_GLOBAL    5 'metre'
 0014 OP_CONSTANT         7 '3.14'
@@ -13,16 +13,16 @@
 0021 OP_CONSTANT        10 '2'
 0023 OP_POWER
 0024 OP_MULTIPLY
-0025 OP_SET_GLOBAL       6 'area'
+0025 OP_SET_GLOBAL       6 'area_cyl'
 0027 OP_POP
-0028 OP_GET_GLOBAL      12 'area'
+0028 OP_GET_GLOBAL      12 'area_cyl'
 0030 OP_CONSTANT        13 '100'
 0032 OP_DIVIDE
 0033 OP_SET_GLOBAL      11 'metre'
 0035 OP_POP
 0036 OP_CONSTANT        14 'the area of the cylinder in centimetres is:'
 0038 OP_PRINT
-0039 OP_GET_GLOBAL      15 'area'
+0039 OP_GET_GLOBAL      15 'area_cyl'
 0041 OP_PRINT
 0042 OP_CONSTANT        16 'the area of the cylinder in metres is:'
 0044 OP_PRINT

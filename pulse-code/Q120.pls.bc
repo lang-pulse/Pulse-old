@@ -11,9 +11,9 @@
 0020 OP_CONSTANT        11 '12'
 0022 OP_DEFINE_GLOBAL   10 'nbulbs'
 0024 OP_NIL
-0025 OP_DEFINE_GLOBAL   12 'total_cost'
+0025 OP_DEFINE_GLOBAL   12 'total_cost_units'
 0027 OP_NIL
-0028 OP_DEFINE_GLOBAL   13 'sum'
+0028 OP_DEFINE_GLOBAL   13 'sum_units'
 0030 OP_NIL
 0031 OP_DEFINE_GLOBAL   14 'theaterunits'
 0033 OP_NIL
@@ -44,12 +44,12 @@
 0073 OP_ADD
 0074 OP_GET_GLOBAL      31 'tbulbunits'
 0076 OP_ADD
-0077 OP_SET_GLOBAL      28 'sum'
+0077 OP_SET_GLOBAL      28 'sum_units'
 0079 OP_POP
-0080 OP_GET_GLOBAL      33 'sum'
+0080 OP_GET_GLOBAL      33 'sum_units'
 0082 OP_GET_GLOBAL      34 'cost'
 0084 OP_MULTIPLY
-0085 OP_SET_GLOBAL      32 'total_cost'
+0085 OP_SET_GLOBAL      32 'total_cost_units'
 0087 OP_POP
 0088 OP_CONSTANT        35 'the units consumed by the heater in a day:'
 0090 OP_PRINT
@@ -59,12 +59,12 @@
 0096 OP_PRINT
 0097 OP_GET_GLOBAL      38 'tfanunits'
 0099 OP_PRINT
-0100 OP_CONSTANT        39 'the units consumed by the fans in a day:'
+0100 OP_CONSTANT        39 'the units consumed by the bulbs in a day:'
 0102 OP_PRINT
 0103 OP_GET_GLOBAL      40 'tbulbunits'
 0105 OP_PRINT
 0106 OP_CONSTANT        41 'the total electricity bill for one day in dollars is:'
 0108 OP_PRINT
-0109 OP_GET_GLOBAL      42 'total_cost'
+0109 OP_GET_GLOBAL      42 'total_cost_units'
 0111 OP_PRINT
 0112 OP_RETURN

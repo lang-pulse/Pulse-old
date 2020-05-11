@@ -5,11 +5,11 @@
 0007 OP_CONSTANT         4 '1.5'
 0009 OP_DEFINE_GLOBAL    3 'rincm'
 0011 OP_NIL
-0012 OP_DEFINE_GLOBAL    5 'r'
+0012 OP_DEFINE_GLOBAL    5 'radius_ball'
 0014 OP_NIL
 0015 OP_DEFINE_GLOBAL    6 'vball'
 0017 OP_NIL
-0018 OP_DEFINE_GLOBAL    7 'n'
+0018 OP_DEFINE_GLOBAL    7 'n_frac'
 0020 OP_GET_GLOBAL       9 'side'
 0022 OP_CONSTANT        10 '3'
 0024 OP_POWER
@@ -18,14 +18,14 @@
 0028 OP_GET_GLOBAL      12 'rincm'
 0030 OP_CONSTANT        13 '100'
 0032 OP_DIVIDE
-0033 OP_SET_GLOBAL      11 'r'
+0033 OP_SET_GLOBAL      11 'radius_ball'
 0035 OP_POP
 0036 OP_CONSTANT        15 '4'
 0038 OP_CONSTANT        16 '3'
 0040 OP_DIVIDE
 0041 OP_CONSTANT        17 '3.14'
 0043 OP_MULTIPLY
-0044 OP_GET_GLOBAL      18 'r'
+0044 OP_GET_GLOBAL      18 'radius_ball'
 0046 OP_CONSTANT        19 '3'
 0048 OP_POWER
 0049 OP_MULTIPLY
@@ -34,7 +34,7 @@
 0053 OP_GET_GLOBAL      21 'vcube'
 0055 OP_GET_GLOBAL      22 'vball'
 0057 OP_DIVIDE
-0058 OP_SET_GLOBAL      20 'n'
+0058 OP_SET_GLOBAL      20 'n_frac'
 0060 OP_POP
 0061 OP_CONSTANT        23 'the volume of the metallic cube is:'
 0063 OP_PRINT
@@ -46,6 +46,6 @@
 0072 OP_PRINT
 0073 OP_CONSTANT        27 'therefore, the number of balls that can be formed from the metallic cube is:'
 0075 OP_PRINT
-0076 OP_GET_GLOBAL      28 'n'
+0076 OP_GET_GLOBAL      28 'n_frac'
 0078 OP_PRINT
 0079 OP_RETURN

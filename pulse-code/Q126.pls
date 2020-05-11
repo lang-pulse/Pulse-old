@@ -1,15 +1,15 @@
 ~Harishankar
-var num
-var count=1
-var rem
-var sum
-while(count <= 500):
-	num = count
-	sum = 0
-	while( num!=0):
-		rem = num %10
-		sum=sum +(rem*rem*rem)
-		num=num//10
-	if(count==sum):
-		print(count)
-	count=count+1
+var num_inp
+var count_=1
+var remainder
+var sum_num
+while(count_ <= 500):
+	num_inp = count_
+	sum_num = 0
+	while( num_inp!=0):
+		remainder = num_inp %10
+		sum_num=sum_num +(remainder*remainder*remainder)
+		num_inp=num_inp//10
+	if(count_==sum_num):
+		print(count_)
+	count_=count_+1

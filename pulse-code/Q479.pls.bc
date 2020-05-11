@@ -1,0 +1,63 @@
+0000 OP_CONSTANT         1 '400'
+0002 OP_DEFINE_GLOBAL    0 'dist_north'
+0004 OP_CONSTANT         3 '300'
+0006 OP_DEFINE_GLOBAL    2 'dist_west'
+0008 OP_CONSTANT         5 '1200'
+0010 OP_DEFINE_GLOBAL    4 'dist_vertical'
+0012 OP_NIL
+0013 OP_DEFINE_GLOBAL    6 'h_disp'
+0015 OP_NIL
+0016 OP_DEFINE_GLOBAL    7 'displacement'
+0018 OP_GET_GLOBAL       9 'dist_north'
+0020 OP_CONSTANT        10 '2'
+0022 OP_POWER
+0023 OP_GET_GLOBAL      11 'dist_west'
+0025 OP_CONSTANT        12 '2'
+0027 OP_POWER
+0028 OP_ADD
+0029 OP_SET_GLOBAL       8 'h_disp'
+0031 OP_POP
+0032 OP_GET_GLOBAL      14 'h_disp'
+0034 OP_CONSTANT        15 '1'
+0036 OP_CONSTANT        16 '2'
+0038 OP_DIVIDE
+0039 OP_POWER
+0040 OP_SET_GLOBAL      13 'h_disp'
+0042 OP_POP
+0043 OP_GET_GLOBAL      18 'h_disp'
+0045 OP_CONSTANT        19 '2'
+0047 OP_POWER
+0048 OP_GET_GLOBAL      20 'dist_vertical'
+0050 OP_CONSTANT        21 '2'
+0052 OP_POWER
+0053 OP_ADD
+0054 OP_SET_GLOBAL      17 'displacement'
+0056 OP_POP
+0057 OP_GET_GLOBAL      23 'displacement'
+0059 OP_CONSTANT        24 '1'
+0061 OP_CONSTANT        25 '2'
+0063 OP_DIVIDE
+0064 OP_POWER
+0065 OP_SET_GLOBAL      22 'displacement'
+0067 OP_POP
+0068 OP_CONSTANT        26 'The distance towards north: '
+0070 OP_GET_GLOBAL      27 'dist_north'
+0072 OP_PRINT_END
+0073 OP_CONSTANT        28 ' m'
+0075 OP_PRINT
+0076 OP_CONSTANT        29 'The distance towards west: '
+0078 OP_GET_GLOBAL      30 'dist_west'
+0080 OP_PRINT_END
+0081 OP_CONSTANT        31 ' m'
+0083 OP_PRINT
+0084 OP_CONSTANT        32 'The distance in vertical direction: '
+0086 OP_GET_GLOBAL      33 'dist_vertical'
+0088 OP_PRINT_END
+0089 OP_CONSTANT        34 ' m'
+0091 OP_PRINT
+0092 OP_CONSTANT        35 'Therefore, the total displacement of the aeeroplane is: '
+0094 OP_GET_GLOBAL      36 'displacement'
+0096 OP_PRINT_END
+0097 OP_CONSTANT        37 ' m'
+0099 OP_PRINT
+0100 OP_RETURN

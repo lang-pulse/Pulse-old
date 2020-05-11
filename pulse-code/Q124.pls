@@ -1,20 +1,20 @@
 ~Barath
 var p=21000
 var r=8
-var t=5
-var si
-var ci
+var time_yrs=5
+var simple_int
+var cinterest
 var famtsi
 var famtci
-si=(p*r*t)/100
-famtsi=p+si
-print("the simple interest is: ")
-print(si)
+simple_int=(p*r*time_yrs)/100
+famtsi=p+simple_int
+print("the simple interest value is: ")
+print(simple_int)
 print("if using simple interest, the man has to pay:")
 print(famtsi)
-ci=(p*(1+(r/100))^t)
-famtci=p+ci
+cinterest=(p*(1+(r/100))^time_yrs)
+famtci=p+cinterest
 print("the compound interest is: ")
-print(ci)
+print(cinterest)
 print("if using compound interest, the man has to pay: ")
 print(famtci)

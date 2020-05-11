@@ -1,15 +1,15 @@
 ~Harishankar
 var n=23
-var i=2
-var j
+var iter_prime=2
+var jiter_prime
 var prime
-while(i<=n):
+while(iter_prime<=n):
 	prime=1
-	j=i-1
-	while(j>1):
-		if(i%j ==0):
+	jiter_prime=iter_prime-1
+	while(jiter_prime>1):
+		if(iter_prime%jiter_prime ==0):
 			prime=0
-		j=j-1
+		jiter_prime=jiter_prime-1
 	if(prime==1):
-		print(i)
-	i=i+1
+		print(iter_prime)
+	iter_prime=iter_prime+1
