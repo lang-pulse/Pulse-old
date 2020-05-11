@@ -1,0 +1,27 @@
+0000 OP_CONSTANT         1 '144'
+0002 OP_DEFINE_GLOBAL    0 'total_pens'
+0004 OP_CONSTANT         3 '20'
+0006 OP_DEFINE_GLOBAL    2 'bad_pens'
+0008 OP_GET_GLOBAL       5 'total_pens'
+0010 OP_GET_GLOBAL       6 'bad_pens'
+0012 OP_SUBTRACT
+0013 OP_DEFINE_GLOBAL    4 'good_pens'
+0015 OP_GET_GLOBAL       8 'good_pens'
+0017 OP_GET_GLOBAL       9 'total_pens'
+0019 OP_DIVIDE
+0020 OP_DEFINE_GLOBAL    7 'she_buys'
+0022 OP_GET_GLOBAL      11 'bad_pens'
+0024 OP_GET_GLOBAL      12 'total_pens'
+0026 OP_DIVIDE
+0027 OP_DEFINE_GLOBAL   10 'not_buys'
+0029 OP_CONSTANT        13 'She buys- '
+0031 OP_CONSTANT        14 ''
+0033 OP_PRINT_END
+0034 OP_GET_GLOBAL      15 'she_buys'
+0036 OP_PRINT
+0037 OP_CONSTANT        16 'She will not buy- '
+0039 OP_CONSTANT        17 ''
+0041 OP_PRINT_END
+0042 OP_GET_GLOBAL      18 'not_buys'
+0044 OP_PRINT
+0045 OP_RETURN

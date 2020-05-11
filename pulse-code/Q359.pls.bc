@@ -1,0 +1,19 @@
+0000 OP_CONSTANT         1 '40'
+0002 OP_DEFINE_GLOBAL    0 'no_of_students'
+0004 OP_CONSTANT         3 '181'
+0006 OP_NEGATE
+0007 OP_DEFINE_GLOBAL    2 'freq_mark'
+0009 OP_CONSTANT         5 '17'
+0011 OP_DEFINE_GLOBAL    4 'const'
+0013 OP_GET_GLOBAL       7 'freq_mark'
+0015 OP_GET_GLOBAL       8 'no_of_students'
+0017 OP_DIVIDE
+0018 OP_GET_GLOBAL       9 'const'
+0020 OP_ADD
+0021 OP_DEFINE_GLOBAL    6 'mean_no'
+0023 OP_CONSTANT        10 'The mean number of days a student was abesent is '
+0025 OP_CONSTANT        11 ''
+0027 OP_PRINT_END
+0028 OP_GET_GLOBAL      12 'mean_no'
+0030 OP_PRINT
+0031 OP_RETURN
