@@ -1,29 +1,29 @@
 ~Barath
-var y1=3
-var y2=7
+var y1_drnarme=3
+var y2_drnarme=7
 var m=1
-var n=1
-var max
-var min
-var diff
-var narme
-diff=y1-y2
-if(diff<0):
-	diff=diff*(-1)
-max=(diff^(1/m))
-min=(diff^(1/n))
-if(max<1):
-	max=1
-if(min>1):
-	min=1
-narme=max*min
-print("the value of y1 is:")
-print(y1)
-print("the value of y2 is:")
-print(y2)
-print("the max value is:")
-print(max)
-print("the min value is:")
-print(min)
-print("the Nth absolute root mean error of y1 and y2 is:")
-print(narme)
+var n_drnarme=1
+var max_drnarme
+var min_drnarme
+var diff_drnarme
+var drnarme
+diff_drnarme=y1_drnarme-y2_drnarme
+if(diff_drnarme<0):
+	diff_drnarme=diff_drnarme*(-1)
+max_drnarme=(diff_drnarme^(1/m))
+min_drnarme=(diff_drnarme^(1/n_drnarme))
+if(max_drnarme<1):
+	max_drnarme=1
+if(min_drnarme>1):
+	min_drnarme=1
+drnarme=max_drnarme*min_drnarme
+print("the value of y1_drnarme is:")
+print(y1_drnarme)
+print("the value of y2_drnarme is:")
+print(y2_drnarme)
+print("the max_drnarme value is:")
+print(max_drnarme)
+print("the min_drnarme value is:")
+print(min_drnarme)
+print("the Nth absolute root mean error of y1_drnarme and y2_drnarme is:")
+print(drnarme)

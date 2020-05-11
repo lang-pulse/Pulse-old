@@ -1,6 +1,6 @@
 ~Barath
 var i_it
-var j_iter
+var j_iterator
 var rows_it=10
 var space_it
 i_it=rows_it
@@ -9,13 +9,13 @@ while(i_it>=1):
 	while(space_it<=(rows_it-i_it)):
 		print(""," ")
 		space_it=space_it+1
-	j_iter=i_it
-	while(j_iter<=(2*(i_it-1))):
+	j_iterator=i_it
+	while(j_iterator<=(2*(i_it-1))):
 		print("#"," ")
-		j_iter=j_iter+1
-	j_iter=0
-	while(j_iter<=(i_it-1)):
+		j_iterator=j_iterator+1
+	j_iterator=0
+	while(j_iterator<=(i_it-1)):
 		print("","")
-		j_iter=j_iter+1
+		j_iterator=j_iterator+1
 	print("")
 	i_it=i_it-1

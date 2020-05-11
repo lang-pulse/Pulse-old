@@ -1,16 +1,16 @@
 ~Barath
-var y1=0.5
-var y2=1.2
-var n=2
-var diff
-var narme
-diff=y1-y2
-if(diff<0):
-	diff=diff*(-1)
-narme=diff^(1/n)
-print("the value of y1 is:")
-print(y1)
-print("the value of y2 is:")
-print(y2)
-print("the Nth absolute root mean error of y1 and y2 is:")
-print(narme)
+var y1_narme=0.5
+var y2_narme=1.2
+var nthroot=2
+var diff_srnarme
+var srnarme
+diff_srnarme=y1_narme-y2_narme
+if(diff_srnarme<0):
+	diff_srnarme=diff_srnarme*(-1)
+srnarme=diff_srnarme^(1/nthroot)
+print("the value of y1_narme is:")
+print(y1_narme)
+print("the value of y2_narme is:")
+print(y2_narme)
+print("the Nth absolute root mean error of y1_narme and y2_narme is:")
+print(srnarme)

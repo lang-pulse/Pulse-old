@@ -1,15 +1,15 @@
 ~Barath
-var y1=3
-var y2=4
-var diff
+var prediction=3
+var true_output_value=4
+var difference_of_val
 var rmse
-diff=(y1^2)-(y2^2)
-if(diff<0):
-	diff=diff*(-1)
-rmse=diff^(0.5)
-print("the value of y1 is:")
-print(y1)
-print("the value of y2 is:")
-print(y2)
-print("the root mean squared error of y1 and y2 is:")
+difference_of_val=(prediction^2)-(true_output_value^2)
+if(difference_of_val<0):
+	difference_of_val=difference_of_val*(-1)
+rmse=difference_of_val^(0.5)
+print("the value of prediction is:")
+print(prediction)
+print("the value of true_output_value is:")
+print(true_output_value)
+print("the root mean squared error of prediction and true_output_value is:")
 print(rmse)

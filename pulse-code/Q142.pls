@@ -1,14 +1,14 @@
 ~Barath
 var w=0.6
-var x=2.3
-var b=0.9
+var x_input_vec=2.3
+var bias_term=0.9
 var fp
-fp=(w*x)+b
+fp=(w*x_input_vec)+bias_term
 print("the weight is:")
 print(w)
 print("the bias term:")
-print(b)
+print(bias_term)
 print("the input is:")
-print(x)
+print(x_input_vec)
 print("the forward propagation is:")
 print(fp)

@@ -1,6 +1,6 @@
 ~Harishankar
 var y1=5
-var y2=3
+var true_output=3
 var MSE
-MSE= y1^2-y2^2
+MSE= y1^2-true_output^2
 print(MSE)

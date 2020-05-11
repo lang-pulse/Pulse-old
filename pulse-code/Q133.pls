@@ -1,11 +1,11 @@
 ~Barath
-var a=-12
-print("the number is:")
-print(a)
-if(a<0):
-	a=0
-	print("the ReLu transformation of the number is:")
-	print(a)
+var a_relu_var=-12
+print("the value of number is:")
+print(a_relu_var)
+if(a_relu_var<0):
+	a_relu_var=0
+	print("the ReLu transformation of the value of number is:")
+	print(a_relu_var)
 else:
-	print("the ReLu transformation of the number is:")
-	print(a)
+	print("the ReLu transformation of the value of number is:")
+	print(a_relu_var)

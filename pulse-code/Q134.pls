@@ -1,11 +1,11 @@
 ~Barath
-var e=2.718
+var exponential=2.718
 var x=2.1
 var tanh
-tanh=(e^x-e^(-x))/(e^x+e^(-x))
+tanh=(exponential^x-exponential^(-x))/(exponential^x+exponential^(-x))
 print("the number is:")
 print(x)
 print("napiers number is:")
-print(e)
+print(exponential)
 print("the tanh transformation of the value is:")
 print(tanh)

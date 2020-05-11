@@ -1,5 +1,5 @@
 0000 OP_NIL
-0001 OP_DEFINE_GLOBAL    0 'result'
+0001 OP_DEFINE_GLOBAL    0 'result_computation'
 0003 OP_CONSTANT         2 '23'
 0005 OP_CONSTANT         3 '67'
 0007 OP_ADD
@@ -11,8 +11,8 @@
 0016 OP_DIVIDE
 0017 OP_CONSTANT         7 '4'
 0019 OP_MODULO
-0020 OP_SET_GLOBAL       1 'result'
+0020 OP_SET_GLOBAL       1 'result_computation'
 0022 OP_POP
-0023 OP_GET_GLOBAL       8 'result'
+0023 OP_GET_GLOBAL       8 'result_computation'
 0025 OP_PRINT
 0026 OP_RETURN

@@ -3,7 +3,7 @@
 0003 OP_CONSTANT         2 '1'
 0005 OP_DEFINE_GLOBAL    1 'count_'
 0007 OP_NIL
-0008 OP_DEFINE_GLOBAL    3 'remainder'
+0008 OP_DEFINE_GLOBAL    3 'remainder_dig'
 0010 OP_NIL
 0011 OP_DEFINE_GLOBAL    4 'sum_num'
 0013 OP_GET_GLOBAL       5 'count_'
@@ -27,13 +27,13 @@
 0043 OP_GET_GLOBAL      14 'num_inp'
 0045 OP_CONSTANT        15 '10'
 0047 OP_MODULO
-0048 OP_SET_GLOBAL      13 'remainder'
+0048 OP_SET_GLOBAL      13 'remainder_dig'
 0050 OP_POP
 0051 OP_GET_GLOBAL      17 'sum_num'
-0053 OP_GET_GLOBAL      18 'remainder'
-0055 OP_GET_GLOBAL      19 'remainder'
+0053 OP_GET_GLOBAL      18 'remainder_dig'
+0055 OP_GET_GLOBAL      19 'remainder_dig'
 0057 OP_MULTIPLY
-0058 OP_GET_GLOBAL      20 'remainder'
+0058 OP_GET_GLOBAL      20 'remainder_dig'
 0060 OP_MULTIPLY
 0061 OP_ADD
 0062 OP_SET_GLOBAL      16 'sum_num'
