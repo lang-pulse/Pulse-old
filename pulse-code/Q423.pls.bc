@@ -1,0 +1,17 @@
+0000 OP_CONSTANT         1 '4500'
+0002 OP_DEFINE_GLOBAL    0 'area_allowed'
+0004 OP_CONSTANT         3 '6000'
+0006 OP_DEFINE_GLOBAL    2 'total_area'
+0008 OP_GET_GLOBAL       5 'total_area'
+0010 OP_GET_GLOBAL       6 'area_allowed'
+0012 OP_SUBTRACT
+0013 OP_DEFINE_GLOBAL    4 'left_const'
+0015 OP_GET_GLOBAL       8 'left_const'
+0017 OP_GET_GLOBAL       9 'total_area'
+0019 OP_DIVIDE
+0020 OP_CONSTANT        10 '100'
+0022 OP_MULTIPLY
+0023 OP_DEFINE_GLOBAL    7 'perc'
+0025 OP_GET_GLOBAL      11 'perc'
+0027 OP_PRINT
+0028 OP_RETURN

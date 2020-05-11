@@ -1,0 +1,13 @@
+0000 OP_CONSTANT         1 '460'
+0002 OP_DEFINE_GLOBAL    0 'total_marks'
+0004 OP_CONSTANT         3 '92'
+0006 OP_DEFINE_GLOBAL    2 'perc_marks'
+0008 OP_GET_GLOBAL       5 'total_marks'
+0010 OP_CONSTANT         6 '100'
+0012 OP_MULTIPLY
+0013 OP_GET_GLOBAL       7 'perc_marks'
+0015 OP_DIVIDE
+0016 OP_DEFINE_GLOBAL    4 'max_marks'
+0018 OP_GET_GLOBAL       8 'max_marks'
+0020 OP_PRINT
+0021 OP_RETURN

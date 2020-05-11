@@ -1,0 +1,23 @@
+0000 OP_CONSTANT         1 '180'
+0002 OP_DEFINE_GLOBAL    0 'total_coins'
+0004 OP_CONSTANT         3 '100'
+0006 OP_DEFINE_GLOBAL    2 'number_50p'
+0008 OP_GET_GLOBAL       5 'number_50p'
+0010 OP_GET_GLOBAL       6 'total_coins'
+0012 OP_DIVIDE
+0013 OP_DEFINE_GLOBAL    4 'prob1'
+0015 OP_GET_GLOBAL       7 'prob1'
+0017 OP_PRINT
+0018 OP_CONSTANT         9 '10'
+0020 OP_DEFINE_GLOBAL    8 'number_5coins'
+0022 OP_GET_GLOBAL      11 'number_5coins'
+0024 OP_GET_GLOBAL      12 'total_coins'
+0026 OP_DIVIDE
+0027 OP_DEFINE_GLOBAL   10 'prob2'
+0029 OP_CONSTANT        14 '1'
+0031 OP_GET_GLOBAL      15 'prob2'
+0033 OP_SUBTRACT
+0034 OP_DEFINE_GLOBAL   13 'prob3_not_getting_5'
+0036 OP_GET_GLOBAL      16 'prob3_not_getting_5'
+0038 OP_PRINT
+0039 OP_RETURN
