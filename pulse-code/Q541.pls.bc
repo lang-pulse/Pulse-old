@@ -1,0 +1,15 @@
+0000 OP_CONSTANT         1 '24'
+0002 OP_DEFINE_GLOBAL    0 'numbers'
+0004 OP_CONSTANT         3 '4'
+0006 OP_DEFINE_GLOBAL    2 'divisible'
+0008 OP_CONSTANT         5 '1'
+0010 OP_GET_GLOBAL       6 'divisible'
+0012 OP_GET_GLOBAL       7 'numbers'
+0014 OP_DIVIDE
+0015 OP_SUBTRACT
+0016 OP_DEFINE_GLOBAL    4 'probability'
+0018 OP_CONSTANT         8 'probability of choosing a number not divisible by 6:'
+0020 OP_PRINT
+0021 OP_GET_GLOBAL       9 'probability'
+0023 OP_PRINT
+0024 OP_RETURN
