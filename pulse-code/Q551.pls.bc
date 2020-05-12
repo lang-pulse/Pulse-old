@@ -1,0 +1,60 @@
+0000 OP_CONSTANT         1 '10'
+0002 OP_DEFINE_GLOBAL    0 'num_digits'
+0004 OP_CONSTANT         3 '4'
+0006 OP_DEFINE_GLOBAL    2 'dig_pin'
+0008 OP_NIL
+0009 OP_DEFINE_GLOBAL    4 'repeat'
+0011 OP_CONSTANT         6 '1'
+0013 OP_DEFINE_GLOBAL    5 'not_repeat'
+0015 OP_CONSTANT         8 '0'
+0017 OP_DEFINE_GLOBAL    7 'iterate'
+0019 OP_NIL
+0020 OP_DEFINE_GLOBAL    9 'prob_not_repeat'
+0022 OP_GET_GLOBAL      11 'num_digits'
+0024 OP_GET_GLOBAL      12 'dig_pin'
+0026 OP_POWER
+0027 OP_SET_GLOBAL      10 'repeat'
+0029 OP_POP
+0030 OP_GET_GLOBAL      13 'iterate'
+0032 OP_GET_GLOBAL      14 'dig_pin'
+0034 OP_LESS
+0035 OP_JUMP_IF_FALSE   35 -> 66
+0038 OP_POP
+0039 OP_GET_GLOBAL      16 'not_repeat'
+0041 OP_GET_GLOBAL      17 'num_digits'
+0043 OP_MULTIPLY
+0044 OP_SET_GLOBAL      15 'not_repeat'
+0046 OP_POP
+0047 OP_GET_GLOBAL      19 'num_digits'
+0049 OP_CONSTANT        20 '1'
+0051 OP_SUBTRACT
+0052 OP_SET_GLOBAL      18 'num_digits'
+0054 OP_POP
+0055 OP_GET_GLOBAL      22 'iterate'
+0057 OP_CONSTANT        23 '1'
+0059 OP_ADD
+0060 OP_SET_GLOBAL      21 'iterate'
+0062 OP_POP
+0063 OP_LOOP            63 -> 30
+0066 OP_POP
+0067 OP_GET_GLOBAL      25 'not_repeat'
+0069 OP_GET_GLOBAL      26 'repeat'
+0071 OP_DIVIDE
+0072 OP_SET_GLOBAL      24 'prob_not_repeat'
+0074 OP_POP
+0075 OP_CONSTANT        27 'The number of pin codes that can be formed while repeating digits is: '
+0077 OP_GET_GLOBAL      28 'repeat'
+0079 OP_PRINT_END
+0080 OP_CONSTANT        29 ''
+0082 OP_PRINT
+0083 OP_CONSTANT        30 'The number of pin codes that can be formed without repeating digits is: '
+0085 OP_GET_GLOBAL      31 'not_repeat'
+0087 OP_PRINT_END
+0088 OP_CONSTANT        32 ''
+0090 OP_PRINT
+0091 OP_CONSTANT        33 'Therefore, the probability of no repeated digits is: '
+0093 OP_GET_GLOBAL      34 'prob_not_repeat'
+0095 OP_PRINT_END
+0096 OP_CONSTANT        35 ''
+0098 OP_PRINT
+0099 OP_RETURN

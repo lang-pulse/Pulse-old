@@ -1,0 +1,45 @@
+0000 OP_CONSTANT         1 '3'
+0002 OP_DEFINE_GLOBAL    0 'num_kids'
+0004 OP_CONSTANT         3 '2'
+0006 OP_DEFINE_GLOBAL    2 'genders'
+0008 OP_CONSTANT         5 '1'
+0010 OP_DEFINE_GLOBAL    4 'num_boys'
+0012 OP_CONSTANT         7 '1'
+0014 OP_DEFINE_GLOBAL    6 'num_girls'
+0016 OP_NIL
+0017 OP_DEFINE_GLOBAL    8 'prob_boys'
+0019 OP_NIL
+0020 OP_DEFINE_GLOBAL    9 'prob_all_boys'
+0022 OP_NIL
+0023 OP_DEFINE_GLOBAL   10 'prob_all_girls'
+0025 OP_GET_GLOBAL      12 'num_boys'
+0027 OP_GET_GLOBAL      13 'genders'
+0029 OP_DIVIDE
+0030 OP_SET_GLOBAL      11 'prob_boys'
+0032 OP_POP
+0033 OP_GET_GLOBAL      15 'prob_boys'
+0035 OP_GET_GLOBAL      16 'num_kids'
+0037 OP_POWER
+0038 OP_SET_GLOBAL      14 'prob_all_boys'
+0040 OP_POP
+0041 OP_CONSTANT        18 '1'
+0043 OP_GET_GLOBAL      19 'prob_all_boys'
+0045 OP_SUBTRACT
+0046 OP_SET_GLOBAL      17 'prob_all_girls'
+0048 OP_POP
+0049 OP_CONSTANT        20 'The number of kids expected: '
+0051 OP_GET_GLOBAL      21 'num_kids'
+0053 OP_PRINT_END
+0054 OP_CONSTANT        22 ''
+0056 OP_PRINT
+0057 OP_CONSTANT        23 'Probability of all kids being boys is: '
+0059 OP_GET_GLOBAL      24 'prob_all_boys'
+0061 OP_PRINT_END
+0062 OP_CONSTANT        25 ''
+0064 OP_PRINT
+0065 OP_CONSTANT        26 'Therefore, the probability of all the kids being girls is: '
+0067 OP_GET_GLOBAL      27 'prob_all_girls'
+0069 OP_PRINT_END
+0070 OP_CONSTANT        28 ''
+0072 OP_PRINT
+0073 OP_RETURN

@@ -1,0 +1,40 @@
+0000 OP_CONSTANT         1 '5'
+0002 OP_CONSTANT         2 '9'
+0004 OP_DIVIDE
+0005 OP_DEFINE_GLOBAL    0 'a_prob'
+0007 OP_CONSTANT         4 '5'
+0009 OP_DEFINE_GLOBAL    3 'a_favour'
+0011 OP_CONSTANT         6 '9'
+0013 OP_DEFINE_GLOBAL    5 'totall'
+0015 OP_GET_GLOBAL       8 'totall'
+0017 OP_GET_GLOBAL       9 'a_favour'
+0019 OP_SUBTRACT
+0020 OP_DEFINE_GLOBAL    7 'a_against'
+0022 OP_NIL
+0023 OP_DEFINE_GLOBAL   10 'a_odds_favour'
+0025 OP_GET_GLOBAL      12 'a_favour'
+0027 OP_GET_GLOBAL      13 'a_against'
+0029 OP_DIVIDE
+0030 OP_SET_GLOBAL      11 'a_odds_favour'
+0032 OP_POP
+0033 OP_CONSTANT        14 'The probability of a is: '
+0035 OP_GET_GLOBAL      15 'a_prob'
+0037 OP_PRINT_END
+0038 OP_CONSTANT        16 ''
+0040 OP_PRINT
+0041 OP_CONSTANT        17 'Number of favourable cases is: '
+0043 OP_GET_GLOBAL      18 'a_favour'
+0045 OP_PRINT_END
+0046 OP_CONSTANT        19 ''
+0048 OP_PRINT
+0049 OP_CONSTANT        20 'Number of unfavourable cases is: '
+0051 OP_GET_GLOBAL      21 'a_against'
+0053 OP_PRINT_END
+0054 OP_CONSTANT        22 ''
+0056 OP_PRINT
+0057 OP_CONSTANT        23 'Therefore, the odds in favour of a occuring is: '
+0059 OP_GET_GLOBAL      24 'a_odds_favour'
+0061 OP_PRINT_END
+0062 OP_CONSTANT        25 ''
+0064 OP_PRINT
+0065 OP_RETURN
