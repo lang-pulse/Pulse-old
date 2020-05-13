@@ -1,0 +1,31 @@
+0000 OP_CONSTANT         1 '16'
+0002 OP_DEFINE_GLOBAL    0 'mark_value'
+0004 OP_CONSTANT         3 '10'
+0006 OP_DEFINE_GLOBAL    2 'nom_value'
+0008 OP_CONSTANT         5 '3072'
+0010 OP_DEFINE_GLOBAL    4 'money_invested'
+0012 OP_GET_GLOBAL       7 'money_invested'
+0014 OP_GET_GLOBAL       8 'mark_value'
+0016 OP_DIVIDE
+0017 OP_DEFINE_GLOBAL    6 'no_shares'
+0019 OP_GET_GLOBAL      10 'nom_value'
+0021 OP_CONSTANT        11 '192'
+0023 OP_MULTIPLY
+0024 OP_DEFINE_GLOBAL    9 'nom_value_192'
+0026 OP_CONSTANT        13 '5'
+0028 OP_CONSTANT        14 '100'
+0030 OP_DIVIDE
+0031 OP_GET_GLOBAL      15 'nom_value_192'
+0033 OP_MULTIPLY
+0034 OP_DEFINE_GLOBAL   12 'annual_income'
+0036 OP_GET_GLOBAL      17 'annual_income'
+0038 OP_GET_GLOBAL      18 'money_invested'
+0040 OP_DIVIDE
+0041 OP_CONSTANT        19 '100'
+0043 OP_MULTIPLY
+0044 OP_DEFINE_GLOBAL   16 'income_perc'
+0046 OP_GET_GLOBAL      20 'annual_income'
+0048 OP_PRINT
+0049 OP_GET_GLOBAL      21 'income_perc'
+0051 OP_PRINT
+0052 OP_RETURN

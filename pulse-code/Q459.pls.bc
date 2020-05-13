@@ -1,0 +1,21 @@
+0000 OP_CONSTANT         1 '25'
+0002 OP_DEFINE_GLOBAL    0 'init_value'
+0004 OP_CONSTANT         3 '40'
+0006 OP_DEFINE_GLOBAL    2 'mark_value'
+0008 OP_CONSTANT         5 '4'
+0010 OP_CONSTANT         6 '100'
+0012 OP_DIVIDE
+0013 OP_DEFINE_GLOBAL    4 'profit'
+0015 OP_GET_GLOBAL       8 'profit'
+0017 OP_GET_GLOBAL       9 'mark_value'
+0019 OP_MULTIPLY
+0020 OP_DEFINE_GLOBAL    7 'profit_on_1_share'
+0022 OP_CONSTANT        11 '60'
+0024 OP_GET_GLOBAL      12 'profit_on_1_share'
+0026 OP_MULTIPLY
+0027 OP_DEFINE_GLOBAL   10 'dividend_on_60'
+0029 OP_GET_GLOBAL      13 'profit_on_1_share'
+0031 OP_PRINT
+0032 OP_GET_GLOBAL      14 'dividend_on_60'
+0034 OP_PRINT
+0035 OP_RETURN
