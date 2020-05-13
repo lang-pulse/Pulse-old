@@ -1,0 +1,105 @@
+0000 OP_CONSTANT         1 'Enter the total number of tulip bulbs: '
+0002 OP_CONSTANT         2 'i'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'tulip_bulbs'
+0007 OP_CONSTANT         4 'Enter the number of red bulbs: '
+0009 OP_CONSTANT         5 'i'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'red_bulb'
+0014 OP_CONSTANT         7 'Enter the number of yellow bulbs: '
+0016 OP_CONSTANT         8 'i'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'yellow_bulb'
+0021 OP_CONSTANT        10 'Enter the number of purple bulbs: '
+0023 OP_CONSTANT        11 'i'
+0025 OP_INPUT_END
+0026 OP_DEFINE_GLOBAL    9 'purple_bulb'
+0028 OP_GET_GLOBAL      13 'red_bulb'
+0030 OP_GET_GLOBAL      14 'tulip_bulbs'
+0032 OP_DIVIDE
+0033 OP_DEFINE_GLOBAL   12 'prob_red'
+0035 OP_GET_GLOBAL      16 'red_bulb'
+0037 OP_CONSTANT        17 '1'
+0039 OP_SUBTRACT
+0040 OP_GET_GLOBAL      18 'tulip_bulbs'
+0042 OP_CONSTANT        19 '1'
+0044 OP_SUBTRACT
+0045 OP_DIVIDE
+0046 OP_DEFINE_GLOBAL   15 'prob_redrep'
+0048 OP_GET_GLOBAL      21 'prob_red'
+0050 OP_GET_GLOBAL      22 'prob_redrep'
+0052 OP_MULTIPLY
+0053 OP_DEFINE_GLOBAL   20 'prob_bothred'
+0055 OP_GET_GLOBAL      24 'yellow_bulb'
+0057 OP_GET_GLOBAL      25 'tulip_bulbs'
+0059 OP_CONSTANT        26 '1'
+0061 OP_SUBTRACT
+0062 OP_DIVIDE
+0063 OP_DEFINE_GLOBAL   23 'prob_yellowrep'
+0065 OP_GET_GLOBAL      28 'prob_red'
+0067 OP_GET_GLOBAL      29 'prob_yellowrep'
+0069 OP_MULTIPLY
+0070 OP_DEFINE_GLOBAL   27 'prob_redyell'
+0072 OP_GET_GLOBAL      31 'yellow_bulb'
+0074 OP_GET_GLOBAL      32 'tulip_bulbs'
+0076 OP_DIVIDE
+0077 OP_DEFINE_GLOBAL   30 'prob_yellow'
+0079 OP_GET_GLOBAL      34 'red_bulb'
+0081 OP_GET_GLOBAL      35 'tulip_bulbs'
+0083 OP_CONSTANT        36 '1'
+0085 OP_SUBTRACT
+0086 OP_DIVIDE
+0087 OP_DEFINE_GLOBAL   33 'prob_redrepl'
+0089 OP_GET_GLOBAL      38 'prob_yellow'
+0091 OP_GET_GLOBAL      39 'prob_redrepl'
+0093 OP_MULTIPLY
+0094 OP_DEFINE_GLOBAL   37 'prob_yellred'
+0096 OP_GET_GLOBAL      41 'prob_redyell'
+0098 OP_GET_GLOBAL      42 'prob_yellred'
+0100 OP_ADD
+0101 OP_DEFINE_GLOBAL   40 'prob_redyellow'
+0103 OP_CONSTANT        43 ''
+0105 OP_PRINT
+0106 OP_CONSTANT        44 'The total number of tulip bulbs in the bag: '
+0108 OP_GET_GLOBAL      45 'tulip_bulbs'
+0110 OP_PRINT_END
+0111 OP_CONSTANT        46 ''
+0113 OP_PRINT
+0114 OP_CONSTANT        47 'The number of red bulbs: '
+0116 OP_GET_GLOBAL      48 'red_bulb'
+0118 OP_PRINT_END
+0119 OP_CONSTANT        49 ''
+0121 OP_PRINT
+0122 OP_CONSTANT        50 'The number of yellow bulbs: '
+0124 OP_GET_GLOBAL      51 'yellow_bulb'
+0126 OP_PRINT_END
+0127 OP_CONSTANT        52 ''
+0129 OP_PRINT
+0130 OP_CONSTANT        53 'The number of purple bulbs: '
+0132 OP_GET_GLOBAL      54 'purple_bulb'
+0134 OP_PRINT_END
+0135 OP_CONSTANT        55 ''
+0137 OP_PRINT
+0138 OP_CONSTANT        56 ''
+0140 OP_PRINT
+0141 OP_CONSTANT        57 'The probability of 2 selected bulbs being red(without replacement) is: '
+0143 OP_GET_GLOBAL      58 'prob_bothred'
+0145 OP_PRINT_END
+0146 OP_CONSTANT        59 ''
+0148 OP_PRINT
+0149 OP_CONSTANT        60 'The probability of first bulb being red and second one being yellow(without replacement) is: '
+0151 OP_GET_GLOBAL      61 'prob_redyell'
+0153 OP_PRINT_END
+0154 OP_CONSTANT        62 ''
+0156 OP_PRINT
+0157 OP_CONSTANT        63 'The probability of first bulb being yellow and second one being red(without replacement) is: '
+0159 OP_GET_GLOBAL      64 'prob_yellred'
+0161 OP_PRINT_END
+0162 OP_CONSTANT        65 ''
+0164 OP_PRINT
+0165 OP_CONSTANT        66 'The probability of the one bulb being red and the other bulb being yellow(without replacement) is: '
+0167 OP_GET_GLOBAL      67 'prob_redyellow'
+0169 OP_PRINT_END
+0170 OP_CONSTANT        68 ''
+0172 OP_PRINT
+0173 OP_RETURN

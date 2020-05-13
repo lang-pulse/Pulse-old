@@ -1,0 +1,101 @@
+0000 OP_CONSTANT         1 '4'
+0002 OP_DEFINE_GLOBAL    0 'num_balls'
+0004 OP_CONSTANT         3 'Enter the speed of the balls: '
+0006 OP_CONSTANT         4 'd'
+0008 OP_INPUT_END
+0009 OP_DEFINE_GLOBAL    2 'juggle_speed'
+0011 OP_CONSTANT         6 '10'
+0013 OP_DEFINE_GLOBAL    5 'accel_gravity'
+0015 OP_CONSTANT         8 '2'
+0017 OP_GET_GLOBAL       9 'juggle_speed'
+0019 OP_MULTIPLY
+0020 OP_GET_GLOBAL      10 'accel_gravity'
+0022 OP_DIVIDE
+0023 OP_DEFINE_GLOBAL    7 'ball_time'
+0025 OP_GET_GLOBAL      12 'ball_time'
+0027 OP_GET_GLOBAL      13 'num_balls'
+0029 OP_DIVIDE
+0030 OP_DEFINE_GLOBAL   11 'time_per_ball'
+0032 OP_NIL
+0033 OP_DEFINE_GLOBAL   14 'h_ball1'
+0035 OP_GET_GLOBAL      16 'juggle_speed'
+0037 OP_GET_GLOBAL      17 'time_per_ball'
+0039 OP_MULTIPLY
+0040 OP_CONSTANT        18 '0.5'
+0042 OP_GET_GLOBAL      19 'accel_gravity'
+0044 OP_MULTIPLY
+0045 OP_GET_GLOBAL      20 'time_per_ball'
+0047 OP_CONSTANT        21 '2'
+0049 OP_POWER
+0050 OP_MULTIPLY
+0051 OP_SUBTRACT
+0052 OP_SET_GLOBAL      15 'h_ball1'
+0054 OP_POP
+0055 OP_NIL
+0056 OP_DEFINE_GLOBAL   22 'h_ball2'
+0058 OP_GET_GLOBAL      24 'juggle_speed'
+0060 OP_GET_GLOBAL      25 'time_per_ball'
+0062 OP_CONSTANT        26 '1'
+0064 OP_ADD
+0065 OP_MULTIPLY
+0066 OP_CONSTANT        27 '0.5'
+0068 OP_GET_GLOBAL      28 'accel_gravity'
+0070 OP_MULTIPLY
+0071 OP_GET_GLOBAL      29 'time_per_ball'
+0073 OP_CONSTANT        30 '1'
+0075 OP_ADD
+0076 OP_CONSTANT        31 '2'
+0078 OP_POWER
+0079 OP_MULTIPLY
+0080 OP_SUBTRACT
+0081 OP_SET_GLOBAL      23 'h_ball2'
+0083 OP_POP
+0084 OP_NIL
+0085 OP_DEFINE_GLOBAL   32 'h_ball3'
+0087 OP_GET_GLOBAL      34 'juggle_speed'
+0089 OP_GET_GLOBAL      35 'time_per_ball'
+0091 OP_CONSTANT        36 '2'
+0093 OP_ADD
+0094 OP_MULTIPLY
+0095 OP_CONSTANT        37 '0.5'
+0097 OP_GET_GLOBAL      38 'accel_gravity'
+0099 OP_MULTIPLY
+0100 OP_GET_GLOBAL      39 'time_per_ball'
+0102 OP_CONSTANT        40 '2'
+0104 OP_ADD
+0105 OP_CONSTANT        41 '2'
+0107 OP_POWER
+0108 OP_MULTIPLY
+0109 OP_SUBTRACT
+0110 OP_SET_GLOBAL      33 'h_ball3'
+0112 OP_POP
+0113 OP_CONSTANT        42 ''
+0115 OP_PRINT
+0116 OP_CONSTANT        43 'The number of balls juggled: '
+0118 OP_GET_GLOBAL      44 'num_balls'
+0120 OP_PRINT_END
+0121 OP_CONSTANT        45 ''
+0123 OP_PRINT
+0124 OP_CONSTANT        46 'The speed of the balls being juggled: '
+0126 OP_GET_GLOBAL      47 'juggle_speed'
+0128 OP_PRINT_END
+0129 OP_CONSTANT        48 ' mps'
+0131 OP_PRINT
+0132 OP_CONSTANT        49 ''
+0134 OP_PRINT
+0135 OP_CONSTANT        50 'The height of ball 1 in the air is: '
+0137 OP_GET_GLOBAL      51 'h_ball1'
+0139 OP_PRINT_END
+0140 OP_CONSTANT        52 ' m'
+0142 OP_PRINT
+0143 OP_CONSTANT        53 'The height of ball 2 in the air is: '
+0145 OP_GET_GLOBAL      54 'h_ball2'
+0147 OP_PRINT_END
+0148 OP_CONSTANT        55 ' m'
+0150 OP_PRINT
+0151 OP_CONSTANT        56 'The height of ball 3 in the air is: '
+0153 OP_GET_GLOBAL      57 'h_ball3'
+0155 OP_PRINT_END
+0156 OP_CONSTANT        58 ' m'
+0158 OP_PRINT
+0159 OP_RETURN
