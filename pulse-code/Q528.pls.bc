@@ -1,0 +1,128 @@
+0000 OP_CONSTANT         1 'Enter the total number of paper clips: '
+0002 OP_CONSTANT         2 'i'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'paper_clips'
+0007 OP_CONSTANT         4 'Enter the number of red clips: '
+0009 OP_CONSTANT         5 'i'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'red_clips'
+0014 OP_CONSTANT         7 'Enter the number of yellow clips: '
+0016 OP_CONSTANT         8 'i'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'yellow_clips'
+0021 OP_CONSTANT        10 'Enter the number of blue clips: '
+0023 OP_CONSTANT        11 'i'
+0025 OP_INPUT_END
+0026 OP_DEFINE_GLOBAL    9 'blue_clips'
+0028 OP_CONSTANT        13 'Enter the total number of push pins: '
+0030 OP_CONSTANT        14 'i'
+0032 OP_INPUT_END
+0033 OP_DEFINE_GLOBAL   12 'push_pins'
+0035 OP_CONSTANT        16 'Enter the number of white pins: '
+0037 OP_CONSTANT        17 'i'
+0039 OP_INPUT_END
+0040 OP_DEFINE_GLOBAL   15 'white_pin'
+0042 OP_CONSTANT        19 'Enter the number of orange pins: '
+0044 OP_CONSTANT        20 'i'
+0046 OP_INPUT_END
+0047 OP_DEFINE_GLOBAL   18 'orange_pin'
+0049 OP_CONSTANT        22 'Enter the number of green pins: '
+0051 OP_CONSTANT        23 'i'
+0053 OP_INPUT_END
+0054 OP_DEFINE_GLOBAL   21 'green_pin'
+0056 OP_GET_GLOBAL      25 'blue_clips'
+0058 OP_GET_GLOBAL      26 'paper_clips'
+0060 OP_DIVIDE
+0061 OP_DEFINE_GLOBAL   24 'prob_blueclip'
+0063 OP_GET_GLOBAL      28 'yellow_clips'
+0065 OP_GET_GLOBAL      29 'paper_clips'
+0067 OP_DIVIDE
+0068 OP_DEFINE_GLOBAL   27 'prob_yellowclip'
+0070 OP_GET_GLOBAL      31 'prob_blueclip'
+0072 OP_GET_GLOBAL      32 'prob_yellowclip'
+0074 OP_ADD
+0075 OP_DEFINE_GLOBAL   30 'prob_bory'
+0077 OP_GET_GLOBAL      34 'red_clips'
+0079 OP_GET_GLOBAL      35 'paper_clips'
+0081 OP_DIVIDE
+0082 OP_DEFINE_GLOBAL   33 'prob_redclip'
+0084 OP_GET_GLOBAL      37 'push_pins'
+0086 OP_GET_GLOBAL      38 'push_pins'
+0088 OP_DIVIDE
+0089 OP_DEFINE_GLOBAL   36 'prob_pushpin'
+0091 OP_GET_GLOBAL      40 'prob_redclip'
+0093 OP_GET_GLOBAL      41 'prob_pushpin'
+0095 OP_MULTIPLY
+0096 OP_DEFINE_GLOBAL   39 'prob_redpush'
+0098 OP_GET_GLOBAL      43 'green_pin'
+0100 OP_GET_GLOBAL      44 'push_pins'
+0102 OP_DIVIDE
+0103 OP_DEFINE_GLOBAL   42 'prob_greenpin'
+0105 OP_GET_GLOBAL      46 'orange_pin'
+0107 OP_GET_GLOBAL      47 'push_pins'
+0109 OP_DIVIDE
+0110 OP_DEFINE_GLOBAL   45 'prob_orangepin'
+0112 OP_GET_GLOBAL      49 'prob_greenpin'
+0114 OP_GET_GLOBAL      50 'prob_orangepin'
+0116 OP_MULTIPLY
+0117 OP_DEFINE_GLOBAL   48 'prob_oandg'
+0119 OP_CONSTANT        51 ''
+0121 OP_PRINT
+0122 OP_CONSTANT        52 'The number of paper clips: '
+0124 OP_GET_GLOBAL      53 'paper_clips'
+0126 OP_PRINT_END
+0127 OP_CONSTANT        54 ''
+0129 OP_PRINT
+0130 OP_CONSTANT        55 'The number of red clips: '
+0132 OP_GET_GLOBAL      56 'red_clips'
+0134 OP_PRINT_END
+0135 OP_CONSTANT        57 ''
+0137 OP_PRINT
+0138 OP_CONSTANT        58 'The number of yellow clips: '
+0140 OP_GET_GLOBAL      59 'yellow_clips'
+0142 OP_PRINT_END
+0143 OP_CONSTANT        60 ''
+0145 OP_PRINT
+0146 OP_CONSTANT        61 'The number of blue clips: '
+0148 OP_GET_GLOBAL      62 'blue_clips'
+0150 OP_PRINT_END
+0151 OP_CONSTANT        63 ''
+0153 OP_PRINT
+0154 OP_CONSTANT        64 'The number of push pins: '
+0156 OP_GET_GLOBAL      65 'push_pins'
+0158 OP_PRINT_END
+0159 OP_CONSTANT        66 ''
+0161 OP_PRINT
+0162 OP_CONSTANT        67 'The number of white pins: '
+0164 OP_GET_GLOBAL      68 'white_pin'
+0166 OP_PRINT_END
+0167 OP_CONSTANT        69 ''
+0169 OP_PRINT
+0170 OP_CONSTANT        70 'The number of orange pins: '
+0172 OP_GET_GLOBAL      71 'orange_pin'
+0174 OP_PRINT_END
+0175 OP_CONSTANT        72 ''
+0177 OP_PRINT
+0178 OP_CONSTANT        73 'The number of green pins: '
+0180 OP_GET_GLOBAL      74 'green_pin'
+0182 OP_PRINT_END
+0183 OP_CONSTANT        75 ''
+0185 OP_PRINT
+0186 OP_CONSTANT        76 ''
+0188 OP_PRINT
+0189 OP_CONSTANT        77 'Therefore, the probability of sharon picking up a blue or yellow clip is: '
+0191 OP_GET_GLOBAL      78 'prob_bory'
+0193 OP_PRINT_END
+0194 OP_CONSTANT        79 ''
+0196 OP_PRINT
+0197 OP_CONSTANT        80 'Therefore, the probability of sharon picking up a red clip and a random push pin is: '
+0199 OP_GET_GLOBAL      81 'prob_redpush'
+0201 OP_PRINT_END
+0202 OP_CONSTANT        82 ''
+0204 OP_PRINT
+0205 OP_CONSTANT        83 'Therefore, the probability of sharon picking up an orange pin and a green pin with replacement is: '
+0207 OP_GET_GLOBAL      84 'prob_oandg'
+0209 OP_PRINT_END
+0210 OP_CONSTANT        85 ''
+0212 OP_PRINT
+0213 OP_RETURN

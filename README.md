@@ -268,13 +268,13 @@
 
   <b>Result = Enter an integer: 12</b>
 
-  ### Syntax of input function for floating point input
+  ### Syntax of input function for double value input
 
   ```console
-  var a = input("Enter a floating point: ", "f")
+  var a = input("Enter a double value: ", "f")
   ```
 
-  <b>Result = Enter an floating point: 3.14159</b>
+  <b>Result = Enter a double value: 3.14159</b>
 
   ### Syntax of input function for string input
 
