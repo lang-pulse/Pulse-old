@@ -1,8 +1,8 @@
 # Pulse
 
-<center>
-  <img src="images/pulse-logo.png">
-</center>
+<div style="text-align:center">
+  <img src="images/pulse-logo.png" />
+</div>
 
 ## A interpreted language to train and deploy efficient neural network models.
 
