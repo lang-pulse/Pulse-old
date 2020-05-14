@@ -1,0 +1,24 @@
+0000 OP_CONSTANT         1 '3'
+0002 OP_DEFINE_GLOBAL    0 'three_digit'
+0004 OP_CONSTANT         3 '9'
+0006 OP_DEFINE_GLOBAL    2 'limit_no'
+0008 OP_GET_GLOBAL       5 'limit_no'
+0010 OP_GET_GLOBAL       6 'three_digit'
+0012 OP_SUBTRACT
+0013 OP_DEFINE_GLOBAL    4 'new_limit'
+0015 OP_GET_GLOBAL       8 'limit_no'
+0017 OP_CONSTANT         9 '8'
+0019 OP_MULTIPLY
+0020 OP_CONSTANT        10 '7'
+0022 OP_MULTIPLY
+0023 OP_CONSTANT        11 '6'
+0025 OP_MULTIPLY
+0026 OP_GET_GLOBAL      12 'new_limit'
+0028 OP_DIVIDE
+0029 OP_DEFINE_GLOBAL    7 'three_digit_number'
+0031 OP_GET_GLOBAL      13 'three_digit_number'
+0033 OP_CONSTANT        14 ''
+0035 OP_PRINT_END
+0036 OP_CONSTANT        15 ' numbers can be formed'
+0038 OP_PRINT
+0039 OP_RETURN
