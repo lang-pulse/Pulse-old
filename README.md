@@ -1,5 +1,7 @@
 # Pulse
 
+<img src="images/pulse-logo.png">
+
 ## A interpreted language to train and deploy efficient neural network models.
 
 ## How to run?
