@@ -1,0 +1,198 @@
+0000 OP_CONSTANT         1 'Enter the number of players to be chosen from: '
+0002 OP_CONSTANT         2 'i'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'num_players'
+0007 OP_CONSTANT         4 'Enter the number of bowlers: '
+0009 OP_CONSTANT         5 'i'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'num_bowlers'
+0014 OP_GET_GLOBAL       7 'num_bowlers'
+0016 OP_DEFINE_GLOBAL    6 'bowl_st'
+0018 OP_CONSTANT         9 '11'
+0020 OP_DEFINE_GLOBAL    8 'team_str'
+0022 OP_CONSTANT        11 '4'
+0024 OP_DEFINE_GLOBAL   10 'req_bowlers'
+0026 OP_GET_GLOBAL      13 'req_bowlers'
+0028 OP_DEFINE_GLOBAL   12 'req_st'
+0030 OP_GET_GLOBAL      15 'num_players'
+0032 OP_GET_GLOBAL      16 'num_bowlers'
+0034 OP_SUBTRACT
+0035 OP_DEFINE_GLOBAL   14 'rem_player'
+0037 OP_GET_GLOBAL      18 'team_str'
+0039 OP_GET_GLOBAL      19 'req_bowlers'
+0041 OP_SUBTRACT
+0042 OP_DEFINE_GLOBAL   17 'other_rem'
+0044 OP_GET_GLOBAL      21 'rem_player'
+0046 OP_GET_GLOBAL      22 'other_rem'
+0048 OP_SUBTRACT
+0049 OP_DEFINE_GLOBAL   20 'diff_play'
+0051 OP_GET_GLOBAL      24 'num_bowlers'
+0053 OP_GET_GLOBAL      25 'req_bowlers'
+0055 OP_SUBTRACT
+0056 OP_DEFINE_GLOBAL   23 'diff_bowl'
+0058 OP_CONSTANT        27 '1'
+0060 OP_DEFINE_GLOBAL   26 'fact_bowl1'
+0062 OP_GET_GLOBAL      28 'num_bowlers'
+0064 OP_CONSTANT        29 '0'
+0066 OP_EQUAL
+0067 OP_NOT
+0068 OP_JUMP_IF_FALSE   68 -> 91
+0071 OP_POP
+0072 OP_GET_GLOBAL      31 'fact_bowl1'
+0074 OP_GET_GLOBAL      32 'num_bowlers'
+0076 OP_MULTIPLY
+0077 OP_SET_GLOBAL      30 'fact_bowl1'
+0079 OP_POP
+0080 OP_GET_GLOBAL      34 'num_bowlers'
+0082 OP_CONSTANT        35 '1'
+0084 OP_SUBTRACT
+0085 OP_SET_GLOBAL      33 'num_bowlers'
+0087 OP_POP
+0088 OP_LOOP            88 -> 62
+0091 OP_POP
+0092 OP_CONSTANT        37 '1'
+0094 OP_DEFINE_GLOBAL   36 'fact_bowl2'
+0096 OP_GET_GLOBAL      38 'req_bowlers'
+0098 OP_CONSTANT        39 '0'
+0100 OP_EQUAL
+0101 OP_NOT
+0102 OP_JUMP_IF_FALSE  102 -> 125
+0105 OP_POP
+0106 OP_GET_GLOBAL      41 'fact_bowl2'
+0108 OP_GET_GLOBAL      42 'req_bowlers'
+0110 OP_MULTIPLY
+0111 OP_SET_GLOBAL      40 'fact_bowl2'
+0113 OP_POP
+0114 OP_GET_GLOBAL      44 'req_bowlers'
+0116 OP_CONSTANT        45 '1'
+0118 OP_SUBTRACT
+0119 OP_SET_GLOBAL      43 'req_bowlers'
+0121 OP_POP
+0122 OP_LOOP           122 -> 96
+0125 OP_POP
+0126 OP_CONSTANT        47 '1'
+0128 OP_DEFINE_GLOBAL   46 'fact_bowl3'
+0130 OP_GET_GLOBAL      48 'diff_bowl'
+0132 OP_CONSTANT        49 '0'
+0134 OP_EQUAL
+0135 OP_NOT
+0136 OP_JUMP_IF_FALSE  136 -> 159
+0139 OP_POP
+0140 OP_GET_GLOBAL      51 'fact_bowl3'
+0142 OP_GET_GLOBAL      52 'diff_bowl'
+0144 OP_MULTIPLY
+0145 OP_SET_GLOBAL      50 'fact_bowl3'
+0147 OP_POP
+0148 OP_GET_GLOBAL      54 'diff_bowl'
+0150 OP_CONSTANT        55 '1'
+0152 OP_SUBTRACT
+0153 OP_SET_GLOBAL      53 'diff_bowl'
+0155 OP_POP
+0156 OP_LOOP           156 -> 130
+0159 OP_POP
+0160 OP_GET_GLOBAL      57 'fact_bowl1'
+0162 OP_GET_GLOBAL      58 'fact_bowl2'
+0164 OP_GET_GLOBAL      59 'fact_bowl3'
+0166 OP_MULTIPLY
+0167 OP_DIVIDE
+0168 OP_DEFINE_GLOBAL   56 'amt_bowl'
+0170 OP_CONSTANT        61 '1'
+0172 OP_DEFINE_GLOBAL   60 'fact_play1'
+0174 OP_GET_GLOBAL      62 'rem_player'
+0176 OP_CONSTANT        63 '0'
+0178 OP_EQUAL
+0179 OP_NOT
+0180 OP_JUMP_IF_FALSE  180 -> 203
+0183 OP_POP
+0184 OP_GET_GLOBAL      65 'fact_play1'
+0186 OP_GET_GLOBAL      66 'rem_player'
+0188 OP_MULTIPLY
+0189 OP_SET_GLOBAL      64 'fact_play1'
+0191 OP_POP
+0192 OP_GET_GLOBAL      68 'rem_player'
+0194 OP_CONSTANT        69 '1'
+0196 OP_SUBTRACT
+0197 OP_SET_GLOBAL      67 'rem_player'
+0199 OP_POP
+0200 OP_LOOP           200 -> 174
+0203 OP_POP
+0204 OP_CONSTANT        71 '1'
+0206 OP_DEFINE_GLOBAL   70 'fact_play2'
+0208 OP_GET_GLOBAL      72 'other_rem'
+0210 OP_CONSTANT        73 '0'
+0212 OP_EQUAL
+0213 OP_NOT
+0214 OP_JUMP_IF_FALSE  214 -> 237
+0217 OP_POP
+0218 OP_GET_GLOBAL      75 'fact_play2'
+0220 OP_GET_GLOBAL      76 'other_rem'
+0222 OP_MULTIPLY
+0223 OP_SET_GLOBAL      74 'fact_play2'
+0225 OP_POP
+0226 OP_GET_GLOBAL      78 'other_rem'
+0228 OP_CONSTANT        79 '1'
+0230 OP_SUBTRACT
+0231 OP_SET_GLOBAL      77 'other_rem'
+0233 OP_POP
+0234 OP_LOOP           234 -> 208
+0237 OP_POP
+0238 OP_CONSTANT        81 '1'
+0240 OP_DEFINE_GLOBAL   80 'fact_play3'
+0242 OP_GET_GLOBAL      82 'diff_play'
+0244 OP_CONSTANT        83 '0'
+0246 OP_EQUAL
+0247 OP_NOT
+0248 OP_JUMP_IF_FALSE  248 -> 271
+0251 OP_POP
+0252 OP_GET_GLOBAL      85 'fact_play3'
+0254 OP_GET_GLOBAL      86 'diff_play'
+0256 OP_MULTIPLY
+0257 OP_SET_GLOBAL      84 'fact_play3'
+0259 OP_POP
+0260 OP_GET_GLOBAL      88 'diff_play'
+0262 OP_CONSTANT        89 '1'
+0264 OP_SUBTRACT
+0265 OP_SET_GLOBAL      87 'diff_play'
+0267 OP_POP
+0268 OP_LOOP           268 -> 242
+0271 OP_POP
+0272 OP_GET_GLOBAL      91 'fact_play1'
+0274 OP_GET_GLOBAL      92 'fact_play2'
+0276 OP_GET_GLOBAL      93 'fact_play3'
+0278 OP_MULTIPLY
+0279 OP_DIVIDE
+0280 OP_DEFINE_GLOBAL   90 'amt_rem'
+0282 OP_GET_GLOBAL      95 'amt_rem'
+0284 OP_GET_GLOBAL      96 'amt_bowl'
+0286 OP_MULTIPLY
+0287 OP_DEFINE_GLOBAL   94 'num_play'
+0289 OP_CONSTANT        97 ''
+0291 OP_PRINT
+0292 OP_CONSTANT        98 'The number of players: '
+0294 OP_GET_GLOBAL      99 'num_players'
+0296 OP_PRINT_END
+0297 OP_CONSTANT       100 ''
+0299 OP_PRINT
+0300 OP_CONSTANT       101 'The number of bowlers in the team: '
+0302 OP_GET_GLOBAL     102 'bowl_st'
+0304 OP_PRINT_END
+0305 OP_CONSTANT       103 ''
+0307 OP_PRINT
+0308 OP_CONSTANT       104 'The number of players required for the team: '
+0310 OP_GET_GLOBAL     105 'team_str'
+0312 OP_PRINT_END
+0313 OP_CONSTANT       106 ''
+0315 OP_PRINT
+0316 OP_CONSTANT       107 'The number of bowlers required for the team: '
+0318 OP_GET_GLOBAL     108 'req_st'
+0320 OP_PRINT_END
+0321 OP_CONSTANT       109 ''
+0323 OP_PRINT
+0324 OP_CONSTANT       110 ''
+0326 OP_PRINT
+0327 OP_CONSTANT       111 'Therefore, the number of ways a cricket team can be chosen is: '
+0329 OP_GET_GLOBAL     112 'num_play'
+0331 OP_PRINT_END
+0332 OP_CONSTANT       113 ''
+0334 OP_PRINT
+0335 OP_RETURN
