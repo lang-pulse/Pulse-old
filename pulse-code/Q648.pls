@@ -3,6 +3,7 @@ var n_pattern_3 = input("Enter n: ", "i")
 var i_pattern_3 = 0
 var j_pattern_3 = 0
 var k_pattern_3 = 0
+print("The upside down hollow triangle - ")
 while(i_pattern_3 < n_pattern_3):
 	print("*", " ")
 	i_pattern_3 = i_pattern_3 + 1
