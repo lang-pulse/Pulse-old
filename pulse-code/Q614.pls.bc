@@ -1,0 +1,30 @@
+0000 OP_CONSTANT         0 'We know that 1 mole of CuSO4 contains 1 mole of copper'
+0002 OP_PRINT
+0003 OP_CONSTANT         2 '159.5'
+0005 OP_DEFINE_GLOBAL    1 'atom_mass'
+0007 OP_CONSTANT         3 'The atomic mass od CuSO4 = '
+0009 OP_GET_GLOBAL       4 'atom_mass'
+0011 OP_PRINT_END
+0012 OP_CONSTANT         5 'g'
+0014 OP_PRINT
+0015 OP_CONSTANT         6 'Molar mass of Cu is 159.5 g so, 159.5 of CuSO4 will produce 1 mole of Cu'
+0017 OP_PRINT
+0018 OP_CONSTANT         8 '63.5'
+0020 OP_DEFINE_GLOBAL    7 'cu_mass'
+0022 OP_CONSTANT         9 'mass of 1 mole of Cu = '
+0024 OP_GET_GLOBAL      10 'cu_mass'
+0026 OP_PRINT_END
+0027 OP_CONSTANT        11 'g of copper'
+0029 OP_PRINT
+0030 OP_GET_GLOBAL      13 'cu_mass'
+0032 OP_CONSTANT        14 '100'
+0034 OP_MULTIPLY
+0035 OP_GET_GLOBAL      15 'atom_mass'
+0037 OP_DIVIDE
+0038 OP_DEFINE_GLOBAL   12 'value'
+0040 OP_CONSTANT        16 '100 g of CuSO4 will contain of copper '
+0042 OP_GET_GLOBAL      17 'value'
+0044 OP_PRINT_END
+0045 OP_CONSTANT        18 'g'
+0047 OP_PRINT
+0048 OP_RETURN

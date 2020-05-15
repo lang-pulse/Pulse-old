@@ -1,0 +1,25 @@
+0000 OP_CONSTANT         1 '2'
+0002 OP_DEFINE_GLOBAL    0 'time'
+0004 OP_CONSTANT         2 'Time taken to cover the distance = '
+0006 OP_GET_GLOBAL       3 'time'
+0008 OP_PRINT_END
+0009 OP_CONSTANT         4 'ns'
+0011 OP_PRINT
+0012 OP_CONSTANT         6 '3'
+0014 OP_DEFINE_GLOBAL    5 'c'
+0016 OP_CONSTANT         7 'Speed of light = 3.0 × 10^8 ms–1'
+0018 OP_PRINT
+0019 OP_CONSTANT         8 'distance = speed x time'
+0021 OP_PRINT
+0022 OP_GET_GLOBAL      10 'c'
+0024 OP_GET_GLOBAL      11 'time'
+0026 OP_MULTIPLY
+0027 OP_CONSTANT        12 '0.1'
+0029 OP_MULTIPLY
+0030 OP_DEFINE_GLOBAL    9 'distance'
+0032 OP_CONSTANT        13 'The distance covered by light in 2ns = '
+0034 OP_GET_GLOBAL      14 'distance'
+0036 OP_PRINT_END
+0037 OP_CONSTANT        15 'm'
+0039 OP_PRINT
+0040 OP_RETURN
