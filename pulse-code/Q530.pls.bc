@@ -1,0 +1,226 @@
+0000 OP_CONSTANT         1 '1'
+0002 OP_CONSTANT         2 '3'
+0004 OP_DIVIDE
+0005 OP_DEFINE_GLOBAL    0 'traffic_prob'
+0007 OP_CONSTANT         4 'Enter the number of times you arrive at the light (1): '
+0009 OP_CONSTANT         5 'i'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'arrival_times1'
+0014 OP_CONSTANT         7 'Enter the number of times you arrive at the light (2): '
+0016 OP_CONSTANT         8 'i'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'arrival_times2'
+0021 OP_CONSTANT        10 'Enter the number of times you arrive at the light (3): '
+0023 OP_CONSTANT        11 'i'
+0025 OP_INPUT_END
+0026 OP_DEFINE_GLOBAL    9 'arrival_times3'
+0028 OP_CONSTANT        13 'Enter the number of times you arrive at the light (4): '
+0030 OP_CONSTANT        14 'i'
+0032 OP_INPUT_END
+0033 OP_DEFINE_GLOBAL   12 'arrival_times4'
+0035 OP_NIL
+0036 OP_DEFINE_GLOBAL   15 'prob_50times'
+0038 OP_NIL
+0039 OP_DEFINE_GLOBAL   16 'prob_25times'
+0041 OP_NIL
+0042 OP_DEFINE_GLOBAL   17 'prob_27times'
+0044 OP_NIL
+0045 OP_DEFINE_GLOBAL   18 'prob_2times'
+0047 OP_NIL
+0048 OP_DEFINE_GLOBAL   19 'last_digit'
+0050 OP_GET_GLOBAL      21 'arrival_times1'
+0052 OP_GET_GLOBAL      22 'traffic_prob'
+0054 OP_MULTIPLY
+0055 OP_SET_GLOBAL      20 'prob_50times'
+0057 OP_POP
+0058 OP_GET_GLOBAL      24 'prob_50times'
+0060 OP_CONSTANT        25 '10'
+0062 OP_MULTIPLY
+0063 OP_SET_GLOBAL      23 'prob_50times'
+0065 OP_POP
+0066 OP_GET_GLOBAL      27 'prob_50times'
+0068 OP_CONSTANT        28 '10'
+0070 OP_MODULO
+0071 OP_SET_GLOBAL      26 'last_digit'
+0073 OP_POP
+0074 OP_GET_GLOBAL      29 'last_digit'
+0076 OP_CONSTANT        30 '5'
+0078 OP_LESS
+0079 OP_NOT
+0080 OP_JUMP_IF_FALSE   80 -> 103
+0083 OP_POP
+0084 OP_GET_GLOBAL      32 'prob_50times'
+0086 OP_CONSTANT        33 '10'
+0088 OP_ADD
+0089 OP_SET_GLOBAL      31 'prob_50times'
+0091 OP_POP
+0092 OP_GET_GLOBAL      35 'prob_50times'
+0094 OP_CONSTANT        36 '10'
+0096 OP_DIVIDE_INT
+0097 OP_SET_GLOBAL      34 'prob_50times'
+0099 OP_POP
+0100 OP_JUMP           100 -> 112
+0103 OP_POP
+0104 OP_GET_GLOBAL      38 'prob_50times'
+0106 OP_CONSTANT        39 '10'
+0108 OP_DIVIDE_INT
+0109 OP_SET_GLOBAL      37 'prob_50times'
+0111 OP_POP
+0112 OP_GET_GLOBAL      41 'arrival_times2'
+0114 OP_GET_GLOBAL      42 'traffic_prob'
+0116 OP_MULTIPLY
+0117 OP_SET_GLOBAL      40 'prob_25times'
+0119 OP_POP
+0120 OP_GET_GLOBAL      44 'prob_25times'
+0122 OP_CONSTANT        45 '10'
+0124 OP_MULTIPLY
+0125 OP_SET_GLOBAL      43 'prob_25times'
+0127 OP_POP
+0128 OP_GET_GLOBAL      47 'prob_25times'
+0130 OP_CONSTANT        48 '10'
+0132 OP_MODULO
+0133 OP_SET_GLOBAL      46 'last_digit'
+0135 OP_POP
+0136 OP_GET_GLOBAL      49 'last_digit'
+0138 OP_CONSTANT        50 '5'
+0140 OP_LESS
+0141 OP_NOT
+0142 OP_JUMP_IF_FALSE  142 -> 165
+0145 OP_POP
+0146 OP_GET_GLOBAL      52 'prob_25times'
+0148 OP_CONSTANT        53 '10'
+0150 OP_ADD
+0151 OP_SET_GLOBAL      51 'prob_25times'
+0153 OP_POP
+0154 OP_GET_GLOBAL      55 'prob_25times'
+0156 OP_CONSTANT        56 '10'
+0158 OP_DIVIDE_INT
+0159 OP_SET_GLOBAL      54 'prob_25times'
+0161 OP_POP
+0162 OP_JUMP           162 -> 174
+0165 OP_POP
+0166 OP_GET_GLOBAL      58 'prob_25times'
+0168 OP_CONSTANT        59 '10'
+0170 OP_DIVIDE_INT
+0171 OP_SET_GLOBAL      57 'prob_25times'
+0173 OP_POP
+0174 OP_GET_GLOBAL      61 'arrival_times3'
+0176 OP_GET_GLOBAL      62 'traffic_prob'
+0178 OP_MULTIPLY
+0179 OP_SET_GLOBAL      60 'prob_27times'
+0181 OP_POP
+0182 OP_GET_GLOBAL      64 'prob_27times'
+0184 OP_CONSTANT        65 '10'
+0186 OP_MULTIPLY
+0187 OP_SET_GLOBAL      63 'prob_27times'
+0189 OP_POP
+0190 OP_GET_GLOBAL      67 'prob_27times'
+0192 OP_CONSTANT        68 '10'
+0194 OP_MODULO
+0195 OP_SET_GLOBAL      66 'last_digit'
+0197 OP_POP
+0198 OP_GET_GLOBAL      69 'last_digit'
+0200 OP_CONSTANT        70 '5'
+0202 OP_LESS
+0203 OP_NOT
+0204 OP_JUMP_IF_FALSE  204 -> 227
+0207 OP_POP
+0208 OP_GET_GLOBAL      72 'prob_27times'
+0210 OP_CONSTANT        73 '10'
+0212 OP_ADD
+0213 OP_SET_GLOBAL      71 'prob_27times'
+0215 OP_POP
+0216 OP_GET_GLOBAL      75 'prob_27times'
+0218 OP_CONSTANT        76 '10'
+0220 OP_DIVIDE_INT
+0221 OP_SET_GLOBAL      74 'prob_27times'
+0223 OP_POP
+0224 OP_JUMP           224 -> 236
+0227 OP_POP
+0228 OP_GET_GLOBAL      78 'prob_27times'
+0230 OP_CONSTANT        79 '10'
+0232 OP_DIVIDE_INT
+0233 OP_SET_GLOBAL      77 'prob_27times'
+0235 OP_POP
+0236 OP_GET_GLOBAL      81 'arrival_times4'
+0238 OP_GET_GLOBAL      82 'traffic_prob'
+0240 OP_MULTIPLY
+0241 OP_SET_GLOBAL      80 'prob_2times'
+0243 OP_POP
+0244 OP_GET_GLOBAL      84 'prob_2times'
+0246 OP_CONSTANT        85 '10'
+0248 OP_MULTIPLY
+0249 OP_SET_GLOBAL      83 'prob_2times'
+0251 OP_POP
+0252 OP_GET_GLOBAL      87 'prob_2times'
+0254 OP_CONSTANT        88 '10'
+0256 OP_MODULO
+0257 OP_SET_GLOBAL      86 'last_digit'
+0259 OP_POP
+0260 OP_GET_GLOBAL      89 'last_digit'
+0262 OP_CONSTANT        90 '5'
+0264 OP_LESS
+0265 OP_NOT
+0266 OP_JUMP_IF_FALSE  266 -> 289
+0269 OP_POP
+0270 OP_GET_GLOBAL      92 'prob_2times'
+0272 OP_CONSTANT        93 '10'
+0274 OP_ADD
+0275 OP_SET_GLOBAL      91 'prob_2times'
+0277 OP_POP
+0278 OP_GET_GLOBAL      95 'prob_2times'
+0280 OP_CONSTANT        96 '10'
+0282 OP_DIVIDE_INT
+0283 OP_SET_GLOBAL      94 'prob_2times'
+0285 OP_POP
+0286 OP_JUMP           286 -> 298
+0289 OP_POP
+0290 OP_GET_GLOBAL      98 'prob_2times'
+0292 OP_CONSTANT        99 '10'
+0294 OP_DIVIDE_INT
+0295 OP_SET_GLOBAL      97 'prob_2times'
+0297 OP_POP
+0298 OP_CONSTANT       100 ''
+0300 OP_PRINT
+0301 OP_CONSTANT       101 'The probability of arriving at the stop at any light is: '
+0303 OP_GET_GLOBAL     102 'traffic_prob'
+0305 OP_PRINT_END
+0306 OP_CONSTANT       103 ''
+0308 OP_PRINT
+0309 OP_CONSTANT       104 ''
+0311 OP_PRINT
+0312 OP_CONSTANT       105 'The number of times you will have to stop and wait for more than 4 seconds if......'
+0314 OP_PRINT
+0315 OP_CONSTANT       106 'a) You arrive at the light '
+0317 OP_GET_GLOBAL     107 'arrival_times1'
+0319 OP_PRINT_END
+0320 OP_CONSTANT       108 ' times is: '
+0322 OP_GET_GLOBAL     109 'prob_50times'
+0324 OP_PRINT_END
+0325 OP_CONSTANT       110 ''
+0327 OP_PRINT
+0328 OP_CONSTANT       111 'b) You arrive at the light '
+0330 OP_GET_GLOBAL     112 'arrival_times2'
+0332 OP_PRINT_END
+0333 OP_CONSTANT       113 ' times is: '
+0335 OP_GET_GLOBAL     114 'prob_25times'
+0337 OP_PRINT_END
+0338 OP_CONSTANT       115 ''
+0340 OP_PRINT
+0341 OP_CONSTANT       116 'c) You arrive at the light '
+0343 OP_GET_GLOBAL     117 'arrival_times3'
+0345 OP_PRINT_END
+0346 OP_CONSTANT       118 ' times is: '
+0348 OP_GET_GLOBAL     119 'prob_27times'
+0350 OP_PRINT_END
+0351 OP_CONSTANT       120 ''
+0353 OP_PRINT
+0354 OP_CONSTANT       121 'd) You arrive at the light '
+0356 OP_GET_GLOBAL     122 'arrival_times4'
+0358 OP_PRINT_END
+0359 OP_CONSTANT       123 ' times is: '
+0361 OP_GET_GLOBAL     124 'prob_2times'
+0363 OP_PRINT_END
+0364 OP_CONSTANT       125 ''
+0366 OP_PRINT
+0367 OP_RETURN
