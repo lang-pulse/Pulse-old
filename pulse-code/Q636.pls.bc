@@ -1,0 +1,129 @@
+0000 OP_CONSTANT         1 'Enter the number of balls: '
+0002 OP_CONSTANT         2 'i'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'num_of_blls'
+0007 OP_GET_GLOBAL       4 'num_of_blls'
+0009 OP_DEFINE_GLOBAL    3 'blls_store'
+0011 OP_CONSTANT         6 'Enter the number of boxes: '
+0013 OP_CONSTANT         7 'i'
+0015 OP_INPUT_END
+0016 OP_DEFINE_GLOBAL    5 'num_of_bxos'
+0018 OP_CONSTANT         9 '3'
+0020 OP_DEFINE_GLOBAL    8 'req_num_blls'
+0022 OP_GET_GLOBAL      11 'num_of_bxos'
+0024 OP_DEFINE_GLOBAL   10 'box_store'
+0026 OP_GET_GLOBAL      13 'num_of_blls'
+0028 OP_GET_GLOBAL      14 'req_num_blls'
+0030 OP_SUBTRACT
+0031 OP_DEFINE_GLOBAL   12 'rem_blls'
+0033 OP_GET_GLOBAL      16 'num_of_bxos'
+0035 OP_CONSTANT        17 '1'
+0037 OP_SUBTRACT
+0038 OP_DEFINE_GLOBAL   15 'rem_bxs'
+0040 OP_NIL
+0041 OP_DEFINE_GLOBAL   18 'ways_blls'
+0043 OP_GET_GLOBAL      20 'num_of_bxos'
+0045 OP_GET_GLOBAL      21 'num_of_blls'
+0047 OP_POWER
+0048 OP_SET_GLOBAL      19 'ways_blls'
+0050 OP_POP
+0051 OP_CONSTANT        23 '1'
+0053 OP_DEFINE_GLOBAL   22 'fac_bx1'
+0055 OP_GET_GLOBAL      25 'num_of_blls'
+0057 OP_GET_GLOBAL      26 'req_num_blls'
+0059 OP_SUBTRACT
+0060 OP_DEFINE_GLOBAL   24 'diff_bx'
+0062 OP_GET_GLOBAL      27 'num_of_blls'
+0064 OP_CONSTANT        28 '0'
+0066 OP_EQUAL
+0067 OP_NOT
+0068 OP_JUMP_IF_FALSE   68 -> 91
+0071 OP_POP
+0072 OP_GET_GLOBAL      30 'fac_bx1'
+0074 OP_GET_GLOBAL      31 'num_of_blls'
+0076 OP_MULTIPLY
+0077 OP_SET_GLOBAL      29 'fac_bx1'
+0079 OP_POP
+0080 OP_GET_GLOBAL      33 'num_of_blls'
+0082 OP_CONSTANT        34 '1'
+0084 OP_SUBTRACT
+0085 OP_SET_GLOBAL      32 'num_of_blls'
+0087 OP_POP
+0088 OP_LOOP            88 -> 62
+0091 OP_POP
+0092 OP_CONSTANT        36 '1'
+0094 OP_DEFINE_GLOBAL   35 'fac_bx2'
+0096 OP_GET_GLOBAL      37 'req_num_blls'
+0098 OP_CONSTANT        38 '0'
+0100 OP_EQUAL
+0101 OP_NOT
+0102 OP_JUMP_IF_FALSE  102 -> 125
+0105 OP_POP
+0106 OP_GET_GLOBAL      40 'fac_bx2'
+0108 OP_GET_GLOBAL      41 'req_num_blls'
+0110 OP_MULTIPLY
+0111 OP_SET_GLOBAL      39 'fac_bx2'
+0113 OP_POP
+0114 OP_GET_GLOBAL      43 'req_num_blls'
+0116 OP_CONSTANT        44 '1'
+0118 OP_SUBTRACT
+0119 OP_SET_GLOBAL      42 'req_num_blls'
+0121 OP_POP
+0122 OP_LOOP           122 -> 96
+0125 OP_POP
+0126 OP_CONSTANT        46 '1'
+0128 OP_DEFINE_GLOBAL   45 'fac_bx3'
+0130 OP_GET_GLOBAL      47 'diff_bx'
+0132 OP_CONSTANT        48 '0'
+0134 OP_EQUAL
+0135 OP_NOT
+0136 OP_JUMP_IF_FALSE  136 -> 159
+0139 OP_POP
+0140 OP_GET_GLOBAL      50 'fac_bx3'
+0142 OP_GET_GLOBAL      51 'diff_bx'
+0144 OP_MULTIPLY
+0145 OP_SET_GLOBAL      49 'fac_bx3'
+0147 OP_POP
+0148 OP_GET_GLOBAL      53 'diff_bx'
+0150 OP_CONSTANT        54 '1'
+0152 OP_SUBTRACT
+0153 OP_SET_GLOBAL      52 'diff_bx'
+0155 OP_POP
+0156 OP_LOOP           156 -> 130
+0159 OP_POP
+0160 OP_GET_GLOBAL      56 'fac_bx1'
+0162 OP_GET_GLOBAL      57 'fac_bx2'
+0164 OP_GET_GLOBAL      58 'fac_bx3'
+0166 OP_MULTIPLY
+0167 OP_DIVIDE
+0168 OP_DEFINE_GLOBAL   55 'chos_blls_bx'
+0170 OP_GET_GLOBAL      60 'rem_bxs'
+0172 OP_GET_GLOBAL      61 'rem_blls'
+0174 OP_POWER
+0175 OP_DEFINE_GLOBAL   59 'rem_chce'
+0177 OP_GET_GLOBAL      63 'chos_blls_bx'
+0179 OP_GET_GLOBAL      64 'rem_chce'
+0181 OP_MULTIPLY
+0182 OP_GET_GLOBAL      65 'ways_blls'
+0184 OP_DIVIDE
+0185 OP_DEFINE_GLOBAL   62 'prob_first_box'
+0187 OP_CONSTANT        66 ''
+0189 OP_PRINT
+0190 OP_CONSTANT        67 'The number of balls present: '
+0192 OP_GET_GLOBAL      68 'blls_store'
+0194 OP_PRINT_END
+0195 OP_CONSTANT        69 ''
+0197 OP_PRINT
+0198 OP_CONSTANT        70 'The number of boxes present: '
+0200 OP_GET_GLOBAL      71 'box_store'
+0202 OP_PRINT_END
+0203 OP_CONSTANT        72 ''
+0205 OP_PRINT
+0206 OP_CONSTANT        73 ''
+0208 OP_PRINT
+0209 OP_CONSTANT        74 'The probability that the first box will contain 3 balls is: '
+0211 OP_GET_GLOBAL      75 'prob_first_box'
+0213 OP_PRINT_END
+0214 OP_CONSTANT        76 ''
+0216 OP_PRINT
+0217 OP_RETURN

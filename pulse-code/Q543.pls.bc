@@ -1,0 +1,50 @@
+0000 OP_CONSTANT         1 'Enter the number of favourable outcomes: '
+0002 OP_CONSTANT         2 'i'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'odd_favourable'
+0007 OP_CONSTANT         4 'Enter the number of unfavourable outcomes: '
+0009 OP_CONSTANT         5 'i'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'odd_unfavourable'
+0014 OP_NIL
+0015 OP_DEFINE_GLOBAL    6 'sum_odds'
+0017 OP_NIL
+0018 OP_DEFINE_GLOBAL    7 'prob_occur'
+0020 OP_GET_GLOBAL       9 'odd_favourable'
+0022 OP_GET_GLOBAL      10 'odd_unfavourable'
+0024 OP_ADD
+0025 OP_SET_GLOBAL       8 'sum_odds'
+0027 OP_POP
+0028 OP_GET_GLOBAL      12 'odd_favourable'
+0030 OP_GET_GLOBAL      13 'sum_odds'
+0032 OP_DIVIDE
+0033 OP_SET_GLOBAL      11 'prob_occur'
+0035 OP_POP
+0036 OP_CONSTANT        14 ''
+0038 OP_PRINT
+0039 OP_CONSTANT        15 'The number of favourable outcomes are: '
+0041 OP_GET_GLOBAL      16 'odd_favourable'
+0043 OP_PRINT_END
+0044 OP_CONSTANT        17 ''
+0046 OP_PRINT
+0047 OP_CONSTANT        18 'The number of unfavourable outcomes are: '
+0049 OP_GET_GLOBAL      19 'odd_unfavourable'
+0051 OP_PRINT_END
+0052 OP_CONSTANT        20 ''
+0054 OP_PRINT
+0055 OP_CONSTANT        21 ''
+0057 OP_PRINT
+0058 OP_CONSTANT        22 'The probability of the event occuring is: '
+0060 OP_GET_GLOBAL      23 'prob_occur'
+0062 OP_PRINT_END
+0063 OP_CONSTANT        24 ''
+0065 OP_PRINT
+0066 OP_CONSTANT        25 'The probability of the event occuring (in fraction format) is: '
+0068 OP_GET_GLOBAL      26 'odd_favourable'
+0070 OP_PRINT_END
+0071 OP_CONSTANT        27 '/'
+0073 OP_GET_GLOBAL      28 'sum_odds'
+0075 OP_PRINT_END
+0076 OP_CONSTANT        29 ''
+0078 OP_PRINT
+0079 OP_RETURN
