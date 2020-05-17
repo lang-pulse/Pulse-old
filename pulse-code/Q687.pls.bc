@@ -1,0 +1,85 @@
+0000 OP_CONSTANT         1 'Enter the profit gained in the first year: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'year1_profit'
+0007 OP_CONSTANT         4 'Enter the profit earned in the second year: '
+0009 OP_CONSTANT         5 'd'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'year2_profit'
+0014 OP_CONSTANT         7 'Enter the profit gained in the third year: '
+0016 OP_CONSTANT         8 'd'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'year3_profit'
+0021 OP_CONSTANT        10 'Enter the profit gained in the fourth year: '
+0023 OP_CONSTANT        11 'd'
+0025 OP_INPUT_END
+0026 OP_DEFINE_GLOBAL    9 'year4_profit'
+0028 OP_NIL
+0029 OP_DEFINE_GLOBAL   12 'avg_3year_profit'
+0031 OP_GET_GLOBAL      14 'year1_profit'
+0033 OP_GET_GLOBAL      15 'year2_profit'
+0035 OP_ADD
+0036 OP_GET_GLOBAL      16 'year3_profit'
+0038 OP_ADD
+0039 OP_SET_GLOBAL      13 'avg_3year_profit'
+0041 OP_POP
+0042 OP_GET_GLOBAL      18 'avg_3year_profit'
+0044 OP_CONSTANT        19 '3'
+0046 OP_DIVIDE
+0047 OP_SET_GLOBAL      17 'avg_3year_profit'
+0049 OP_POP
+0050 OP_NIL
+0051 OP_DEFINE_GLOBAL   20 'avg_4year_profit'
+0053 OP_GET_GLOBAL      22 'year1_profit'
+0055 OP_GET_GLOBAL      23 'year2_profit'
+0057 OP_ADD
+0058 OP_GET_GLOBAL      24 'year3_profit'
+0060 OP_ADD
+0061 OP_GET_GLOBAL      25 'year4_profit'
+0063 OP_ADD
+0064 OP_SET_GLOBAL      21 'avg_4year_profit'
+0066 OP_POP
+0067 OP_GET_GLOBAL      27 'avg_4year_profit'
+0069 OP_CONSTANT        28 '4'
+0071 OP_DIVIDE
+0072 OP_SET_GLOBAL      26 'avg_4year_profit'
+0074 OP_POP
+0075 OP_CONSTANT        29 ''
+0077 OP_PRINT
+0078 OP_CONSTANT        30 'The profits gained in the first year: Rs '
+0080 OP_GET_GLOBAL      31 'year1_profit'
+0082 OP_PRINT_END
+0083 OP_CONSTANT        32 ''
+0085 OP_PRINT
+0086 OP_CONSTANT        33 'The profits gained in the second year: Rs '
+0088 OP_GET_GLOBAL      34 'year2_profit'
+0090 OP_PRINT_END
+0091 OP_CONSTANT        35 ''
+0093 OP_PRINT
+0094 OP_CONSTANT        36 'The profits gained in the third year: Rs '
+0096 OP_GET_GLOBAL      37 'year3_profit'
+0098 OP_PRINT_END
+0099 OP_CONSTANT        38 ''
+0101 OP_PRINT
+0102 OP_CONSTANT        39 'The profits gained in the fourth year is: Rs '
+0104 OP_GET_GLOBAL      40 'year4_profit'
+0106 OP_PRINT_END
+0107 OP_CONSTANT        41 ''
+0109 OP_PRINT
+0110 OP_CONSTANT        42 ''
+0112 OP_PRINT
+0113 OP_CONSTANT        43 'Therefore, the good will value is: Rs '
+0115 OP_CONSTANT        44 ''
+0117 OP_PRINT_END
+0118 OP_GET_GLOBAL      45 'avg_3year_profit'
+0120 OP_GET_GLOBAL      46 'avg_4year_profit'
+0122 OP_GREATER
+0123 OP_JUMP_IF_FALSE  123 -> 133
+0126 OP_POP
+0127 OP_GET_GLOBAL      47 'avg_3year_profit'
+0129 OP_PRINT
+0130 OP_JUMP           130 -> 137
+0133 OP_POP
+0134 OP_GET_GLOBAL      48 'avg_4year_profit'
+0136 OP_PRINT
+0137 OP_RETURN

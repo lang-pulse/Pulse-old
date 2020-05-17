@@ -1,0 +1,86 @@
+0000 OP_CONSTANT         1 'Enter the molar mass of Ar36: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'molarmass_ar36'
+0007 OP_CONSTANT         4 'Enter the abundance of Ar36: '
+0009 OP_CONSTANT         5 'd'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'ar36_abundance'
+0014 OP_CONSTANT         7 'Enter the molar mass of Ar38: '
+0016 OP_CONSTANT         8 'd'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'molarmass_ar38'
+0021 OP_CONSTANT        10 'Enter the abundance of Ar38: '
+0023 OP_CONSTANT        11 'd'
+0025 OP_INPUT_END
+0026 OP_DEFINE_GLOBAL    9 'ar38_abundance'
+0028 OP_CONSTANT        13 'Enter the molar mass of Ar40: '
+0030 OP_CONSTANT        14 'd'
+0032 OP_INPUT_END
+0033 OP_DEFINE_GLOBAL   12 'molarmass_ar40'
+0035 OP_CONSTANT        16 'Enter the abundance of Ar40: '
+0037 OP_CONSTANT        17 'd'
+0039 OP_INPUT_END
+0040 OP_DEFINE_GLOBAL   15 'ar40_abundance'
+0042 OP_NIL
+0043 OP_DEFINE_GLOBAL   18 'prod_mass_abundance'
+0045 OP_GET_GLOBAL      20 'molarmass_ar36'
+0047 OP_GET_GLOBAL      21 'ar36_abundance'
+0049 OP_MULTIPLY
+0050 OP_GET_GLOBAL      22 'molarmass_ar38'
+0052 OP_GET_GLOBAL      23 'ar38_abundance'
+0054 OP_MULTIPLY
+0055 OP_ADD
+0056 OP_GET_GLOBAL      24 'molarmass_ar40'
+0058 OP_GET_GLOBAL      25 'ar40_abundance'
+0060 OP_MULTIPLY
+0061 OP_ADD
+0062 OP_SET_GLOBAL      19 'prod_mass_abundance'
+0064 OP_POP
+0065 OP_NIL
+0066 OP_DEFINE_GLOBAL   26 'avg_atomic_mass'
+0068 OP_GET_GLOBAL      28 'prod_mass_abundance'
+0070 OP_CONSTANT        29 '100'
+0072 OP_DIVIDE
+0073 OP_SET_GLOBAL      27 'avg_atomic_mass'
+0075 OP_POP
+0076 OP_CONSTANT        30 ''
+0078 OP_PRINT
+0079 OP_CONSTANT        31 'The molar mass of Ar36 is: '
+0081 OP_GET_GLOBAL      32 'molarmass_ar36'
+0083 OP_PRINT_END
+0084 OP_CONSTANT        33 ' g/mol'
+0086 OP_PRINT
+0087 OP_CONSTANT        34 'The abundance of Ar36 is: '
+0089 OP_GET_GLOBAL      35 'ar36_abundance'
+0091 OP_PRINT_END
+0092 OP_CONSTANT        36 '%'
+0094 OP_PRINT
+0095 OP_CONSTANT        37 'The molar mass of Ar38 is: '
+0097 OP_GET_GLOBAL      38 'molarmass_ar38'
+0099 OP_PRINT_END
+0100 OP_CONSTANT        39 ' g/mol'
+0102 OP_PRINT
+0103 OP_CONSTANT        40 'The abundance of Ar38 is: '
+0105 OP_GET_GLOBAL      41 'ar38_abundance'
+0107 OP_PRINT_END
+0108 OP_CONSTANT        42 '%'
+0110 OP_PRINT
+0111 OP_CONSTANT        43 'The molar mass of Ar40 is: '
+0113 OP_GET_GLOBAL      44 'molarmass_ar40'
+0115 OP_PRINT_END
+0116 OP_CONSTANT        45 ' g/mol'
+0118 OP_PRINT
+0119 OP_CONSTANT        46 'The abundance of Ar40 is: '
+0121 OP_GET_GLOBAL      47 'ar40_abundance'
+0123 OP_PRINT_END
+0124 OP_CONSTANT        48 '%'
+0126 OP_PRINT
+0127 OP_CONSTANT        49 ''
+0129 OP_PRINT
+0130 OP_CONSTANT        50 'Therefore, the molar mass of the naturally occuring isotopes of Ar is: '
+0132 OP_GET_GLOBAL      51 'avg_atomic_mass'
+0134 OP_PRINT_END
+0135 OP_CONSTANT        52 ' g/mol'
+0137 OP_PRINT
+0138 OP_RETURN
