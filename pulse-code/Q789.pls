@@ -1,0 +1,18 @@
+~Siddhartha
+var half_dollars = input("Half dollars: ", "i")
+var quarters = input("Quaters: ", "i")
+var nickels = input("Nickels: ", "i")
+var pennies = input("Pennies: ", "i")
+print("Half Dollars: ", half_dollars)
+print("")
+print("Quarters: ", quarters)
+print("")
+print("Nickels: ", nickels)
+print("")
+print("Pennies: ", pennies)
+print("")
+var coins = half_dollars + quarters + nickels + pennies
+pennies = pennies + (half_dollars * 50) + (quarters * 25) + (nickels * 25)
+print("The value of ", coins)
+print(" coins is ", pennies)
+print(" pennies.")
