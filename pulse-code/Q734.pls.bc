@@ -1,0 +1,26 @@
+0000 OP_CONSTANT         1 '50'
+0002 OP_DEFINE_GLOBAL    0 'north_dist1'
+0004 OP_CONSTANT         3 '40'
+0006 OP_DEFINE_GLOBAL    2 'east_dist1'
+0008 OP_CONSTANT         5 '20'
+0010 OP_DEFINE_GLOBAL    4 'south_dist1'
+0012 OP_CONSTANT         7 '50'
+0014 OP_CONSTANT         8 '40'
+0016 OP_ADD
+0017 OP_CONSTANT         9 '20'
+0019 OP_ADD
+0020 OP_DEFINE_GLOBAL    6 'total_distance_man1'
+0022 OP_GET_GLOBAL      11 'north_dist1'
+0024 OP_GET_GLOBAL      12 'south_dist1'
+0026 OP_SUBTRACT
+0027 OP_DEFINE_GLOBAL   10 'remaining'
+0029 OP_CONSTANT        14 '30'
+0031 OP_CONSTANT        15 '20'
+0033 OP_ADD
+0034 OP_DEFINE_GLOBAL   13 'displacement'
+0036 OP_CONSTANT        16 'the mans displacement is:'
+0038 OP_PRINT
+0039 OP_GET_GLOBAL      17 'displacement'
+0041 OP_CONSTANT        18 'm'
+0043 OP_PRINT_END
+0044 OP_RETURN
