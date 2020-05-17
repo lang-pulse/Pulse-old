@@ -1,0 +1,44 @@
+0000 OP_CONSTANT         1 '0'
+0002 OP_DEFINE_GLOBAL    0 'intial_velocity_first_ball'
+0004 OP_CONSTANT         3 '18'
+0006 OP_DEFINE_GLOBAL    2 'time_after_balls_meet'
+0008 OP_CONSTANT         5 '6'
+0010 OP_DEFINE_GLOBAL    4 'time_after_second_ball_thrown'
+0012 OP_NIL
+0013 OP_DEFINE_GLOBAL    6 'initial_velocity_second_ball'
+0015 OP_CONSTANT         8 '9.8'
+0017 OP_DEFINE_GLOBAL    7 'acceleration_due_to_gravity'
+0019 OP_CONSTANT        10 '1'
+0021 OP_CONSTANT        11 '2'
+0023 OP_DIVIDE
+0024 OP_GET_GLOBAL      12 'acceleration_due_to_gravity'
+0026 OP_MULTIPLY
+0027 OP_GET_GLOBAL      13 'time_after_balls_meet'
+0029 OP_CONSTANT        14 '2'
+0031 OP_POWER
+0032 OP_MULTIPLY
+0033 OP_DEFINE_GLOBAL    9 'distance_covered_ball_in_18_Sec'
+0035 OP_GET_GLOBAL      16 'time_after_balls_meet'
+0037 OP_GET_GLOBAL      17 'time_after_second_ball_thrown'
+0039 OP_SUBTRACT
+0040 OP_DEFINE_GLOBAL   15 'time_gap'
+0042 OP_GET_GLOBAL      19 'distance_covered_ball_in_18_Sec'
+0044 OP_CONSTANT        20 '1'
+0046 OP_CONSTANT        21 '2'
+0048 OP_DIVIDE
+0049 OP_GET_GLOBAL      22 'acceleration_due_to_gravity'
+0051 OP_MULTIPLY
+0052 OP_GET_GLOBAL      23 'time_gap'
+0054 OP_CONSTANT        24 '2'
+0056 OP_POWER
+0057 OP_MULTIPLY
+0058 OP_SUBTRACT
+0059 OP_GET_GLOBAL      25 'time_gap'
+0061 OP_DIVIDE
+0062 OP_SET_GLOBAL      18 'initial_velocity_second_ball'
+0064 OP_POP
+0065 OP_CONSTANT        26 'Thus the second ball must be thrown at a speed of'
+0067 OP_PRINT
+0068 OP_GET_GLOBAL      27 'initial_velocity_second_ball'
+0070 OP_PRINT
+0071 OP_RETURN
