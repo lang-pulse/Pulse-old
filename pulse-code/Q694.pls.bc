@@ -1,0 +1,45 @@
+0000 OP_CONSTANT         1 '15000'
+0002 OP_DEFINE_GLOBAL    0 'fifteen_th'
+0004 OP_CONSTANT         3 '25000'
+0006 OP_DEFINE_GLOBAL    2 'twenty_five'
+0008 OP_CONSTANT         5 '2000'
+0010 OP_DEFINE_GLOBAL    4 'two_th'
+0012 OP_CONSTANT         6 'Journal'
+0014 OP_PRINT
+0015 OP_CONSTANT         7 ' '
+0017 OP_PRINT
+0018 OP_CONSTANT         8 '(a)     Rahul's Capital A/C......                Dr.                   15000'
+0020 OP_PRINT
+0021 OP_CONSTANT         9 ' '
+0023 OP_PRINT
+0024 OP_CONSTANT        10 ' To Bank A/C                                                     15000'
+0026 OP_PRINT
+0027 OP_CONSTANT        11 ' '
+0029 OP_PRINT
+0030 OP_CONSTANT        12 '(Being expenses borne by firm on behalf of Rahul)'
+0032 OP_PRINT
+0033 OP_CONSTANT        13 ' '
+0035 OP_PRINT
+0036 OP_CONSTANT        14 '(b)    Realisation A/C.......                     Dr.                    25000'
+0038 OP_PRINT
+0039 OP_CONSTANT        15 ' '
+0041 OP_PRINT
+0042 OP_CONSTANT        16 'To Ramesh's Capital A/C                                 25000'
+0044 OP_PRINT
+0045 OP_CONSTANT        17 ' '
+0047 OP_PRINT
+0048 OP_CONSTANT        18 '(Being the remuneration paid to Ramesh for bearing realisation expenses)'
+0050 OP_PRINT
+0051 OP_CONSTANT        19 ' '
+0053 OP_PRINT
+0054 OP_CONSTANT        20 '(c)     Realisation A/C......                     Dr.                   2000'
+0056 OP_PRINT
+0057 OP_CONSTANT        21 ' '
+0059 OP_PRINT
+0060 OP_CONSTANT        22 'To Anuj's Capital A/C                                    2000'
+0062 OP_PRINT
+0063 OP_CONSTANT        23 ' '
+0065 OP_PRINT
+0066 OP_CONSTANT        24 '(Being the fixed amount of remuneration provided to Anuj to bear realisation expenses)'
+0068 OP_PRINT
+0069 OP_RETURN
