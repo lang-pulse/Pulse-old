@@ -1,0 +1,33 @@
+0000 OP_CONSTANT         1 '6'
+0002 OP_DEFINE_GLOBAL    0 'people_to_sit'
+0004 OP_CONSTANT         2 'Number of people to be seated = '
+0006 OP_GET_GLOBAL       3 'people_to_sit'
+0008 OP_PRINT_END
+0009 OP_CONSTANT         4 ''
+0011 OP_PRINT
+0012 OP_CONSTANT         6 '1'
+0014 OP_DEFINE_GLOBAL    5 'ways_to_sit'
+0016 OP_CONSTANT         8 '1'
+0018 OP_DEFINE_GLOBAL    7 'counter_ways'
+0020 OP_GET_GLOBAL       9 'counter_ways'
+0022 OP_GET_GLOBAL      10 'people_to_sit'
+0024 OP_GREATER
+0025 OP_NOT
+0026 OP_JUMP_IF_FALSE   26 -> 49
+0029 OP_POP
+0030 OP_GET_GLOBAL      12 'ways_to_sit'
+0032 OP_GET_GLOBAL      13 'counter_ways'
+0034 OP_MULTIPLY
+0035 OP_SET_GLOBAL      11 'ways_to_sit'
+0037 OP_POP
+0038 OP_GET_GLOBAL      15 'counter_ways'
+0040 OP_CONSTANT        16 '1'
+0042 OP_ADD
+0043 OP_SET_GLOBAL      14 'counter_ways'
+0045 OP_POP
+0046 OP_LOOP            46 -> 20
+0049 OP_POP
+0050 OP_CONSTANT        17 'The number of ways they can be seated are = '
+0052 OP_GET_GLOBAL      18 'ways_to_sit'
+0054 OP_PRINT_END
+0055 OP_RETURN
