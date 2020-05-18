@@ -1,0 +1,136 @@
+0000 OP_CONSTANT         1 'Enter the amount gained in the first year: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'actual_prof1'
+0007 OP_CONSTANT         4 'Enter the loss amount in the second year: '
+0009 OP_CONSTANT         5 'd'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'actual_loss2'
+0014 OP_CONSTANT         7 'Enter the amount gained in the third year: '
+0016 OP_CONSTANT         8 'd'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'actual_prof3'
+0021 OP_CONSTANT        10 'Enter the amount due to loss of stock: '
+0023 OP_CONSTANT        11 'd'
+0025 OP_INPUT_END
+0026 OP_DEFINE_GLOBAL    9 'abnorm_loss1'
+0028 OP_CONSTANT        13 'Enter the amount due voluntary retirement: '
+0030 OP_CONSTANT        14 'd'
+0032 OP_INPUT_END
+0033 OP_DEFINE_GLOBAL   12 'abnorm_loss2'
+0035 OP_CONSTANT        16 'Enter the amount due to sale of fixed assets: '
+0037 OP_CONSTANT        17 'd'
+0039 OP_INPUT_END
+0040 OP_DEFINE_GLOBAL   15 'abnorm_gain3'
+0042 OP_CONSTANT        19 'Enter the number of years of purchase: '
+0044 OP_CONSTANT        20 'i'
+0046 OP_INPUT_END
+0047 OP_DEFINE_GLOBAL   18 'n_yr'
+0049 OP_NIL
+0050 OP_DEFINE_GLOBAL   21 'norm_prf1'
+0052 OP_NIL
+0053 OP_DEFINE_GLOBAL   22 'norm_prf2'
+0055 OP_NIL
+0056 OP_DEFINE_GLOBAL   23 'norm_prf3'
+0058 OP_GET_GLOBAL      25 'actual_prof1'
+0060 OP_GET_GLOBAL      26 'abnorm_loss1'
+0062 OP_ADD
+0063 OP_SET_GLOBAL      24 'norm_prf1'
+0065 OP_POP
+0066 OP_GET_GLOBAL      28 'actual_loss2'
+0068 OP_GET_GLOBAL      29 'abnorm_loss2'
+0070 OP_SUBTRACT
+0071 OP_SET_GLOBAL      27 'norm_prf2'
+0073 OP_POP
+0074 OP_GET_GLOBAL      30 'norm_prf2'
+0076 OP_CONSTANT        31 '0'
+0078 OP_LESS
+0079 OP_JUMP_IF_FALSE   79 -> 95
+0082 OP_POP
+0083 OP_GET_GLOBAL      33 'norm_prf2'
+0085 OP_CONSTANT        34 '1'
+0087 OP_NEGATE
+0088 OP_MULTIPLY
+0089 OP_SET_GLOBAL      32 'norm_prf2'
+0091 OP_POP
+0092 OP_JUMP            92 -> 96
+0095 OP_POP
+0096 OP_GET_GLOBAL      36 'actual_prof3'
+0098 OP_GET_GLOBAL      37 'abnorm_gain3'
+0100 OP_SUBTRACT
+0101 OP_SET_GLOBAL      35 'norm_prf3'
+0103 OP_POP
+0104 OP_GET_GLOBAL      38 'norm_prf3'
+0106 OP_CONSTANT        39 '0'
+0108 OP_LESS
+0109 OP_JUMP_IF_FALSE  109 -> 125
+0112 OP_POP
+0113 OP_GET_GLOBAL      41 'norm_prf3'
+0115 OP_CONSTANT        42 '1'
+0117 OP_NEGATE
+0118 OP_MULTIPLY
+0119 OP_SET_GLOBAL      40 'norm_prf3'
+0121 OP_POP
+0122 OP_JUMP           122 -> 126
+0125 OP_POP
+0126 OP_NIL
+0127 OP_DEFINE_GLOBAL   43 'average_normal_prf'
+0129 OP_GET_GLOBAL      45 'norm_prf1'
+0131 OP_GET_GLOBAL      46 'norm_prf2'
+0133 OP_ADD
+0134 OP_GET_GLOBAL      47 'norm_prf3'
+0136 OP_ADD
+0137 OP_SET_GLOBAL      44 'average_normal_prf'
+0139 OP_POP
+0140 OP_GET_GLOBAL      49 'average_normal_prf'
+0142 OP_CONSTANT        50 '3'
+0144 OP_DIVIDE
+0145 OP_SET_GLOBAL      48 'average_normal_prf'
+0147 OP_POP
+0148 OP_NIL
+0149 OP_DEFINE_GLOBAL   51 'goo_wl'
+0151 OP_GET_GLOBAL      53 'average_normal_prf'
+0153 OP_GET_GLOBAL      54 'n_yr'
+0155 OP_MULTIPLY
+0156 OP_SET_GLOBAL      52 'goo_wl'
+0158 OP_POP
+0159 OP_CONSTANT        55 ''
+0161 OP_PRINT
+0162 OP_CONSTANT        56 'The profits earned in the first year: Rs '
+0164 OP_GET_GLOBAL      57 'actual_prof1'
+0166 OP_PRINT_END
+0167 OP_CONSTANT        58 ''
+0169 OP_PRINT
+0170 OP_CONSTANT        59 'The loss amount in the second year: Rs '
+0172 OP_GET_GLOBAL      60 'actual_loss2'
+0174 OP_PRINT_END
+0175 OP_CONSTANT        61 ''
+0177 OP_PRINT
+0178 OP_CONSTANT        62 'The profits earned in the third year is: Rs '
+0180 OP_GET_GLOBAL      63 'actual_prof3'
+0182 OP_PRINT_END
+0183 OP_CONSTANT        64 ''
+0185 OP_PRINT
+0186 OP_CONSTANT        65 'The amount after debiting loss of stock: Rs '
+0188 OP_GET_GLOBAL      66 'abnorm_loss1'
+0190 OP_PRINT_END
+0191 OP_CONSTANT        67 ''
+0193 OP_PRINT
+0194 OP_CONSTANT        68 'The amount paid due to voluntary retirement: Rs '
+0196 OP_GET_GLOBAL      69 'abnorm_loss2'
+0198 OP_PRINT_END
+0199 OP_CONSTANT        70 ''
+0201 OP_PRINT
+0202 OP_CONSTANT        71 'The amount gained due to sale of fixed assets: Rs '
+0204 OP_GET_GLOBAL      72 'abnorm_gain3'
+0206 OP_PRINT_END
+0207 OP_CONSTANT        73 ''
+0209 OP_PRINT
+0210 OP_CONSTANT        74 ''
+0212 OP_PRINT
+0213 OP_CONSTANT        75 'Therefore, the good will value is: Rs '
+0215 OP_GET_GLOBAL      76 'goo_wl'
+0217 OP_PRINT_END
+0218 OP_CONSTANT        77 ''
+0220 OP_PRINT
+0221 OP_RETURN
