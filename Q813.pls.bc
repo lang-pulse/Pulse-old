@@ -1,0 +1,124 @@
+0000 OP_CONSTANT         1 '12345'
+0002 OP_DEFINE_GLOBAL    0 'number_pal'
+0004 OP_GET_GLOBAL       3 'number_pal'
+0006 OP_DEFINE_GLOBAL    2 'copy_number_pal'
+0008 OP_CONSTANT         5 '0'
+0010 OP_DEFINE_GLOBAL    4 'number_pal_len'
+0012 OP_GET_GLOBAL       6 'copy_number_pal'
+0014 OP_CONSTANT         7 '0'
+0016 OP_EQUAL
+0017 OP_NOT
+0018 OP_JUMP_IF_FALSE   18 -> 41
+0021 OP_POP
+0022 OP_GET_GLOBAL       9 'number_pal_len'
+0024 OP_CONSTANT        10 '1'
+0026 OP_ADD
+0027 OP_SET_GLOBAL       8 'number_pal_len'
+0029 OP_POP
+0030 OP_GET_GLOBAL      12 'copy_number_pal'
+0032 OP_CONSTANT        13 '10'
+0034 OP_DIVIDE_INT
+0035 OP_SET_GLOBAL      11 'copy_number_pal'
+0037 OP_POP
+0038 OP_LOOP            38 -> 12
+0041 OP_POP
+0042 OP_GET_GLOBAL      15 'number_pal'
+0044 OP_SET_GLOBAL      14 'copy_number_pal'
+0046 OP_POP
+0047 OP_CONSTANT        17 '0'
+0049 OP_DEFINE_GLOBAL   16 'iter_pal'
+0051 OP_CONSTANT        19 '0'
+0053 OP_DEFINE_GLOBAL   18 'rev_number'
+0055 OP_CONSTANT        21 '0'
+0057 OP_DEFINE_GLOBAL   20 'rem_pal'
+0059 OP_GET_GLOBAL      22 'iter_pal'
+0061 OP_GET_GLOBAL      23 'number_pal_len'
+0063 OP_LESS
+0064 OP_JUMP_IF_FALSE   64 -> 115
+0067 OP_POP
+0068 OP_GET_GLOBAL      25 'copy_number_pal'
+0070 OP_CONSTANT        26 '10'
+0072 OP_MODULO
+0073 OP_SET_GLOBAL      24 'rem_pal'
+0075 OP_POP
+0076 OP_GET_GLOBAL      28 'rev_number'
+0078 OP_GET_GLOBAL      29 'rem_pal'
+0080 OP_CONSTANT        30 '10'
+0082 OP_GET_GLOBAL      31 'number_pal_len'
+0084 OP_GET_GLOBAL      32 'iter_pal'
+0086 OP_SUBTRACT
+0087 OP_CONSTANT        33 '1'
+0089 OP_SUBTRACT
+0090 OP_POWER
+0091 OP_MULTIPLY
+0092 OP_ADD
+0093 OP_SET_GLOBAL      27 'rev_number'
+0095 OP_POP
+0096 OP_GET_GLOBAL      35 'copy_number_pal'
+0098 OP_CONSTANT        36 '10'
+0100 OP_DIVIDE_INT
+0101 OP_SET_GLOBAL      34 'copy_number_pal'
+0103 OP_POP
+0104 OP_GET_GLOBAL      38 'iter_pal'
+0106 OP_CONSTANT        39 '1'
+0108 OP_ADD
+0109 OP_SET_GLOBAL      37 'iter_pal'
+0111 OP_POP
+0112 OP_LOOP           112 -> 59
+0115 OP_POP
+0116 OP_GET_GLOBAL      41 'number_pal'
+0118 OP_GET_GLOBAL      42 'rev_number'
+0120 OP_ADD
+0121 OP_DEFINE_GLOBAL   40 'sum_pal'
+0123 OP_CONSTANT        44 '0'
+0125 OP_DEFINE_GLOBAL   43 'count_dig_pal'
+0127 OP_GET_GLOBAL      46 'number_pal'
+0129 OP_CONSTANT        47 '10'
+0131 OP_MODULO
+0132 OP_GET_GLOBAL      48 'rev_number'
+0134 OP_CONSTANT        49 '10'
+0136 OP_MODULO
+0137 OP_ADD
+0138 OP_DEFINE_GLOBAL   45 'sum_should_be'
+0140 OP_GET_GLOBAL      50 'sum_pal'
+0142 OP_CONSTANT        51 '0'
+0144 OP_EQUAL
+0145 OP_NOT
+0146 OP_JUMP_IF_FALSE  146 -> 190
+0149 OP_POP
+0150 OP_GET_GLOBAL      53 'sum_pal'
+0152 OP_CONSTANT        54 '10'
+0154 OP_MODULO
+0155 OP_SET_GLOBAL      52 'rem_pal'
+0157 OP_POP
+0158 OP_GET_GLOBAL      55 'rem_pal'
+0160 OP_GET_GLOBAL      56 'sum_should_be'
+0162 OP_EQUAL
+0163 OP_JUMP_IF_FALSE  163 -> 178
+0166 OP_POP
+0167 OP_GET_GLOBAL      58 'count_dig_pal'
+0169 OP_CONSTANT        59 '1'
+0171 OP_ADD
+0172 OP_SET_GLOBAL      57 'count_dig_pal'
+0174 OP_POP
+0175 OP_JUMP           175 -> 179
+0178 OP_POP
+0179 OP_GET_GLOBAL      61 'sum_pal'
+0181 OP_CONSTANT        62 '10'
+0183 OP_DIVIDE_INT
+0184 OP_SET_GLOBAL      60 'sum_pal'
+0186 OP_POP
+0187 OP_LOOP           187 -> 140
+0190 OP_POP
+0191 OP_GET_GLOBAL      63 'count_dig_pal'
+0193 OP_GET_GLOBAL      64 'number_pal_len'
+0195 OP_EQUAL
+0196 OP_JUMP_IF_FALSE  196 -> 206
+0199 OP_POP
+0200 OP_CONSTANT        65 'All digits in sum of number and its palindrome are equal'
+0202 OP_PRINT
+0203 OP_JUMP           203 -> 210
+0206 OP_POP
+0207 OP_CONSTANT        66 'Some digits are different in sum of number and its palindrome'
+0209 OP_PRINT
+0210 OP_RETURN
