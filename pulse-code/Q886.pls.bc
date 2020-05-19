@@ -1,0 +1,94 @@
+0000 OP_CONSTANT         1 'Enter the height of the needle: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'height_needle'
+0007 OP_CONSTANT         4 'Enter the distance of the needle from the mirror: '
+0009 OP_CONSTANT         5 'd'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'obj_dist'
+0014 OP_GET_GLOBAL       7 'obj_dist'
+0016 OP_CONSTANT         8 '1'
+0018 OP_NEGATE
+0019 OP_MULTIPLY
+0020 OP_SET_GLOBAL       6 'obj_dist'
+0022 OP_POP
+0023 OP_CONSTANT        10 'Enter the focal length of the convex mirror: '
+0025 OP_CONSTANT        11 'd'
+0027 OP_INPUT_END
+0028 OP_DEFINE_GLOBAL    9 'focal_length_convex'
+0030 OP_NIL
+0031 OP_DEFINE_GLOBAL   12 'v_needle'
+0033 OP_NIL
+0034 OP_DEFINE_GLOBAL   13 'height_image'
+0036 OP_NIL
+0037 OP_DEFINE_GLOBAL   14 'magni_needle'
+0039 OP_CONSTANT        16 '1'
+0041 OP_GET_GLOBAL      17 'focal_length_convex'
+0043 OP_DIVIDE
+0044 OP_CONSTANT        18 '1'
+0046 OP_GET_GLOBAL      19 'obj_dist'
+0048 OP_DIVIDE
+0049 OP_SUBTRACT
+0050 OP_SET_GLOBAL      15 'v_needle'
+0052 OP_POP
+0053 OP_CONSTANT        21 '1'
+0055 OP_GET_GLOBAL      22 'v_needle'
+0057 OP_DIVIDE
+0058 OP_SET_GLOBAL      20 'v_needle'
+0060 OP_POP
+0061 OP_GET_GLOBAL      24 'v_needle'
+0063 OP_GET_GLOBAL      25 'height_needle'
+0065 OP_MULTIPLY
+0066 OP_SET_GLOBAL      23 'height_image'
+0068 OP_POP
+0069 OP_GET_GLOBAL      27 'height_image'
+0071 OP_GET_GLOBAL      28 'obj_dist'
+0073 OP_DIVIDE
+0074 OP_SET_GLOBAL      26 'height_image'
+0076 OP_POP
+0077 OP_GET_GLOBAL      30 'height_image'
+0079 OP_CONSTANT        31 '1'
+0081 OP_NEGATE
+0082 OP_MULTIPLY
+0083 OP_SET_GLOBAL      29 'height_image'
+0085 OP_POP
+0086 OP_GET_GLOBAL      33 'height_image'
+0088 OP_GET_GLOBAL      34 'height_needle'
+0090 OP_DIVIDE
+0091 OP_SET_GLOBAL      32 'magni_needle'
+0093 OP_POP
+0094 OP_CONSTANT        35 ''
+0096 OP_PRINT
+0097 OP_CONSTANT        36 'The height of the needle is: '
+0099 OP_GET_GLOBAL      37 'height_needle'
+0101 OP_PRINT_END
+0102 OP_CONSTANT        38 ' cm'
+0104 OP_PRINT
+0105 OP_CONSTANT        39 'The distance of the needle from the convex mirror is: '
+0107 OP_GET_GLOBAL      40 'obj_dist'
+0109 OP_PRINT_END
+0110 OP_CONSTANT        41 ' cm'
+0112 OP_PRINT
+0113 OP_CONSTANT        42 'The focal length of the mirror is: '
+0115 OP_GET_GLOBAL      43 'focal_length_convex'
+0117 OP_PRINT_END
+0118 OP_CONSTANT        44 ' cm'
+0120 OP_PRINT
+0121 OP_CONSTANT        45 ''
+0123 OP_PRINT
+0124 OP_CONSTANT        46 'The image of the needle is formed '
+0126 OP_GET_GLOBAL      47 'v_needle'
+0128 OP_PRINT_END
+0129 OP_CONSTANT        48 ' cm behind the convex mirror'
+0131 OP_PRINT
+0132 OP_CONSTANT        49 'The height of the image formed is: '
+0134 OP_GET_GLOBAL      50 'height_image'
+0136 OP_PRINT_END
+0137 OP_CONSTANT        51 ' cm'
+0139 OP_PRINT
+0140 OP_CONSTANT        52 'The magnification of the image of the needle is: '
+0142 OP_GET_GLOBAL      53 'magni_needle'
+0144 OP_PRINT_END
+0145 OP_CONSTANT        54 ' cm'
+0147 OP_PRINT
+0148 OP_RETURN

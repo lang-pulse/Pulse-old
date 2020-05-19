@@ -1,0 +1,83 @@
+0000 OP_CONSTANT         1 'Enter the distance between the man and woman: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'man_woman_dist'
+0007 OP_NIL
+0008 OP_DEFINE_GLOBAL    3 'dog_distance'
+0010 OP_NIL
+0011 OP_DEFINE_GLOBAL    4 'dog_distance_km'
+0013 OP_CONSTANT         6 'Enter the speed of the man and woman: '
+0015 OP_CONSTANT         7 'd'
+0017 OP_INPUT_END
+0018 OP_DEFINE_GLOBAL    5 'man_speed'
+0020 OP_GET_GLOBAL       9 'man_speed'
+0022 OP_CONSTANT        10 '5'
+0024 OP_CONSTANT        11 '18'
+0026 OP_DIVIDE
+0027 OP_MULTIPLY
+0028 OP_SET_GLOBAL       8 'man_speed'
+0030 OP_POP
+0031 OP_GET_GLOBAL      13 'man_speed'
+0033 OP_DEFINE_GLOBAL   12 'woman_speed'
+0035 OP_CONSTANT        15 'Enter the speed of the dog: '
+0037 OP_CONSTANT        16 'd'
+0039 OP_INPUT_END
+0040 OP_DEFINE_GLOBAL   14 'dog_speed'
+0042 OP_GET_GLOBAL      18 'dog_speed'
+0044 OP_CONSTANT        19 '5'
+0046 OP_CONSTANT        20 '18'
+0048 OP_DIVIDE
+0049 OP_MULTIPLY
+0050 OP_SET_GLOBAL      17 'dog_speed'
+0052 OP_POP
+0053 OP_NIL
+0054 OP_DEFINE_GLOBAL   21 'meeting_timee'
+0056 OP_GET_GLOBAL      23 'man_woman_dist'
+0058 OP_GET_GLOBAL      24 'man_speed'
+0060 OP_GET_GLOBAL      25 'woman_speed'
+0062 OP_ADD
+0063 OP_DIVIDE
+0064 OP_SET_GLOBAL      22 'meeting_timee'
+0066 OP_POP
+0067 OP_GET_GLOBAL      27 'meeting_timee'
+0069 OP_GET_GLOBAL      28 'dog_speed'
+0071 OP_MULTIPLY
+0072 OP_SET_GLOBAL      26 'dog_distance'
+0074 OP_POP
+0075 OP_GET_GLOBAL      30 'dog_distance'
+0077 OP_CONSTANT        31 '10'
+0079 OP_CONSTANT        32 '3'
+0081 OP_POWER
+0082 OP_DIVIDE
+0083 OP_SET_GLOBAL      29 'dog_distance_km'
+0085 OP_POP
+0086 OP_CONSTANT        33 ''
+0088 OP_PRINT
+0089 OP_CONSTANT        34 'The speed of the man and woman walking towards each other is: '
+0091 OP_GET_GLOBAL      35 'man_speed'
+0093 OP_PRINT_END
+0094 OP_CONSTANT        36 ' mps'
+0096 OP_PRINT
+0097 OP_CONSTANT        37 'The speed of the dog is: '
+0099 OP_GET_GLOBAL      38 'dog_speed'
+0101 OP_PRINT_END
+0102 OP_CONSTANT        39 ' mps'
+0104 OP_PRINT
+0105 OP_CONSTANT        40 'The distance between the man and woman is: '
+0107 OP_GET_GLOBAL      41 'man_woman_dist'
+0109 OP_PRINT_END
+0110 OP_CONSTANT        42 ' m'
+0112 OP_PRINT
+0113 OP_CONSTANT        43 ''
+0115 OP_PRINT
+0116 OP_CONSTANT        44 'Therefore, the distance the dog ran is(in metres): '
+0118 OP_GET_GLOBAL      45 'dog_distance'
+0120 OP_PRINT_END
+0121 OP_CONSTANT        46 ' m'
+0123 OP_PRINT
+0124 OP_CONSTANT        47 'Therefore, the distance the dog ran is(in kilometres): '
+0126 OP_GET_GLOBAL      48 'dog_distance_km'
+0128 OP_PRINT_END
+0129 OP_CONSTANT        49 ' km'
+0131 OP_PRINT
+0132 OP_RETURN
