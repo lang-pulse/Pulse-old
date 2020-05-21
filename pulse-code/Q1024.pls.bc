@@ -1,0 +1,91 @@
+0000 OP_CONSTANT         1 'Enter the total number of marbles: '
+0002 OP_CONSTANT         2 'i'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'total_marbles1024'
+0007 OP_CONSTANT         4 'Enter the number of red marbles: '
+0009 OP_CONSTANT         5 'i'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'red_num1024'
+0014 OP_CONSTANT         7 'Enter the number of white marbles: '
+0016 OP_CONSTANT         8 'i'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'white_num1024'
+0021 OP_CONSTANT        10 'Enter the number of times the marbles are picked: '
+0023 OP_CONSTANT        11 'i'
+0025 OP_INPUT_END
+0026 OP_DEFINE_GLOBAL    9 'num_pick'
+0028 OP_NIL
+0029 OP_DEFINE_GLOBAL   12 'red_prob1024'
+0031 OP_NIL
+0032 OP_DEFINE_GLOBAL   13 'white_prob1024'
+0034 OP_NIL
+0035 OP_DEFINE_GLOBAL   14 'redprob_1024'
+0037 OP_NIL
+0038 OP_DEFINE_GLOBAL   15 'whiteprob_1024'
+0040 OP_NIL
+0041 OP_DEFINE_GLOBAL   16 'total_prob1024'
+0043 OP_GET_GLOBAL      17 'red_num1024'
+0045 OP_GET_GLOBAL      18 'white_num1024'
+0047 OP_ADD
+0048 OP_GET_GLOBAL      19 'total_marbles1024'
+0050 OP_EQUAL
+0051 OP_NOT
+0052 OP_JUMP_IF_FALSE   52 -> 62
+0055 OP_POP
+0056 OP_CONSTANT        20 'Invalid input, please try again!'
+0058 OP_PRINT
+0059 OP_JUMP            59 -> 146
+0062 OP_POP
+0063 OP_GET_GLOBAL      22 'red_num1024'
+0065 OP_GET_GLOBAL      23 'total_marbles1024'
+0067 OP_DIVIDE
+0068 OP_SET_GLOBAL      21 'red_prob1024'
+0070 OP_POP
+0071 OP_GET_GLOBAL      25 'white_num1024'
+0073 OP_GET_GLOBAL      26 'total_marbles1024'
+0075 OP_DIVIDE
+0076 OP_SET_GLOBAL      24 'white_prob1024'
+0078 OP_POP
+0079 OP_GET_GLOBAL      28 'red_prob1024'
+0081 OP_GET_GLOBAL      29 'num_pick'
+0083 OP_POWER
+0084 OP_SET_GLOBAL      27 'redprob_1024'
+0086 OP_POP
+0087 OP_GET_GLOBAL      31 'white_prob1024'
+0089 OP_GET_GLOBAL      32 'num_pick'
+0091 OP_POWER
+0092 OP_SET_GLOBAL      30 'whiteprob_1024'
+0094 OP_POP
+0095 OP_GET_GLOBAL      34 'redprob_1024'
+0097 OP_GET_GLOBAL      35 'whiteprob_1024'
+0099 OP_ADD
+0100 OP_SET_GLOBAL      33 'total_prob1024'
+0102 OP_POP
+0103 OP_CONSTANT        36 ''
+0105 OP_PRINT
+0106 OP_CONSTANT        37 'The total number of marbles: '
+0108 OP_GET_GLOBAL      38 'total_marbles1024'
+0110 OP_PRINT_END
+0111 OP_CONSTANT        39 ''
+0113 OP_PRINT
+0114 OP_CONSTANT        40 'The number of red marbles: '
+0116 OP_GET_GLOBAL      41 'red_num1024'
+0118 OP_PRINT_END
+0119 OP_CONSTANT        42 ''
+0121 OP_PRINT
+0122 OP_CONSTANT        43 'The number of white marbles: '
+0124 OP_GET_GLOBAL      44 'white_num1024'
+0126 OP_PRINT_END
+0127 OP_CONSTANT        45 ''
+0129 OP_PRINT
+0130 OP_CONSTANT        46 ''
+0132 OP_PRINT
+0133 OP_CONSTANT        47 'Therefore, the probability that the same colour is drawn '
+0135 OP_GET_GLOBAL      48 'num_pick'
+0137 OP_PRINT_END
+0138 OP_CONSTANT        49 ' times is: '
+0140 OP_GET_GLOBAL      50 'total_prob1024'
+0142 OP_PRINT_END
+0143 OP_CONSTANT        51 ''
+0145 OP_PRINT
+0146 OP_RETURN

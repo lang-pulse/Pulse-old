@@ -1,0 +1,44 @@
+0000 OP_CONSTANT         1 'Enter the price of the cycle: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'cycle_price1052'
+0007 OP_CONSTANT         4 'Enter the loss percentage obtained by the man: '
+0009 OP_CONSTANT         5 'd'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'loss_percent1052'
+0014 OP_NIL
+0015 OP_DEFINE_GLOBAL    6 'selling_p1052'
+0017 OP_NIL
+0018 OP_DEFINE_GLOBAL    7 'sell_percent1052'
+0020 OP_CONSTANT         9 '100'
+0022 OP_GET_GLOBAL      10 'loss_percent1052'
+0024 OP_SUBTRACT
+0025 OP_SET_GLOBAL       8 'sell_percent1052'
+0027 OP_POP
+0028 OP_GET_GLOBAL      12 'sell_percent1052'
+0030 OP_CONSTANT        13 '100'
+0032 OP_DIVIDE
+0033 OP_GET_GLOBAL      14 'cycle_price1052'
+0035 OP_MULTIPLY
+0036 OP_SET_GLOBAL      11 'selling_p1052'
+0038 OP_POP
+0039 OP_CONSTANT        15 ''
+0041 OP_PRINT
+0042 OP_CONSTANT        16 'The price of the cycle is: Rs '
+0044 OP_GET_GLOBAL      17 'cycle_price1052'
+0046 OP_PRINT_END
+0047 OP_CONSTANT        18 ''
+0049 OP_PRINT
+0050 OP_CONSTANT        19 'The loss percentage obtained: '
+0052 OP_GET_GLOBAL      20 'loss_percent1052'
+0054 OP_PRINT_END
+0055 OP_CONSTANT        21 '%'
+0057 OP_PRINT
+0058 OP_CONSTANT        22 ''
+0060 OP_PRINT
+0061 OP_CONSTANT        23 'The selling price of the cycle is: Rs '
+0063 OP_GET_GLOBAL      24 'selling_p1052'
+0065 OP_PRINT_END
+0066 OP_CONSTANT        25 ''
+0068 OP_PRINT
+0069 OP_RETURN

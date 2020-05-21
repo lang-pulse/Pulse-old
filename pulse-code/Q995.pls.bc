@@ -1,0 +1,59 @@
+0000 OP_CONSTANT         1 'Enter the observed resistance of the element: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'res_995'
+0007 OP_CONSTANT         4 'Enter the resistance of the element at room temperature: '
+0009 OP_CONSTANT         5 'd'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'res_room995'
+0014 OP_CONSTANT         7 'Enter the coefficient the material: '
+0016 OP_CONSTANT         8 'd'
+0018 OP_INPUT_END
+0019 OP_DEFINE_GLOBAL    6 'coeff_995'
+0021 OP_NIL
+0022 OP_DEFINE_GLOBAL    9 'temp_995'
+0024 OP_GET_GLOBAL      11 'res_995'
+0026 OP_GET_GLOBAL      12 'res_room995'
+0028 OP_DIVIDE
+0029 OP_CONSTANT        13 '1'
+0031 OP_SUBTRACT
+0032 OP_SET_GLOBAL      10 'temp_995'
+0034 OP_POP
+0035 OP_GET_GLOBAL      15 'temp_995'
+0037 OP_GET_GLOBAL      16 'coeff_995'
+0039 OP_DIVIDE
+0040 OP_SET_GLOBAL      14 'temp_995'
+0042 OP_POP
+0043 OP_GET_GLOBAL      18 'temp_995'
+0045 OP_CONSTANT        19 '27'
+0047 OP_ADD
+0048 OP_SET_GLOBAL      17 'temp_995'
+0050 OP_POP
+0051 OP_CONSTANT        20 ''
+0053 OP_PRINT
+0054 OP_CONSTANT        21 'The resistance at room temperature is: '
+0056 OP_GET_GLOBAL      22 'res_room995'
+0058 OP_PRINT_END
+0059 OP_CONSTANT        23 ' ohms'
+0061 OP_PRINT
+0062 OP_CONSTANT        24 'The resistance at the particular temperature is: '
+0064 OP_GET_GLOBAL      25 'res_995'
+0066 OP_PRINT_END
+0067 OP_CONSTANT        26 ' ohms'
+0069 OP_PRINT
+0070 OP_CONSTANT        27 'The coefficient of the material of the resistor is: '
+0072 OP_GET_GLOBAL      28 'coeff_995'
+0074 OP_PRINT_END
+0075 OP_CONSTANT        29 ' C^-1'
+0077 OP_PRINT
+0078 OP_CONSTANT        30 ''
+0080 OP_PRINT
+0081 OP_CONSTANT        31 'Therefore, the temperature of the element when the resistance is '
+0083 OP_GET_GLOBAL      32 'res_995'
+0085 OP_PRINT_END
+0086 OP_CONSTANT        33 ' is: '
+0088 OP_GET_GLOBAL      34 'temp_995'
+0090 OP_PRINT_END
+0091 OP_CONSTANT        35 ' deg'
+0093 OP_PRINT
+0094 OP_RETURN
