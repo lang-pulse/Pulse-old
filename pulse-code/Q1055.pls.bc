@@ -1,0 +1,39 @@
+0000 OP_CONSTANT         1 'Enter the selling price of the balls: '
+0002 OP_CONSTANT         2 'd'
+0004 OP_INPUT_END
+0005 OP_DEFINE_GLOBAL    0 'sell_p1055'
+0007 OP_CONSTANT         4 'Enter the number of balls sold: '
+0009 OP_CONSTANT         5 'd'
+0011 OP_INPUT_END
+0012 OP_DEFINE_GLOBAL    3 'num_balls1055'
+0014 OP_CONSTANT         7 '5'
+0016 OP_DEFINE_GLOBAL    6 'num_balllls'
+0018 OP_NIL
+0019 OP_DEFINE_GLOBAL    8 'cost_price1055'
+0021 OP_GET_GLOBAL      10 'sell_p1055'
+0023 OP_GET_GLOBAL      11 'num_balls1055'
+0025 OP_GET_GLOBAL      12 'num_balllls'
+0027 OP_SUBTRACT
+0028 OP_DIVIDE
+0029 OP_SET_GLOBAL       9 'cost_price1055'
+0031 OP_POP
+0032 OP_CONSTANT        13 ''
+0034 OP_PRINT
+0035 OP_CONSTANT        14 'The selling price is: Rs '
+0037 OP_GET_GLOBAL      15 'sell_p1055'
+0039 OP_PRINT_END
+0040 OP_CONSTANT        16 ''
+0042 OP_PRINT
+0043 OP_CONSTANT        17 'The number of balls sold is: '
+0045 OP_GET_GLOBAL      18 'num_balls1055'
+0047 OP_PRINT_END
+0048 OP_CONSTANT        19 ''
+0050 OP_PRINT
+0051 OP_CONSTANT        20 ''
+0053 OP_PRINT
+0054 OP_CONSTANT        21 'The cost price of 1 ball is: Rs '
+0056 OP_GET_GLOBAL      22 'cost_price1055'
+0058 OP_PRINT_END
+0059 OP_CONSTANT        23 ''
+0061 OP_PRINT
+0062 OP_RETURN
