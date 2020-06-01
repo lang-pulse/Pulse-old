@@ -271,7 +271,7 @@
   ### Syntax of input function for double value input
 
   ```console
-  var a = input("Enter a double value: ", "f")
+  var a = input("Enter a double value: ", "d")
   ```
 
   <b>Result = Enter a double value: 3.14159</b>
